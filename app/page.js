@@ -30,7 +30,7 @@ export default function Home() {
     };
 
     return (
-        <main className="min-h-screen bg-slate-500 flex flex-col items-center">
+        <main className="min-h-screen bg-dark flex flex-col items-center">
             <Header />
             <Menu page={page} setPage={setPage} />
             {page === 'favs' && (
