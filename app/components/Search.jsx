@@ -1,14 +1,21 @@
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import { iso31661 } from 'iso-3166';
 import React, { useCallback, useEffect, useState } from 'react';
+import Spinner from "./Spinner";
 
 const Search = ({ setCurrentRadio }) => {
     const [radioList, setRadioList] = useState();
     const [radioName, setRadioName] = useState();
     const [country, setCountry] = useState();
+    const [loading, setLoading] = useState(false);
+
+    console.log(loading);
 
     const searchRadios = useCallback(
         async (more = false) => {
+            setLoading(true);
+            !more && setRadioList();
             const url =
                 'http://all.api.radio-browser.info/json/stations/search';
             await axios
@@ -28,6 +35,7 @@ const Search = ({ setCurrentRadio }) => {
                         ? radioList.concat(response.data)
                         : response.data;
                     setRadioList(newRadioList);
+                    setLoading(false);
                 })
                 .catch((e) => console.log(e));
         },
@@ -41,11 +49,11 @@ const Search = ({ setCurrentRadio }) => {
     console.log('radioList', radioList);
 
     return (
-        <section className="flex flex-col text-dark items-center gap-8 pb-32 p-8">
-            <div className="flex justify-center items-center flex-wrap gap-8">
+        <section className="flex flex-col w-full text-dark items-center gap-4 md:gap-8 pb-32 px-8 md:py-8">
+            <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder="search for..."
-                    className="p-4 rounded-full bg-selected placeholder:text-secondary"
+                    className="p-4 rounded-full md:w-2/3 bg-selected placeholder:text-secondary"
                     type="text"
                     onChange={(e) => setRadioName(e.target.value)}
                 />
@@ -74,21 +82,30 @@ const Search = ({ setCurrentRadio }) => {
                     ))}
                 </select>
             </div>
+            {loading && (<Spinner/>)}
             {radioList &&
                 (!!radioList.length ? (
-                    <ul className="flex flex-col gap-2">
+                    <ul className="flex md:w-1/2 h-full flex-col gap-2">
                         {radioList.map((radio, index) => (
-                            <li key={index}>
+                            <motion.li
+                                animate={{ y: 0, opacity: 1 }}
+                                initial={{ y: 50, opacity: 0 }}
+                                transition={{
+                                    delay:
+                                        0.1 * (index - radioList.length + 20),
+                                }}
+                                key={index}
+                            >
                                 <button
                                     onClick={() => setCurrentRadio(radio)}
-                                    className="bg-secondary text-text p-4 px-8 w-full rounded-3xl flex gap-4 justify-between items-center"
+                                    className="bg-secondary text-text p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 >
                                     <p>{radio.name}</p>
                                     <p className="text-xs">
                                         {radio.countrycode}
                                     </p>
                                 </button>
-                            </li>
+                            </motion.li>
                         ))}
                     </ul>
                 ) : (

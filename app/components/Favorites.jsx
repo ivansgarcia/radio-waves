@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import starIcon from '../../public/star.png';
 import removeIcon from '../../public/star_cross.png';
 
-const Favorites = ({ favorites, setFavorites, setCurrentRadio }) => {
+const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) => {
     const removeFromFavorites = (radio) => {
         const newFavorites = favorites.filter((fav) => fav !== radio);
         setFavorites(newFavorites);
     };
 
     return (
-        <section className="flex flex-col w-full gap-8 p-8">
+        <section className={`flex flex-col w-full gap-8 p-2 md:p-4 ${currentRadio ? 'pb-64' : 'pb-32'}`}>
             <div className="flex items-start">
                 <Image
                     className="-mr-12 opacity-30 -rotate-12"
@@ -23,10 +23,10 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio }) => {
                     Favorites
                 </h3>
             </div>
-            <ul className="flex flex-col gap-4 w-4/5 mx-auto">
+            <ul className="flex flex-col gap-4 md:w-full mx-auto">
                 {favorites?.map((fav, index) => (
                     <li
-                        className="bg-secondary text-text w-full justify-around rounded-3xl flex items-center"
+                        className="bg-secondary text-text w-full justify-around flex items-center"
                         key={index}
                     >
                         <button
