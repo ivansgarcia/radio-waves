@@ -55,6 +55,7 @@ const Search = ({ setCurrentRadio }) => {
                     placeholder="search for..."
                     className="p-4 rounded-full md:w-2/3 bg-selected placeholder:text-secondary"
                     type="text"
+                    onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
                 />
                 <button

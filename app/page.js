@@ -7,6 +7,7 @@ import Search from './components/Search';
 import Top from './components/Top';
 import Header from './components/Header';
 import { AnimatePresence, easeOut, motion } from 'framer-motion';
+import BigLayout from "./components/BigLayout";
 
 export default function Home() {
     const [page, setPage] = useState();
@@ -97,7 +98,7 @@ export default function Home() {
                         initial={{ y: '100%' }}
                         exit={{ y: '100%' }}
                         transition={{ ease: 'easeOut' }}
-                        className="w-full fixed bottom-0"
+                        className="w-full fixed bottom-0 z-20"
                     >
                         <RadioPlayer
                             radio={currentRadio}
@@ -108,24 +109,11 @@ export default function Home() {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div className="hidden md:flex w-full">
-                <section className="w-1/3 border-r-4 border-primary">
-                    <Favorites
-                        favorites={favorites}
-                        setFavorites={setFavorites}
-                        setCurrentRadio={setCurrentRadio}
-                        currentRadio={currentRadio}
-                    />
-                </section>
-                {/* <hr className="w-2 h-screen bg-primary"></hr> */}
-                <section className="w-full">
-                <nav className="flex justify-end m-8 gap-8 text-3xl text-primary">
-                    <button>Search</button>
-                    <button>Top</button>
-                </nav>
-                    <Search setCurrentRadio={setCurrentRadio} />
-                </section>
-            </div>
+            <BigLayout
+            favorites={favorites}
+            setFavorites={setFavorites}
+            currentRadio={currentRadio}
+            setCurrentRadio={setCurrentRadio}/>
         </main>
     );
 }

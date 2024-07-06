@@ -39,7 +39,7 @@ const Top = ({ setCurrentRadio }) => {
     }
 
     return (
-        <section className="pb-32 w-full flex flex-col items-center gap-8 px-8 md:py-8 text-text">
+        <section className="pb-52 w-full mx-auto max-w-2xl flex flex-col items-center gap-8 px-8 pt-8 text-text">
             <div className="relative justify-around items-center flex w-full">
                 <div
                     className={`${selectorPosition[mode]} absolute items-end flex w-full h-full pointer-events-none`}
@@ -55,7 +55,7 @@ const Top = ({ setCurrentRadio }) => {
             </div>
             {loading && (<Spinner/>)}
             {!!topList?.length && (
-                <ul className="flex flex-col gap-2">
+                <ul className="flex flex-col gap-2 w-full max-w-xl">
                     {topList.map((radio, index) => (
                         <motion.li animate={{ y: 0, opacity: 1 }} initial={{ y: 50, opacity: 0}} transition={{ delay: 0.2 + 0.1 * (index - topList.length + 20)}} key={index}>
                             <button className="bg-secondary p-4 px-8 w-full flex gap-4 justify-between items-center" onClick={() => setCurrentRadio(radio)}>
