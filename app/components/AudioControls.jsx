@@ -6,7 +6,7 @@ import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
 
-const AudioControls = ({ url }) => {
+const AudioControls = ({ url, setCurrentRadio }) => {
     const audioRef = useRef();
 
     const [isReady, setIsReady] = useState(false);
@@ -20,21 +20,39 @@ const AudioControls = ({ url }) => {
 
     const showError = () => {
         alert('Error can`t load radio station');
+        setCurrentRadio();
+    };
+
+    const handleMuteChange = () => {
+        if (muted) {
+            audioRef.current.volume = (volume || 50) / 100;
+            !volume && setVolume(50);
+            setMuted(false);
+        } else {
+            audioRef.current.volume = 0;
+            setMuted(true);
+        }
     };
 
     useEffect(() => {
-        console.log(muted);
-        muted
-            ? (audioRef.current.volume = 0)
-            : (audioRef.current.volume = volume / 100);
-    }, [volume, muted]);
+        if (!volume) {
+            setMuted(true);
+        } else {
+            setMuted(false)
+        }
+        audioRef.current.volume = volume / 100;
+    }, [volume]);
 
     useEffect(() => {
         isReady && audioRef.current?.play();
-    }, [isReady, volume]);
+    }, [isReady]);
+
+    useEffect(() => {
+        setIsReady(false);
+    }, [url]);
 
     return (
-        <div className="bg-red-500 h-16 w-4/5 max-w-[50vw] p-1 flex gap-8 justify-center items-center">
+        <div className="bg-gradient-to-b from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around gap-4 items-center">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}
@@ -46,30 +64,38 @@ const AudioControls = ({ url }) => {
             ></audio>
             {isReady ? (
                 <>
-                    <button className="w-8 h-8 relative" onClick={toggleAudio}>
+                    <button className="w-10 h-10 relative min-w-10" onClick={toggleAudio}>
                         <Image
+                            className="object-content"
                             fill
                             src={isPlaying ? pauseIcon : playIcon}
                             alt={isPlaying ? 'pause' : 'play'}
                         />
                     </button>
-                    <input
-                        type="range"
-                        min={0}
-                        max={100}
-                        step={10}
-                        value={muted ? 0 : volume}
-                        onChange={(e) =>
-                            setVolume(e.currentTarget.valueAsNumber)
-                        }
-                    />
-                    <button className="w-5 h-5 relative" onClick={() => setMuted(!muted)}>
-                        <Image
-                            fill
-                            src={muted ? mutedIcon : soundIcon}
-                            alt={muted ? 'muted' : 'sound'}
+                    <div className="flex gap-2 items-center">
+                        <input
+                            className="accent-black w-full"
+                            type="range"
+                            min={0}
+                            max={100}
+                            step={10}
+                            value={muted ? 0 : volume}
+                            onChange={(e) =>
+                                setVolume(e.currentTarget.valueAsNumber)
+                            }
                         />
-                    </button>
+                        <button
+                            className="w-6 h-6 relative"
+                            onClick={() => handleMuteChange()}
+                        >
+                            <Image
+                                className="object-contain"
+                                fill
+                                src={muted ? mutedIcon : soundIcon}
+                                alt={muted ? 'muted' : 'sound'}
+                            />
+                        </button>
+                    </div>
                 </>
             ) : (
                 <Spinner />

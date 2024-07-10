@@ -49,10 +49,10 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             initial={{ height: '200px' }}
             transition={{ ease: 'easeOut' }}
-            className={` rounded-t-2xl mb-12 md:mb-0 bg-primary text-center p-2 md:p-4 flex flex-col items-center justify-around`}
+            className={` rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b from-primary to-primary-dark text-center p-2 md:p-4 flex flex-col items-center justify-around`}
         >
             <nav
-                className={`flex items-center justify-between p-2 w-full ${!collapsed && 'lg:p-4'}`}
+                className={`flex items-center justify-between w-full ${!collapsed ? 'p-2 lg:p-4' : 'p-1'}`}
             >
                 <motion.button
                     initial={{ rotate: 0 }}
@@ -86,7 +86,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 className={`flex gap-8 items-center w-full justify-around lg:px-[12%]`}
             >
                 <h2
-                    className={`text-xl font-semibold ${!collapsed ? 'md:text-4xl' : 'md:text-2xl'}`}
+                    className={`text-xl font-semibold mb-2 ${!collapsed ? 'md:text-4xl' : 'md:text-2xl'}`}
                 >
                     {radio.name}
                 </h2>
@@ -130,13 +130,14 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             <div
                 className={`${collapsed ? 'flex-row' : 'flex-col'} flex items-center w-full justify-around md:px-8`}
             >
-                <div className="flex flex-col md:flex-row justify-center items-center p-2">
+                <div className="flex flex-col md:flex-row justify-center items-center">
                     <motion.img
-                        animate={collapsed ? { width: 60 } : { width: 150 }}
+                        animate={collapsed ? { width: 80 } : { width: 150 }}
                         src={radio.favicon ? radio.favicon : '/on_air.png'}
                         alt="radio"
                         width={200}
                         height={200}
+                        className={collapsed && 'md:-mt-8'}
                     />
                     <div
                         className={`${collapsed ? 'hidden' : 'flex'} flex-wrap gap-y-4 justify-center items-center p-2 md:p-8`}
@@ -187,7 +188,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         </p>
                     </div>
                 </div>
-                <AudioControls url={radio.url} />
+                <AudioControls url={radio.url} setCurrentRadio={setCurrentRadio}/>
             </div>
         </motion.div>
     );

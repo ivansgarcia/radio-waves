@@ -49,7 +49,7 @@ const Search = ({ setCurrentRadio }) => {
     console.log('radioList', radioList);
 
     return (
-        <section className="flex flex-col w-full text-dark items-center gap-4 md:gap-8 pb-32 px-8 md:py-8">
+        <section className="flex flex-col w-full text-dark items-center gap-4 md:gap-8 pb-48 px-8 md:pt-8">
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder="search for..."
@@ -59,7 +59,7 @@ const Search = ({ setCurrentRadio }) => {
                     onChange={(e) => setRadioName(e.target.value)}
                 />
                 <button
-                    className="bg-primary text-dark p-4 rounded-full"
+                    className="bg-gradient-to-b from-primary to-primary-dark text-dark py-4 px-8 rounded-full"
                     onClick={() => searchRadios()}
                 >
                     Search
