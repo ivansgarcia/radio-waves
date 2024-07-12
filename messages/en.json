@@ -1,0 +1,19 @@
+{
+    "MainPage": {
+        "favorites": "Favorites",
+        "search": "Search",
+        "top": "Top",
+        "search_for": "search for...",
+        "select_country": "Select Country",
+        "all": "all",
+        "votes": "Votes",
+        "country": "Country",
+        "homepage": "Homepage",
+        "trending": "Trending",
+        "more": "More",
+        "no_results": "No results"
+    },
+    "LocaleLayout": {
+        "title": "next-intl example"
+    }
+}

@@ -10,9 +10,11 @@ import upIcon from '../../public/up.png';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import AudioControls from "./AudioControls";
+import { useTranslations } from "next-intl";
 
 const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
-    console.log('radio', radio);
+
+    const t = useTranslations('MainPage');
 
     const isFavorite = !!favorites.find(
         (fav) => fav.stationuuid === radio.stationuuid
@@ -47,8 +49,8 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
     return (
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
-            initial={{ height: '200px' }}
-            transition={{ ease: 'easeOut' }}
+            // initial={{ height: '200px' }}
+            transition={{ ease: 'easeOut', duration: 2 }}
             className={` rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b from-primary to-primary-dark text-center p-2 md:p-4 flex flex-col items-center justify-around`}
         >
             <nav
@@ -91,7 +93,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     {radio.name}
                 </h2>
                 <p className={`hidden text-2xl ${!collapsed && 'md:block'}`}>
-                    Votes: {voted ? radio.votes + 1 : radio.votes}
+                    {t('votes')}: {voted ? radio.votes + 1 : radio.votes}
                 </p>
                 <div
                     className={`${collapsed ? 'hidden' : 'flex'} gap-4 md:gap-16 items-center`}
@@ -168,13 +170,13 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                             href={radio.homepage}
                         >
                             <span className="hidden font-normal italic md:block text-md text-black">
-                                Homepage:
+                                {t('homepage')}:
                             </span>
                             {radio.homepage}
                         </Link>
                         <p className="text-sm md:text-lg font-semibold flex items-center gap-4 justify-center w-1/2">
                             <span className="hidden italic md:block font-normal text-md">
-                                Country:
+                                {t('country')}:
                             </span>
                             {radio.country.length > 32
                                 ? radio.country.substring(0, 32) + '...'

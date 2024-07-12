@@ -2,8 +2,12 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import starIcon from '../../public/star.png';
 import removeIcon from '../../public/star_cross.png';
+import { useTranslations } from "next-intl";
 
 const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) => {
+    
+    const t = useTranslations('MainPage');
+
     const removeFromFavorites = (radio) => {
         const newFavorites = favorites.filter((fav) => fav !== radio);
         setFavorites(newFavorites);
@@ -20,13 +24,13 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) =
                     height={75}
                 />
                 <h3 className="m-4 text-4xl font-semibold text-primary">
-                    Favorites
+                {t('favorites')}
                 </h3>
             </div>
             <ul className="flex flex-col gap-4 md:w-full mx-auto">
                 {favorites?.map((fav, index) => (
                     <li
-                        className="bg-secondary text-text w-full justify-around flex items-center"
+                        className="bg-gradient-to-br from-secondary to-dark hover:from-selected hover:to-secondary hover:text-black transition-colors text-text w-full justify-around flex items-center"
                         key={index}
                     >
                         <button

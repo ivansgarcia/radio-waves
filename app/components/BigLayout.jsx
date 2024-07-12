@@ -3,6 +3,7 @@ import Favorites from './Favorites';
 import Search from './Search';
 import Top from './Top';
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const BigLayout = ({
     favorites,
@@ -10,7 +11,11 @@ const BigLayout = ({
     currentRadio,
     setCurrentRadio,
 }) => {
+
+    const t = useTranslations('MainPage');
+
     const [page, setPage] = useState('search');
+
     return (
         <div className="hidden md:flex w-full">
             <section className="border-r-4 border-primary h-min pb-8 max-w-sm">
@@ -21,7 +26,6 @@ const BigLayout = ({
                     currentRadio={currentRadio}
                 />
             </section>
-            {/* <hr className="w-2 h-screen bg-primary"></hr> */}
             <section className="w-2/3 mx-8">
                 <nav className="m-8 ml-auto w-min text-3xl text-primary">
                     <div className="flex w-64 ml-auto">
@@ -29,13 +33,13 @@ const BigLayout = ({
                             onClick={() => page === 'top' && setPage('search')}
                             className="w-1/2 text-center"
                         >
-                            Search
+                            {t('search')}
                         </button>
                         <button
                             onClick={() => page === 'search' && setPage('top')}
                             className="w-1/2 text-center"
                         >
-                            Top
+                            {t('top')}
                         </button>
                     </div>
                     <motion.div layout transition="spring" className={`${page === 'search' ? 'mr-auto' : 'ml-auto'} h-1 my-2 w-1/2 bg-primary`}></motion.div>

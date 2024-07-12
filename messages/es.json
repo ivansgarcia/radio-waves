@@ -1,0 +1,20 @@
+{
+    "MainPage": {
+        "favorites": "Favoritos",
+        "search": "Buscar",
+        "top": "Top",
+        "search_for": "buscar...",
+        "select_country": "Por País",
+        "all": "Todos",
+        "votes": "Votos",
+        "country": "País",
+        "homepage": "Web",
+        "trending": "Tendencia",
+        "more": "Más",
+        "no_results": "No hay resultados"
+
+    },
+    "LocaleLayout": {
+        "title": "next-intl example"
+    }
+}
