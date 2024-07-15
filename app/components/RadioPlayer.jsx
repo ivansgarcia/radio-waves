@@ -9,11 +9,10 @@ import onAirIcon from '../../public/on_air.png';
 import upIcon from '../../public/up.png';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import AudioControls from "./AudioControls";
-import { useTranslations } from "next-intl";
+import AudioControls from './AudioControls';
+import { useTranslations } from 'next-intl';
 
 const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
-
     const t = useTranslations('MainPage');
 
     const isFavorite = !!favorites.find(
@@ -130,9 +129,9 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 </div>
             </div>
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} flex items-center w-full justify-around md:px-8`}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} flex gap-2 items-center w-full justify-around md:px-8`}
             >
-                <div className="flex flex-col md:flex-row justify-center items-center">
+                <div className="flex flex-col md:flex-row justify-center xl:gap-8 items-center">
                     <motion.img
                         animate={collapsed ? { width: 80 } : { width: 150 }}
                         src={radio.favicon ? radio.favicon : '/on_air.png'}
@@ -190,7 +189,10 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         </p>
                     </div>
                 </div>
-                <AudioControls url={radio.url} setCurrentRadio={setCurrentRadio}/>
+                <AudioControls
+                    url={radio.url}
+                    setCurrentRadio={setCurrentRadio}
+                />
             </div>
         </motion.div>
     );

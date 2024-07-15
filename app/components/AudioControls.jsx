@@ -13,6 +13,7 @@ const AudioControls = ({ url, setCurrentRadio }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(75);
     const [muted, setMuted] = useState(false);
+    const [timer, setTimer] = useState(50000);
 
     const toggleAudio = () => {
         isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
@@ -49,7 +50,35 @@ const AudioControls = ({ url, setCurrentRadio }) => {
 
     useEffect(() => {
         setIsReady(false);
+        setIsPlaying(false);
+        setTimer(0);
     }, [url]);
+
+    useEffect(() => {
+        let counter;
+        if (isPlaying) {
+            counter = setInterval(() => {
+                setTimer(prev => prev + 1)
+            }, 1000);
+        } 
+        return () =>  {
+            clearInterval(counter);
+        }
+    }, [isPlaying]);
+
+    const formatTimer = (time) => {
+        if (time < 60) {
+            return time < 10 ? '00:0' + String(time) : '00:' + String(time);
+        } else if (time < 3600) {
+            return (time / 60 < 10 ? '0' : '') + String(Math.floor(time / 60) + ':' + (time % 60 < 10 ? '0' : '') + time % 60);
+        } else {
+            const hours = Math.floor(time / 3600);
+            const minutes = (time / 60) < 60 ? Math.floor(time / 60) : Math.floor((time / 60) % 60) ;
+            const seconds = timer % 60;
+            return String(hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' +  (seconds < 10 ? '0' : '') + seconds)
+        }
+    }
+
 
     return (
         <div className="bg-gradient-to-b from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around gap-4 items-center">
@@ -72,6 +101,7 @@ const AudioControls = ({ url, setCurrentRadio }) => {
                             alt={isPlaying ? 'pause' : 'play'}
                         />
                     </button>
+                    <span>{formatTimer(timer)}</span>
                     <div className="flex gap-2 items-center">
                         <input
                             className="accent-black w-full"
@@ -98,7 +128,7 @@ const AudioControls = ({ url, setCurrentRadio }) => {
                     </div>
                 </>
             ) : (
-                <Spinner />
+                <Spinner size='small'/>
             )}
         </div>
     );

@@ -3,9 +3,21 @@ import { motion } from 'framer-motion';
 import { iso31661 } from 'iso-3166';
 import React, { useCallback, useEffect, useState } from 'react';
 import Spinner from "./Spinner";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations,  } from "next-intl";
+import countriesEng from '../../messages/countries_en.json';
+import countriesSpa from '../../messages/countries_es.json';
 
 const Search = ({ setCurrentRadio }) => {
+
+    const locale = useLocale();
+    console.log(locale);
+
+    const countries = {
+        "en": countriesEng,
+        "es": countriesSpa
+    }
+
+    const localeCountries = countries[locale];
 
     const t = useTranslations('MainPage');
 
@@ -14,7 +26,8 @@ const Search = ({ setCurrentRadio }) => {
     const [country, setCountry] = useState();
     const [loading, setLoading] = useState(false);
 
-    console.log(iso31661);
+    // console.log(iso31661);
+
 
     const searchRadios = useCallback(
         async (more = false) => {
@@ -28,7 +41,7 @@ const Search = ({ setCurrentRadio }) => {
                         name: radioName,
                         limit: 20,
                         hidebroken: true,
-                        countrycode: country,
+                        countrycode: country === 'ALL' ? '' : country,
                         order: 'votes',
                         reverse: true,
                         offset: more ? radioList.length : 0,
@@ -48,7 +61,8 @@ const Search = ({ setCurrentRadio }) => {
 
     useEffect(() => {
         country && searchRadios();
-    }, [country, searchRadios]);
+        console.log(country);
+    }, [country]);
 
     return (
         <section className="flex flex-col w-full text-dark items-center gap-8 md:gap-8 pb-48 px-8 pt-8">
@@ -71,21 +85,21 @@ const Search = ({ setCurrentRadio }) => {
                 <span className="text-selected">{t('select_country')}</span>
                 <select
                     value={country}
-                    defaultValue={'none'}
-                    onChange={(e) => setCountry(e.target.value)}
+                    defaultValue={'all'}
+                    onChange={(e) => setCountry(e.target.value.toUpperCase())}
                     className="rounded-2xl p-2 bg-selected"
                 >
-                    <option defaultValue={true} value="none">
+                    <option defaultValue={true} value="all">
                         {t('all')}
                     </option>
-                    {iso31661.map((country, index) => (
-                        <option key={index} value={country.alpha2}>
-                            {country.name.substring(0, 24)}
+                    {Object.keys(localeCountries).map((k, index) => (
+                        <option key={index} value={k}>
+                            {localeCountries[k].substring(0, 24)}
                         </option>
                     ))}
                 </select>
             </div>
-            {loading && (<Spinner/>)}
+            {loading && (<Spinner size='big'/>)}
             {radioList &&
                 (!!radioList.length ? (
                     <ul className="flex lg:w-1/2 h-full flex-col gap-2">

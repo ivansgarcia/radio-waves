@@ -55,7 +55,7 @@ const Top = ({ setCurrentRadio }) => {
                 <button onClick={() => setMode('votes')} className={`${mode === 'clicks' ? 'text-selected' : 'text-text'} text-2xl p-2 w-1/2 h-full`}>{t('top')}</button>
                 <button onClick={() => setMode('clicks')} className={`${mode === 'votes' ? 'text-selected' : 'text-text'} text-2xl p-2 w-1/2 h-full`}>{t('trending')}</button>
             </div>
-            {loading && (<Spinner/>)}
+            {loading && (<Spinner size='big'/>)}
             {!!topList?.length && (
                 <ul className="flex flex-col gap-2 w-full max-w-xl">
                     {topList.map((radio, index) => (
