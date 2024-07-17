@@ -10,7 +10,6 @@ import countriesSpa from '../../messages/countries_es.json';
 const Search = ({ setCurrentRadio }) => {
 
     const locale = useLocale();
-    console.log(locale);
 
     const countries = {
         "en": countriesEng,
@@ -25,9 +24,6 @@ const Search = ({ setCurrentRadio }) => {
     const [radioName, setRadioName] = useState();
     const [country, setCountry] = useState();
     const [loading, setLoading] = useState(false);
-
-    // console.log(iso31661);
-
 
     const searchRadios = useCallback(
         async (more = false) => {
@@ -74,12 +70,14 @@ const Search = ({ setCurrentRadio }) => {
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
                 />
-                <button
+                <motion.button
+                    whileHover={{ boxShadow: '0 5px 20px #FC900088' }}
+                    whileTap={{ scale: 0.95 }}
                     className="bg-gradient-to-b from-primary to-primary-dark text-dark text-lg font-semibold py-4 px-8 rounded-full"
                     onClick={() => searchRadios()}
                 >
                     {t('search')}
-                </button>
+                </motion.button>
             </div>
             <div className="flex flex-wrap gap-4 items-center">
                 <span className="text-selected">{t('select_country')}</span>
@@ -87,7 +85,7 @@ const Search = ({ setCurrentRadio }) => {
                     value={country}
                     defaultValue={'all'}
                     onChange={(e) => setCountry(e.target.value.toUpperCase())}
-                    className="rounded-2xl p-2 bg-selected"
+                    className="rounded-2xl p-2 bg-selected cursor-pointer"
                 >
                     <option defaultValue={true} value="all">
                         {t('all')}
@@ -129,12 +127,16 @@ const Search = ({ setCurrentRadio }) => {
                     <p className="text-text">{t('no_results')}</p>
                 ))}
             {radioList?.length >= 20 && (
-                <button
+                <motion.button
+                    whileInView={{ opacity: 1 , transition: { delay: 0.5, duration: 0.5 }}}
+                    initial={{ opacity: 0 }}
+                    whileHover={{ boxShadow: '0 5px 20px #4E4E4E' }}
+                    whileTap={{ scale: 0.95 }}
                     className="rounded-full bg-black text-white h-24 w-24 mx-auto my-8"
                     onClick={() => searchRadios(true)}
                 >
                     + {t('more')}
-                </button>
+                </motion.button>
             )}
         </section>
     );

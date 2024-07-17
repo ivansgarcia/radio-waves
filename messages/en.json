@@ -10,8 +10,13 @@
         "country": "Country",
         "homepage": "Homepage",
         "trending": "Trending",
-        "more": "More",
-        "no_results": "No results"
+        "more": "MORE",
+        "no_results": "No results",
+        "radio_error": "CAN'T LOAD RADIO STATION",
+        "remove_fav": "remove from favorites",
+        "add_fav": "add to favorites",
+        "voted": "Voted",
+        "too_many_votes": "Too many votes"
     },
     "LocaleLayout": {
         "title": "next-intl example"

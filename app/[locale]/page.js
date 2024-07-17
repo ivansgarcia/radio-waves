@@ -49,10 +49,10 @@ export default function Home() {
                 <AnimatePresence>
                     {page === 'favs' && (
                         <motion.div
-                            animate={{ x: 0 }}
+                            animate={{ x: 0, position: 'relative' }}
                             initial={{ x: '-100%' }}
                             transition={{ ease: 'easeOut' }}
-                            exit={{ opacity: 0 }}
+                            exit={{ opacity: 0, position: 'absolute' }}
                             className="absolute top-20 w-full"
                         >
                             <Favorites
@@ -68,11 +68,11 @@ export default function Home() {
                 <AnimatePresence>
                     {page === 'search' && (
                         <motion.div
-                            animate={{ x: 0 }}
+                            animate={{ x: 0, position: "relative" }}
                             initial={{ x: pageDirection }}
                             transition={{ ease: 'easeOut' }}
                             className="absolute top-20 w-full"
-                            exit={{ opacity: 0 }}
+                            exit={{ opacity: 0, position: 'absolute' }}
                         >
                             <Search setCurrentRadio={setCurrentRadio} />
                         </motion.div>
@@ -81,11 +81,11 @@ export default function Home() {
                 <AnimatePresence>
                     {page === 'top' && (
                         <motion.div
-                            animate={{ x: 0 }}
+                            animate={{ x: 0, position: 'relative' }}
                             initial={{ x: '100%' }}
                             transition={{ ease: 'easeOut' }}
-                            exit={{ opacity: 0 }}
-                            className="absolute top-20 w-full"
+                            exit={{ opacity: 0, position: 'absolute' }}
+                            className="absolute top-10 w-full"
                         >
                             <Top setCurrentRadio={setCurrentRadio} />
                         </motion.div>

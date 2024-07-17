@@ -10,9 +10,13 @@
         "country": "País",
         "homepage": "Web",
         "trending": "Tendencia",
-        "more": "Más",
-        "no_results": "No hay resultados"
-
+        "more": "MÁS",
+        "no_results": "No hay resultados",
+        "radio_error": "ERROR AL CARGAR RADIO",
+        "remove_fav": "eliminar de favoritos",
+        "add_fav": "añadir a favoritos",
+        "voted": "Votado",
+        "too_many_votes": "Demasiados votos"
     },
     "LocaleLayout": {
         "title": "next-intl example"

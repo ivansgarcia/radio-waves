@@ -6,7 +6,7 @@ import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
 
-const AudioControls = ({ url, setCurrentRadio }) => {
+const AudioControls = ({ url, showError }) => {
     const audioRef = useRef();
 
     const [isReady, setIsReady] = useState(false);
@@ -17,11 +17,6 @@ const AudioControls = ({ url, setCurrentRadio }) => {
 
     const toggleAudio = () => {
         isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
-    };
-
-    const showError = () => {
-        alert('Error can`t load radio station');
-        setCurrentRadio();
     };
 
     const handleMuteChange = () => {
@@ -81,7 +76,7 @@ const AudioControls = ({ url, setCurrentRadio }) => {
 
 
     return (
-        <div className="bg-gradient-to-b from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around gap-4 items-center">
+        <div className="bg-gradient-to-b min-w-[60%] from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around gap-4 items-center">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}

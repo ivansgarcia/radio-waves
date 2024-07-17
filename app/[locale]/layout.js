@@ -23,7 +23,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
 
     return (
         <html lang={locale}>
-            <body className="bg-gradient-to-br from-black to-dark h-full min-h-screen">
+            <body className="bg-gradient-to-br from-darker to-dark h-full min-h-screen">
                 <NextIntlClientProvider messages={messages}>
                     {children}
                 </NextIntlClientProvider>
