@@ -5,6 +5,7 @@ import pauseIcon from '../../public/pause.png';
 import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
+import Sleeper from "./Sleeper";
 
 const AudioControls = ({ url, showError }) => {
     const audioRef = useRef();
@@ -13,7 +14,15 @@ const AudioControls = ({ url, showError }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(75);
     const [muted, setMuted] = useState(false);
-    const [timer, setTimer] = useState(50000);
+    const [timer, setTimer] = useState(0);
+    const [sleepTime, setSleepTime] = useState(0);
+
+    if (!!sleepTime) {
+        if (timer === sleepTime) {
+            audioRef.current?.pause();
+            setSleepTime(0);
+        }
+    }
 
     const toggleAudio = () => {
         isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
@@ -76,7 +85,7 @@ const AudioControls = ({ url, showError }) => {
 
 
     return (
-        <div className="bg-gradient-to-b min-w-[60%] from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around gap-4 items-center">
+        <div className="bg-gradient-to-b min-w-[60%] w-full from-primary to-primary-dark px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around  items-center">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}
@@ -96,10 +105,13 @@ const AudioControls = ({ url, showError }) => {
                             alt={isPlaying ? 'pause' : 'play'}
                         />
                     </button>
-                    <span>{formatTimer(timer)}</span>
+                    <div className="flex  flex-wrap gap-y-0 justify-center items-center gap-2 md:gap-4 font-semibold">
+                        <span className="text-lg">{formatTimer(timer)}</span>
+                        <Sleeper timer={timer} sleepTime={sleepTime} setSleepTime={setSleepTime}/>
+                    </div>
                     <div className="flex gap-2 items-center">
                         <input
-                            className="accent-black w-full"
+                            className="accent-black w-16 sm:w-full"
                             type="range"
                             min={0}
                             max={100}

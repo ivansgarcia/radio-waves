@@ -65,7 +65,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         setTimeout(() => {
             setRadioError(false);
             setCurrentRadio();
-        }, 2000);
+        }, 3000);
     };
 
     return (
@@ -77,7 +77,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             <AnimatePresence>
             {radioError && 
                 <motion.p
-                    animate={{ y: -110 , opacity: 1 }}
+                    animate={{ y: -110 , opacity: 1, transition: { delay: 1 } }}
                     initial={{ y: 0, opacity: 0 }}
                     exit={{ opacity: 0 }}
                     className="bg-black p-4 rounded-full absolute text-white text-lg border-4 border-red-600"
@@ -181,11 +181,11 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 </div>
             </div>
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} flex gap-2 items-center w-full justify-around md:px-8`}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} flex  items-center w-full justify-around md:px-8`}
             >
                 <div className="flex flex-col md:flex-row justify-center m-2 xl:gap-8 items-center">
                     <motion.img
-                        animate={collapsed ? { width: 80 } : { width: 150 }}
+                        animate={collapsed ? { width: 60 } : { width: 150 }}
                         src={radio.favicon ? radio.favicon : '/on_air.png'}
                         alt="radio"
                         width={200}

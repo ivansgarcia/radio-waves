@@ -128,7 +128,7 @@ const Search = ({ setCurrentRadio }) => {
                 ))}
             {radioList?.length >= 20 && (
                 <motion.button
-                    whileInView={{ opacity: 1 , transition: { delay: 0.5, duration: 0.5 }}}
+                    whileInView={{ opacity: 1 , transition: { delay: 0.1, duration: 0.5 }}}
                     initial={{ opacity: 0 }}
                     whileHover={{ boxShadow: '0 5px 20px #4E4E4E' }}
                     whileTap={{ scale: 0.95 }}

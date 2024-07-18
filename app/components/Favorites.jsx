@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import starIcon from '../../public/star.png';
+import starIcon from '../../public/star_light.png';
 import removeIcon from '../../public/star_cross.png';
 import { useTranslations } from "next-intl";
 
