@@ -48,7 +48,7 @@ const Top = ({ setCurrentRadio }) => {
     };
 
     return (
-        <section className="pb-52 w-full mx-auto max-w-2xl flex flex-col items-center gap-8 px-8 pt-8 text-text">
+        <section className="pb-64 w-full mx-auto max-w-2xl flex flex-col items-center gap-8 px-8 pt-8 text-text">
             <div className="relative justify-around items-center flex w-full">
                 <div
                     className={`${selectorPosition[mode]} absolute items-end flex w-full h-full pointer-events-none`}
@@ -108,7 +108,7 @@ const Top = ({ setCurrentRadio }) => {
                         className="rounded-full bg-black text-white h-24 w-24 mx-auto my-8"
                         onClick={() => getTopList(true)}
                     >
-                        + {t('more')}
+                        {'+ ' + t('more')}
                     </motion.button>
                 </ul>
             )}

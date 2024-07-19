@@ -106,12 +106,12 @@ const AudioControls = ({ url, showError }) => {
                         />
                     </button>
                     <div className="flex  flex-wrap gap-y-0 justify-center items-center gap-2 md:gap-4 font-semibold">
-                        <span className="text-lg">{formatTimer(timer)}</span>
+                        <span className="text-lg w-12">{formatTimer(timer)}</span>
                         <Sleeper timer={timer} sleepTime={sleepTime} setSleepTime={setSleepTime}/>
                     </div>
                     <div className="flex gap-2 items-center">
                         <input
-                            className="accent-black w-16 sm:w-full"
+                            className="accent-black w-20 sm:w-full"
                             type="range"
                             min={0}
                             max={100}

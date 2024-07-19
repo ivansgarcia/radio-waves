@@ -72,7 +72,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={` rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b from-primary to-primary-dark text-center p-2 md:p-4 flex flex-col items-center justify-around`}
+            className={`rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b from-primary to-primary-dark text-center p-2 md:p-4 flex flex-col items-center justify-around`}
         >
             <AnimatePresence>
             {radioError && 
@@ -87,7 +87,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             }
             </AnimatePresence>
             <nav
-                className={`flex items-center justify-between w-full ${!collapsed ? 'p-2 lg:p-4' : 'p-1'}`}
+                className={`flex items-center justify-between w-full ${!collapsed ? 'p-2 lg:p-4' : 'p-1 md:p-0'}`}
             >
                 <motion.button
                     initial={{ rotate: 0 }}
@@ -166,7 +166,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         <AnimatePresence>
                             {voteResult && (
                                 <motion.p
-                                    animate={{ y: -65, opacity: 1 }}
+                                    animate={{ y: -60, opacity: 1 }}
                                     initial={{ y: 0, opacity: 0 }}
                                     exit={{ opacity: 0 }}
                                     className="absolute w-40 top-0 -right-12 p-4 text-lg bg-black rounded-full text-white"
@@ -197,7 +197,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     >
                         {radio.tags && (
                             <div
-                                className={`${collapsed ? 'hidden' : 'flex'} flex-col md:flex-wrap w-2/5`}
+                                className={`${collapsed ? 'hidden' : 'flex'} flex-col md:flex-wrap w-full sm:w-2/5`}
                             >
                                 <p className="italic hidden md:block">Tags:</p>
                                 <ul className="flex flex-wrap gap-2 justify-center">

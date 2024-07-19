@@ -57,11 +57,10 @@ const Search = ({ setCurrentRadio }) => {
 
     useEffect(() => {
         country && searchRadios();
-        console.log(country);
     }, [country]);
 
     return (
-        <section className="flex flex-col w-full text-dark items-center gap-8 md:gap-8 pb-48 px-8 pt-8">
+        <section className="flex flex-col w-full text-dark items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
@@ -100,7 +99,7 @@ const Search = ({ setCurrentRadio }) => {
             {loading && (<Spinner size='big'/>)}
             {radioList &&
                 (!!radioList.length ? (
-                    <ul className="flex lg:w-1/2 h-full flex-col gap-2">
+                    <ul className="flex w-full max-w-xl h-full flex-col gap-2">
                         {radioList.map((radio, index) => (
                             <motion.li
                                 animate={{ y: 0, opacity: 1 }}
@@ -132,10 +131,10 @@ const Search = ({ setCurrentRadio }) => {
                     initial={{ opacity: 0 }}
                     whileHover={{ boxShadow: '0 5px 20px #4E4E4E' }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-black text-white h-24 w-24 mx-auto my-8"
+                    className="rounded-full bg-black text-white h-24 w-24 mx-auto italic"
                     onClick={() => searchRadios(true)}
                 >
-                    + {t('more')}
+                    {'+ ' + t('more')}
                 </motion.button>
             )}
         </section>

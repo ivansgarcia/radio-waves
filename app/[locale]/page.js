@@ -42,7 +42,7 @@ export default function Home() {
     };
 
     return (
-        <main className="flex flex-col items-center">
+        <main className="flex flex-col items-center overflow-hidden">
             <Header />
             <div className="w-full md:hidden">
                 <Menu page={page} setPage={setPage} />
@@ -53,7 +53,7 @@ export default function Home() {
                             initial={{ x: '-100%' }}
                             transition={{ ease: 'easeOut' }}
                             exit={{ opacity: 0, position: 'absolute' }}
-                            className="absolute top-20 w-full"
+                            className="absolute top-10 w-full"
                         >
                             <Favorites
                                 favorites={favorites}
@@ -71,8 +71,8 @@ export default function Home() {
                             animate={{ x: 0, position: "relative" }}
                             initial={{ x: pageDirection }}
                             transition={{ ease: 'easeOut' }}
-                            className="absolute top-20 w-full"
                             exit={{ opacity: 0, position: 'absolute' }}
+                            className="absolute top-10 w-full"
                         >
                             <Search setCurrentRadio={setCurrentRadio} />
                         </motion.div>

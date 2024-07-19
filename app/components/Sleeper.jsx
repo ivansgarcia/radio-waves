@@ -8,11 +8,11 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
     const controls = useAnimationControls();
     const [value, setValue] = useState(0);
     const formatTime = {
-        1: '15m',
-        2: '30m',
-        3: '45m',
-        4: '1h',
-        5: '2h',
+        1: '15 m',
+        2: '30 m',
+        3: '45 m',
+        4: '1 h',
+        5: '2 h',
     };
     
     const increaseSleepTime = () => {
@@ -22,8 +22,7 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
     
     useEffect(() => {
         const sleeperValues = [0, 900, 1800, 2700, 3600, 7200];
-        setSleepTime(sleeperValues[value] + timer);
-
+        value ? setSleepTime(sleeperValues[value] + timer) : setSleepTime(0); 
     }, [value]);
 
     return (
@@ -35,8 +34,8 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
                 <Image
                     className=""
                     src={sleepTime ? sleepActiveIcon : sleepIcon}
-                    width={30}
-                    height={30}
+                    width={25}
+                    height={25}
                     alt="sleep time"
                 />
             </button>

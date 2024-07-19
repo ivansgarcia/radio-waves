@@ -46,7 +46,7 @@ const Menu = ({ page, setPage }) => {
             </button>
             <button
                 className={`w-1/3 flex justify-center rounded-3xl`}
-                onClick={() => setPage('top')}
+                onClick={() => {setPage('top'); window.scrollTo(0, 0)}}
             >
                 <Image
                     className="z-40"

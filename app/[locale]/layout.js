@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import {locales} from '@/config';
+import Presentation from "../components/Presentation";
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -24,6 +25,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
     return (
         <html lang={locale}>
             <body className="bg-gradient-to-br from-darker to-dark h-full min-h-screen">
+                <Presentation/>
                 <NextIntlClientProvider messages={messages}>
                     {children}
                 </NextIntlClientProvider>

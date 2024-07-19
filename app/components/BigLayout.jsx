@@ -17,7 +17,7 @@ const BigLayout = ({
     const [page, setPage] = useState('search');
 
     return (
-        <div className="hidden md:flex w-full">
+        <div className="hidden md:flex w-full pt-10">
             <section className="border-r-4 border-primary h-min pb-8 max-w-sm">
                 <Favorites
                     favorites={favorites}
