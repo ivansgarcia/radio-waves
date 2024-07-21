@@ -72,7 +72,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b from-primary to-primary-dark text-center p-2 md:p-4 flex flex-col items-center justify-around`}
+            className={`rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b text-text from-primary to-primary-darker text-center p-2 md:p-4 flex flex-col items-center justify-around`}
         >
             <AnimatePresence>
             {radioError && 
@@ -207,7 +207,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                                         .map((tag, index) => (
                                             <li
                                                 key={index}
-                                                className="text-xs md:text-xl px-2 w-auto rounded bg-secondary bg-opacity-30"
+                                                className="text-xs md:text-xl px-2 w-auto rounded bg-dark-secondary bg-opacity-30"
                                             >
                                                 {tag}
                                             </li>

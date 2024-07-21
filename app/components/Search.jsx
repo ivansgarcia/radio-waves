@@ -60,11 +60,11 @@ const Search = ({ setCurrentRadio }) => {
     }, [country]);
 
     return (
-        <section className="flex flex-col w-full text-dark items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
+        <section className="flex flex-col w-full text-text items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 rounded-full md:w-2/3 bg-selected placeholder:text-secondary"
+                    className="p-4 rounded-full md:w-2/3 bg-secondary dark:bg-dark-selected placeholder:dark:text-dark-secondary placeholder:text-dark-secondary"
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -72,19 +72,19 @@ const Search = ({ setCurrentRadio }) => {
                 <motion.button
                     whileHover={{ boxShadow: '0 5px 20px #FC900088' }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-b from-primary to-primary-dark text-dark text-lg font-semibold py-4 px-8 rounded-full"
+                    className="bg-gradient-to-b from-primary to-primary-darker text-dark text-lg font-semibold py-4 px-8 rounded-full"
                     onClick={() => searchRadios()}
                 >
                     {t('search')}
                 </motion.button>
             </div>
             <div className="flex flex-wrap gap-4 items-center">
-                <span className="text-selected">{t('select_country')}</span>
+                <span className="text-text dark:text-dark-text">{t('select_country')}</span>
                 <select
                     value={country}
                     defaultValue={'all'}
                     onChange={(e) => setCountry(e.target.value.toUpperCase())}
-                    className="rounded-2xl p-2 bg-selected cursor-pointer"
+                    className="rounded-2xl p-2 bg-secondary dark:bg-dark-selected cursor-pointer"
                 >
                     <option defaultValue={true} value="all">
                         {t('all')}
@@ -112,9 +112,9 @@ const Search = ({ setCurrentRadio }) => {
                             >
                                 <button
                                     onClick={() => setCurrentRadio(radio)}
-                                    className="bg-gradient-to-br from-secondary to-dark hover:from-selected hover:to-secondary hover:text-black transition-colors text-text p-4 px-8 w-full flex gap-4 justify-between items-center"
+                                    className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 >
-                                    <p>{radio.name}</p>
+                                    <p className="px-4">{radio.name}</p>
                                     <p className="text-xs">
                                         {radio.countrycode}
                                     </p>
@@ -123,15 +123,15 @@ const Search = ({ setCurrentRadio }) => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-text">{t('no_results')}</p>
+                    <p className="text-text dark:dark-text">{t('no_results')}</p>
                 ))}
             {radioList?.length >= 20 && (
                 <motion.button
                     whileInView={{ opacity: 1 , transition: { delay: 0.1, duration: 0.5 }}}
                     initial={{ opacity: 0 }}
-                    whileHover={{ boxShadow: '0 5px 20px #4E4E4E' }}
+                    whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-black text-white h-24 w-24 mx-auto italic"
+                    className="rounded-full bg-black font-semibold text-white h-24 w-24 mx-auto italic"
                     onClick={() => searchRadios(true)}
                 >
                     {'+ ' + t('more')}

@@ -5,6 +5,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
@@ -14,12 +15,17 @@ module.exports = {
       },
       colors: {
         "primary": "#FFC132",
-        "primary-dark": "#FC9000",
-        "secondary": "#4E4E4E",
-        "selected": "#88918E",
+        "primary-darker": "#FC9000",
+        "dark-secondary": "#4E4E4E",
+        "secondary": "#CCCCCC",
+        "dark-selected": "#88918E",
+        "selected": "#AAAAAA",
         "darker": "#111111",
         "dark": "#222222",
-        "text": "#C2D3CD"
+        "light": "#DDDDDD",
+        "lighter": "#EEEEEE",
+        "dark-text": "#C2D3CD",
+        "text": "#333333"
       }
     },
   },

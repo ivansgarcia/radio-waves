@@ -1,10 +1,14 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import starIcon from '../../public/star_light.png';
+import starLightIcon from '../../public/star_light.png';
+import starIcon from '../../public/star.png';
 import removeIcon from '../../public/star_cross.png';
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 
 const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) => {
+
+    const { theme } = useTheme();
     
     const t = useTranslations('MainPage');
 
@@ -17,20 +21,20 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) =
         <section className={`flex flex-col w-full gap-8 p-2 md:p-4 ${currentRadio ? 'pb-64' : 'pb-32'}`}>
             <div className="flex items-start">
                 <Image
-                    className="-mr-12 opacity-30 -rotate-12"
-                    src={starIcon}
+                    className="-mr-2 opacity-30 -rotate-12"
+                    src={theme === 'dark' ? starLightIcon : starIcon}
                     alt="favorites"
                     width={75}
                     height={75}
                 />
-                <h3 className="m-4 text-4xl font-semibold text-primary">
+                <h3 className="m-4 z-20 text-4xl font-semibold text-primary-darker dark:text-primary">
                 {t('favorites')}
                 </h3>
             </div>
             <ul className="flex flex-col gap-4 md:w-full mx-auto">
                 {favorites?.map((fav, index) => (
                     <li
-                        className="bg-gradient-to-br from-secondary to-dark hover:from-selected hover:to-secondary hover:text-black transition-colors text-text w-full justify-around flex items-center"
+                        className="element w-full justify-around flex items-center"
                         key={index}
                     >
                         <button

@@ -1,7 +1,12 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import {locales} from '@/config';
-import Presentation from "../components/Presentation";
+import {
+    getMessages,
+    getTranslations,
+    unstable_setRequestLocale,
+} from 'next-intl/server';
+import { locales } from '@/config';
+import Presentation from '../components/Presentation';
+import { ThemeProvider } from "next-themes";
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
@@ -17,17 +22,14 @@ export async function generateMetadata({ params: { locale } }) {
 
 export default async function LocaleLayout({ children, params: { locale } }) {
     unstable_setRequestLocale(locale);
-
-    // Providing all messages to the client
-    // side is the easiest way to get started
     const messages = await getMessages();
 
     return (
-        <html lang={locale}>
-            <body className="bg-gradient-to-br from-darker to-dark h-full min-h-screen">
-                <Presentation/>
+        <html lang={locale} suppressHydrationWarning>
+            <body className="bg-gradient-to-b from-lighter to-light dark:from-darker dark:to-dark h-full min-h-screen">
+                <Presentation />
                 <NextIntlClientProvider messages={messages}>
-                    {children}
+                    <ThemeProvider attribute="class">{children}</ThemeProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

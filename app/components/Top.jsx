@@ -55,18 +55,18 @@ const Top = ({ setCurrentRadio }) => {
                 >
                     <motion.div
                         layout
-                        className="w-1/2 h-1 bg-text"
+                        className="w-1/2 h-1 bg-text dark:bg-dark-text"
                     ></motion.div>
                 </div>
                 <button
                     onClick={() => setMode('votes')}
-                    className={`${mode === 'clicks' ? 'text-selected' : 'text-text'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'clicks' ? 'text-dark-selected dark:text-dark-selected' : 'text-text dark:text-dark-text'} text-2xl p-2 w-1/2 h-full`}
                 >
                     {t('top')}
                 </button>
                 <button
                     onClick={() => setMode('clicks')}
-                    className={`${mode === 'votes' ? 'text-selected' : 'text-text'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'votes' ? 'text-dark-selected dark:text-dark-selected' : 'text-text dark:text-dark-text'} text-2xl p-2 w-1/2 h-full`}
                 >
                     {t('trending')}
                 </button>
@@ -85,7 +85,7 @@ const Top = ({ setCurrentRadio }) => {
                             key={index}
                         >
                             <button
-                                className="bg-gradient-to-br from-secondary to-dark hover:from-selected hover:to-secondary hover:text-black transition-colors p-4 px-8 w-full flex gap-4 justify-between items-center"
+                                className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 onClick={() => setCurrentRadio(radio)}
                             >
                                 <p>
@@ -103,9 +103,9 @@ const Top = ({ setCurrentRadio }) => {
                             transition: { delay: 0.1, duration: 0.5 },
                         }}
                         initial={{ opacity: 0 }}
-                        whileHover={{ boxShadow: '0 5px 20px #4E4E4E' }}
+                        whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
                         whileTap={{ scale: 0.95 }}
-                        className="rounded-full bg-black text-white h-24 w-24 mx-auto my-8"
+                        className="rounded-full bg-black font-semibold text-white h-24 w-24 mx-auto my-8"
                         onClick={() => getTopList(true)}
                     >
                         {'+ ' + t('more')}

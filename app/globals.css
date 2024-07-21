@@ -21,3 +21,9 @@
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .element {
+    @apply bg-gradient-to-br font-semibold from-light dark:from-dark-secondary dark:to-dark to-secondary hover:from-white hover:dark:from-dark-selected hover:to-light hover:dark:to-dark-secondary hover:dark:text-black transition-colors dark:text-dark-text text-text;
+  }
+}
