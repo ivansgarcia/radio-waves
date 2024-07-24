@@ -185,7 +185,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             >
                 <div className="flex flex-col md:flex-row justify-center m-2 xl:gap-8 items-center">
                     <motion.img
-                        animate={collapsed ? { width: 60 } : { width: 150 }}
+                        animate={collapsed ? { width: 75 } : { width: 150 }}
                         src={radio.favicon ? radio.favicon : '/on_air.png'}
                         alt="radio"
                         width={200}
@@ -207,7 +207,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                                         .map((tag, index) => (
                                             <li
                                                 key={index}
-                                                className="text-xs md:text-xl px-2 w-auto rounded bg-dark-secondary bg-opacity-30"
+                                                className="text-xs md:text-xl px-2 w-auto rounded bg-dark bg-opacity-30"
                                             >
                                                 {tag}
                                             </li>

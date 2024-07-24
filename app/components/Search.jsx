@@ -64,7 +64,7 @@ const Search = ({ setCurrentRadio }) => {
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 rounded-full md:w-2/3 bg-secondary dark:bg-dark-selected placeholder:dark:text-dark-secondary placeholder:text-dark-secondary"
+                    className="p-4 rounded-full md:w-2/3 bg-light dark:bg-dark-selected placeholder:dark:text-dark-secondary placeholder:text-dark-secondary"
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -84,7 +84,7 @@ const Search = ({ setCurrentRadio }) => {
                     value={country}
                     defaultValue={'all'}
                     onChange={(e) => setCountry(e.target.value.toUpperCase())}
-                    className="rounded-2xl p-2 bg-secondary dark:bg-dark-selected cursor-pointer"
+                    className="rounded-2xl p-2 bg-light dark:bg-dark-selected cursor-pointer"
                 >
                     <option defaultValue={true} value="all">
                         {t('all')}
@@ -129,9 +129,9 @@ const Search = ({ setCurrentRadio }) => {
                 <motion.button
                     whileInView={{ opacity: 1 , transition: { delay: 0.1, duration: 0.5 }}}
                     initial={{ opacity: 0 }}
-                    whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
+                    whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-black font-semibold text-white h-24 w-24 mx-auto italic"
+                    className="rounded-full bg-dark-secondary dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto italic"
                     onClick={() => searchRadios(true)}
                 >
                     {'+ ' + t('more')}

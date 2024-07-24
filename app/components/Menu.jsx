@@ -13,11 +13,11 @@ const Menu = ({ page, setPage }) => {
     };
 
     return (
-        <nav className="md:hidden fixed z-40 w-full bottom-0 left-0 h-12 flex justify-around items-center bg-gradient-to-t dark:from-dark-selected dark:to-dark-secondary from-secondary to-selected">
+        <nav className="md:hidden fixed z-40 w-full bottom-0 left-0 h-12 flex justify-around items-center bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300">
             <div className={`${selectorPosition[page]} pointer-events-none absolute w-full h-full flex`}>
                 <motion.div
                     layout
-                    className="w-1/3 h-full rounded-3xl bg-selected dark:bg-dark-selected z-30"
+                    className="w-1/3 h-full rounded-3xl bg-white dark:bg-dark-secondary z-30"
                 ></motion.div>
             </div>
             <button

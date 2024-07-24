@@ -24,6 +24,6 @@
 
 @layer components {
   .element {
-    @apply bg-gradient-to-br font-semibold from-light dark:from-dark-secondary dark:to-dark to-secondary hover:from-white hover:dark:from-dark-selected hover:to-light hover:dark:to-dark-secondary hover:dark:text-black transition-colors dark:text-dark-text text-text;
+    @apply bg-gradient-to-br font-semibold from-secondary dark:from-dark-secondary dark:to-dark to-light hover:from-primary hover:dark:from-primary hover:to-primary-darker hover:dark:to-primary-darker hover:dark:text-black transition-colors dark:text-dark-text text-text;
   }
 }

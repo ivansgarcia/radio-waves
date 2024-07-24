@@ -9,6 +9,10 @@ import Header from '../components/Header';
 import { AnimatePresence, motion } from 'framer-motion';
 import BigLayout from "../components/BigLayout";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import BackgroundImage from "../../public/background.jpg"
+import BackgroundDarkImage from "../../public/background_dark.jpg"
 
 export default function Home() {
     const t = useTranslations('MainPage');
@@ -19,6 +23,10 @@ export default function Home() {
     const [favorites, setFavorites] = useState([]);
 
     const [pageDirection, setPageDirection] = useState();
+
+    const { theme } = useTheme();
+
+    console.log(theme);
 
     useEffect(() => {
         loadFavorites();
@@ -42,7 +50,8 @@ export default function Home() {
     };
 
     return (
-        <main className="flex flex-col items-center overflow-hidden">
+        <main className={`${theme === 'dark' ? 'bg-[url("/background_dark.jpg")]' : 'bg-[url("/background.jpg")]'} min-h-screen h-full bg-opacity-35 bg-cover flex flex-col items-center overflow-hidden`}>
+            {/* <Image priority src={theme === 'dark' ? BackgroundDarkImage : BackgroundImage } alt="background" className="object-cover opacity-35 h-screen fixed bg-repeat object-top -z-30" /> */}
             <Header />
             <div className="w-full md:hidden">
                 <Menu page={page} setPage={setPage} />

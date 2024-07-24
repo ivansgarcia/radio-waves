@@ -55,18 +55,18 @@ const Top = ({ setCurrentRadio }) => {
                 >
                     <motion.div
                         layout
-                        className="w-1/2 h-1 bg-text dark:bg-dark-text"
+                        className="w-1/2 h-1 bg-primary-darker dark:bg-primary"
                     ></motion.div>
                 </div>
                 <button
                     onClick={() => setMode('votes')}
-                    className={`${mode === 'clicks' ? 'text-dark-selected dark:text-dark-selected' : 'text-text dark:text-dark-text'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'clicks' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} text-2xl p-2 w-1/2 h-full`}
                 >
                     {t('top')}
                 </button>
                 <button
                     onClick={() => setMode('clicks')}
-                    className={`${mode === 'votes' ? 'text-dark-selected dark:text-dark-selected' : 'text-text dark:text-dark-text'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'votes' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} text-2xl p-2 w-1/2 h-full`}
                 >
                     {t('trending')}
                 </button>
@@ -105,7 +105,7 @@ const Top = ({ setCurrentRadio }) => {
                         initial={{ opacity: 0 }}
                         whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
                         whileTap={{ scale: 0.95 }}
-                        className="rounded-full bg-black font-semibold text-white h-24 w-24 mx-auto my-8"
+                        className="rounded-full bg-dark-secondary dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto my-8"
                         onClick={() => getTopList(true)}
                     >
                         {'+ ' + t('more')}

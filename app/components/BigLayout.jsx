@@ -31,13 +31,13 @@ const BigLayout = ({
                     <div className="flex w-64 ml-auto">
                         <button
                             onClick={() => page === 'top' && setPage('search')}
-                            className={`${page === 'top' && 'opacity-75'} w-1/2 text-center`}
+                            className={`${page === 'top' && 'text-selected'} w-1/2 text-center`}
                         >
                             {t('search')}
                         </button>
                         <button
                             onClick={() => page === 'search' && setPage('top')}
-                            className={`${page === 'search' && 'opacity-75'} w-1/2 text-center`}
+                            className={`${page === 'search' && 'text-selected'} w-1/2 text-center`}
                         >
                             {t('top')}
                         </button>

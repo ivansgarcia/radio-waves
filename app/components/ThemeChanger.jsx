@@ -1,22 +1,29 @@
-import { useTheme } from "next-themes"
-import React from 'react';
-import lightIcon from '../../public/sun.png'
-import darkIcon from '../../public/moon.png'
-import Image from "next/image";
+import { useTheme } from 'next-themes';
+import React, { useEffect, useState } from 'react';
+import lightIcon from '../../public/sun.png';
+import darkIcon from '../../public/moon.png';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const ThemeChanger = () => {
     const { theme, setTheme } = useTheme();
 
-    console.log(theme);
-
     return (
         <button
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className=""
+            onClick={() =>
+                setTheme(theme === 'dark' ? 'light' : 'dark')
+            }
         >
-            <Image src={theme === 'light' ? darkIcon : lightIcon} alt="light theme" width={30} height={30} />
+            <motion.div whileTap={{ scale: 0 }}>
+                <Image
+                    src={theme === 'light' ? darkIcon : lightIcon}
+                    alt="light theme"
+                    width={30}
+                    height={30}
+                />
+            </motion.div>
         </button>
-    )
-}
+    );
+};
 
-export default ThemeChanger
+export default ThemeChanger;

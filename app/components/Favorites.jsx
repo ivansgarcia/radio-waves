@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import starLightIcon from '../../public/star_light.png';
-import starIcon from '../../public/star.png';
+import starDarkIcon from '../../public/star_dark.png';
 import removeIcon from '../../public/star_cross.png';
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
@@ -21,11 +21,11 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) =
         <section className={`flex flex-col w-full gap-8 p-2 md:p-4 ${currentRadio ? 'pb-64' : 'pb-32'}`}>
             <div className="flex items-start">
                 <Image
-                    className="-mr-2 opacity-30 -rotate-12"
-                    src={theme === 'dark' ? starLightIcon : starIcon}
+                    className="-mr-2 -rotate-12"
+                    src={theme === 'dark' ? starDarkIcon : starLightIcon}
                     alt="favorites"
-                    width={75}
-                    height={75}
+                    width={70}
+                    height={70}
                 />
                 <h3 className="m-4 z-20 text-4xl font-semibold text-primary-darker dark:text-primary">
                 {t('favorites')}
