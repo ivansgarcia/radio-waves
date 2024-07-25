@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import starLightIcon from '../../public/star_light.png';
 import starDarkIcon from '../../public/star_dark.png';
 import removeIcon from '../../public/star_cross.png';
@@ -24,33 +24,33 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) =
                     className="-mr-2 -rotate-12"
                     src={theme === 'dark' ? starDarkIcon : starLightIcon}
                     alt="favorites"
-                    width={70}
-                    height={70}
+                    width={50}
+                    height={50}
                 />
-                <h3 className="m-4 z-20 text-4xl font-semibold text-primary-darker dark:text-primary">
+                <h3 className="m-4 z-20 text-3xl font-semibold text-primary-darker dark:text-primary">
                 {t('favorites')}
                 </h3>
             </div>
-            <ul className="flex flex-col gap-4 md:w-full mx-auto">
+            <ul className="grid grid-cols-2 justify-items-center">
                 {favorites?.map((fav, index) => (
                     <li
-                        className="element w-full justify-around flex items-center"
+                        className="rounded-lg w-full"
                         key={index}
                     >
                         <button
-                            className="flex items-center gap-4 w-full p-4"
+                            className="group w-full flex flex-col items-center gap-4 px-2 py-4 hover:shadow-xl hover:bg-gradient-to-br from-primary to-primary-darker hover:dark:text-text"
                             onClick={() => setCurrentRadio(fav)}
                         >
                             <img
-                                className="rounded-full"
+                                className="sm:w-20"
                                 src={fav.favicon ? fav.favicon : '/on_air.png'}
                                 alt={fav.name}
-                                width={40}
-                                height={40}
+                                width={80}
+                                height={80}
                             />
-                            <p className="flex-1">{fav.name}</p>
+                            <p className="font-semibold">{fav.name}</p>
                         </button>
-                        <button
+                        {/* <button
                             className="m-4"
                             onClick={() => removeFromFavorites(fav)}
                         >
@@ -60,7 +60,7 @@ const Favorites = ({ favorites, setFavorites, setCurrentRadio, currentRadio }) =
                                 width={30}
                                 height={30}
                             />
-                        </button>
+                        </button> */}
                     </li>
                 ))}
             </ul>

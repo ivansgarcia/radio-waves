@@ -6,6 +6,7 @@ import Spinner from "./Spinner";
 import { useLocale, useTranslations,  } from "next-intl";
 import countriesEng from '../../messages/countries_en.json';
 import countriesSpa from '../../messages/countries_es.json';
+import CustomSelect from "./CustomSelect";
 
 const Search = ({ setCurrentRadio }) => {
 
@@ -22,11 +23,12 @@ const Search = ({ setCurrentRadio }) => {
 
     const [radioList, setRadioList] = useState();
     const [radioName, setRadioName] = useState();
-    const [country, setCountry] = useState();
+    const [country, setCountry] = useState('ALL');
     const [loading, setLoading] = useState(false);
 
     const searchRadios = useCallback(
         async (more = false) => {
+            console.log(country);
             setLoading(true);
             !more && setRadioList();
             const url =
@@ -49,6 +51,7 @@ const Search = ({ setCurrentRadio }) => {
                         : response.data;
                     setRadioList(newRadioList);
                     setLoading(false);
+                    console.log(response);
                 })
                 .catch((e) => console.log(e));
         },
@@ -64,7 +67,7 @@ const Search = ({ setCurrentRadio }) => {
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 rounded-full md:w-2/3 bg-light dark:bg-dark-selected placeholder:dark:text-dark-secondary placeholder:text-dark-secondary"
+                    className="p-4 rounded-full md:w-2/3 bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -78,13 +81,14 @@ const Search = ({ setCurrentRadio }) => {
                     {t('search')}
                 </motion.button>
             </div>
-            <div className="flex flex-wrap gap-4 items-center">
-                <span className="text-text dark:text-dark-text">{t('select_country')}</span>
-                <select
+            <div className="min-w-48 w-full flex flex-wrap justify-center items-center gap-8">
+                <span className="text-text pt-2 dark:text-dark-text">{t('select_country')}</span>
+                <CustomSelect items={localeCountries} country={country} setCountry={setCountry}/>
+                {/* <select
                     value={country}
                     defaultValue={'all'}
                     onChange={(e) => setCountry(e.target.value.toUpperCase())}
-                    className="rounded-2xl p-2 bg-light dark:bg-dark-selected cursor-pointer"
+                    className="rounded-2xl p-2 bg-secondary dark:bg-dark-selected cursor-pointer"
                 >
                     <option defaultValue={true} value="all">
                         {t('all')}
@@ -94,7 +98,7 @@ const Search = ({ setCurrentRadio }) => {
                             {localeCountries[k].substring(0, 24)}
                         </option>
                     ))}
-                </select>
+                </select> */}
             </div>
             {loading && (<Spinner size='big'/>)}
             {radioList &&

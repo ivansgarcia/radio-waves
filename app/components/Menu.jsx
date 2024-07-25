@@ -17,7 +17,7 @@ const Menu = ({ page, setPage }) => {
             <div className={`${selectorPosition[page]} pointer-events-none absolute w-full h-full flex`}>
                 <motion.div
                     layout
-                    className="w-1/3 h-full rounded-3xl bg-white dark:bg-dark-secondary z-30"
+                    className="w-1/3 h-full rounded-3xl bg-secondary dark:bg-dark-secondary z-30"
                 ></motion.div>
             </div>
             <button
