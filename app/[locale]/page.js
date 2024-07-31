@@ -10,9 +10,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import BigLayout from "../components/BigLayout";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { iso31661 } from "iso-3166";
 
 export default function Home() {
+
+
     const t = useTranslations('MainPage');
 
     const [page, setPage] = useState();
@@ -30,8 +31,6 @@ export default function Home() {
         localStorage.setItem('theme', theme)
     }, [theme]);
     
-    console.log(currentTheme);
-
     useEffect(() => {
         loadFavorites();
     }, []);

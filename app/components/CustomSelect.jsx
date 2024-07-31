@@ -1,16 +1,32 @@
 import { useTranslations } from 'next-intl';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-const CustomSelect = ({ items, country, setCountry }) => {
+const CustomSelect = ({ items, searchRadios }) => {
 
     const [expanded, setExpanded] = useState(false);
+    const [country, setCountry] = useState('ALL');
     const t = useTranslations('MainPage');
+
+    const dropdown = useRef(null);
+
+    useEffect(() => {
+        if (!expanded) return;
+        function handleClick(event) {
+            if (dropdown.current && !dropdown.current.contains(event.target)) {
+                setExpanded(false);
+            }
+        }
+        window.addEventListener("mousedown", handleClick);
+        return () => {
+            window.removeEventListener("mousedown", handleClick);
+        };
+    }, [expanded]);
 
     return (
         <div class="relative mt-2 w-72">
             <button
                 onClick={() => setExpanded(!expanded)}
-                class="relative w-full rounded-full bg-secondary dark:bg-dark-selected py-2.5 pl-3 pr-10 text-left text-darker shadow-sm  focus:outline-none focus:ring-2 focus:ring-primary sm:leading-6"
+                class={`${expanded && 'pointer-events-none'} md:text-lg relative w-full rounded-full bg-secondary dark:bg-dark-selected py-2.5 pl-3 pr-10 text-left text-darker shadow-sm  focus:outline-none focus:ring-2 focus:ring-primary sm:leading-6`}
             >
                 <span class="flex items-center">
                     <span class="ml-3 block truncate">
@@ -32,12 +48,13 @@ const CustomSelect = ({ items, country, setCountry }) => {
                     </svg>
                 </span>
             </button>
-
-            <ul class={`${expanded ? 'block' : 'hidden'} text-dark absolute z-10 mt-3 max-h-96 w-full overflow-auto rounded-lg text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-light dark:bg-selected`}>
+            {expanded && 
+            <ul ref={dropdown} class={`text-dark absolute mt-3 max-h-96 w-full overflow-auto rounded-lg text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-light dark:bg-selected`}>
                 <li class="relative cursor-default select-none pl-4 pr-9 hover:bg-primary">
                     <button
                         onClick={() => {
                             setCountry('ALL');
+                            searchRadios(false, 'ALL')
                             setExpanded(false);
                         }}
                         class="w-full text-left py-2"
@@ -55,6 +72,7 @@ const CustomSelect = ({ items, country, setCountry }) => {
                         <button
                             onClick={() => {
                                 setCountry(k);
+                                searchRadios(false, k);
                                 setExpanded(false);
                             }}
                             class="w-full text-left py-2"
@@ -66,6 +84,7 @@ const CustomSelect = ({ items, country, setCountry }) => {
                     </li>
                 ))}
             </ul>
+            }
         </div>
     );
 };

@@ -8,6 +8,12 @@ import { motion } from 'framer-motion';
 const ThemeChanger = () => {
     const { theme, setTheme } = useTheme();
 
+    const [currentTheme, setCurrentTheme] = useState();
+
+    useEffect(() => {
+        setCurrentTheme(theme);
+    }, [theme]);
+
     return (
         <button
             onClick={() =>
@@ -16,7 +22,7 @@ const ThemeChanger = () => {
         >
             <motion.div whileTap={{ scale: 0 }}>
                 <Image
-                    src={theme === 'light' ? darkIcon : lightIcon}
+                    src={currentTheme === 'light' ? darkIcon : lightIcon}
                     alt="light theme"
                     width={30}
                     height={30}

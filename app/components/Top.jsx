@@ -49,7 +49,7 @@ const Top = ({ setCurrentRadio }) => {
 
     return (
         <section className="pb-64 w-full mx-auto max-w-2xl flex flex-col items-center gap-8 px-8 pt-8 text-text">
-            <div className="relative justify-around items-center flex w-full">
+            <div className="relative justify-around items-center flex w-full font-semibold text-2xl md:text-3xl">
                 <div
                     className={`${selectorPosition[mode]} absolute items-end flex w-full h-full pointer-events-none`}
                 >
@@ -60,13 +60,13 @@ const Top = ({ setCurrentRadio }) => {
                 </div>
                 <button
                     onClick={() => setMode('votes')}
-                    className={`${mode === 'clicks' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'clicks' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} p-2 w-1/2 h-full`}
                 >
                     {t('top')}
                 </button>
                 <button
                     onClick={() => setMode('clicks')}
-                    className={`${mode === 'votes' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} text-2xl p-2 w-1/2 h-full`}
+                    className={`${mode === 'votes' ? 'text-dark-selected dark:text-dark-selected' : 'text-primary-darker dark:text-primary'} p-2 w-1/2 h-full`}
                 >
                     {t('trending')}
                 </button>
@@ -93,7 +93,7 @@ const Top = ({ setCurrentRadio }) => {
                                         ? radio.name.substring(0, 24) + '...'
                                         : radio.name}
                                 </p>
-                                <p>{radio.countrycode}</p>
+                                <p className="text-sm">{radio.countrycode}</p>
                             </button>
                         </motion.li>
                     ))}

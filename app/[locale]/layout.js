@@ -5,7 +5,6 @@ import {
     unstable_setRequestLocale,
 } from 'next-intl/server';
 import { locales } from '@/config';
-import Presentation from '../components/Presentation';
 import { ThemeProvider } from 'next-themes';
 import { Open_Sans } from 'next/font/google';
 
@@ -20,6 +19,8 @@ export async function generateMetadata({ params: { locale } }) {
 
     return {
         title: t('title'),
+        description: t('description'),
+        manifest: "/manifest.json"
     };
 }
 
@@ -34,7 +35,6 @@ export default async function LocaleLayout({ children, params: { locale } }) {
             >
                 <NextIntlClientProvider messages={messages}>
                     <ThemeProvider attribute="class">
-                        <Presentation />
                         {children}
                     </ThemeProvider>
                 </NextIntlClientProvider>

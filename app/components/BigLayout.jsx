@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Favorites from './Favorites';
 import Search from './Search';
 import Top from './Top';
-import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import Presentation from './Presentation';
 
 const BigLayout = ({
     favorites,
@@ -11,13 +12,13 @@ const BigLayout = ({
     currentRadio,
     setCurrentRadio,
 }) => {
-
     const t = useTranslations('MainPage');
 
     const [page, setPage] = useState('search');
 
     return (
         <div className="hidden md:flex w-full pt-10">
+            <Presentation />
             <section className="border-r-4 border-primary-darker dark:border-primary h-min pb-8 max-w-xs">
                 <Favorites
                     favorites={favorites}
@@ -42,7 +43,11 @@ const BigLayout = ({
                             {t('top')}
                         </button>
                     </div>
-                    <motion.div layout transition="spring" className={`${page === 'search' ? 'mr-auto' : 'ml-auto'} h-1 my-2 w-1/2 bg-primary-darker dark:bg-primary`}></motion.div>
+                    <motion.div
+                        layout
+                        transition="spring"
+                        className={`${page === 'search' ? 'mr-auto' : 'ml-auto'} h-1 my-2 w-1/2 bg-primary-darker dark:bg-primary`}
+                    ></motion.div>
                 </nav>
                 {page === 'search' && (
                     <Search setCurrentRadio={setCurrentRadio} />

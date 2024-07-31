@@ -85,7 +85,7 @@ const AudioControls = ({ url, showError }) => {
 
 
     return (
-        <div className="bg-gradient-to-b min-w-[60%] w-full from-primary to-primary-darker px-2 rounded-full border-2 border-dark h-16 md:w-4/5 md:max-w-[50vw] p-1 flex justify-around  items-center">
+        <div className="bg-gradient-to-b min-w-[60%] w-full from-primary to-primary-darker px-2 rounded-full border-2 border-dark h-16 sm:w-4/5 md:max-w-[50vw] p-1 flex justify-around  items-center">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}
@@ -105,13 +105,13 @@ const AudioControls = ({ url, showError }) => {
                             alt={isPlaying ? 'pause' : 'play'}
                         />
                     </button>
-                    <div className="flex  flex-wrap gap-y-0 justify-center items-center gap-2 md:gap-4 font-semibold">
+                    <div className="flex  flex-wrap gap-y-0 justify-center items-center gap-1 md:gap-4 font-semibold">
                         <span className="text-lg w-12">{formatTimer(timer)}</span>
                         <Sleeper timer={timer} sleepTime={sleepTime} setSleepTime={setSleepTime}/>
                     </div>
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center w-[40%]">
                         <input
-                            className="accent-black w-20 sm:w-full"
+                            className="accent-black cursor-pointer w-2/3"
                             type="range"
                             min={0}
                             max={100}

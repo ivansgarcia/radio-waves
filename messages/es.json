@@ -16,9 +16,11 @@
         "remove_fav": "eliminar de favoritos",
         "add_fav": "añadir a favoritos",
         "voted": "Votado",
-        "too_many_votes": "Demasiados votos"
+        "too_many_votes": "Demasiados votos",
+        "added": "Añadido a Favs"
     },
     "LocaleLayout": {
-        "title": "next-intl example"
+        "title": "Radio Waves",
+        "description": "Explora emisoras de radio de todo el mundo"
     }
 }

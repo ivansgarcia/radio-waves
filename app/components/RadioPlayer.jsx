@@ -1,11 +1,10 @@
 import axios from 'axios';
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import closeIcon from '../../public/close.png';
 import removeIcon from '../../public/star_cross.png';
 import addIcon from '../../public/star_add.png';
 import likeIcon from '../../public/like.png';
-import onAirIcon from '../../public/on_air.png';
 import upIcon from '../../public/up.png';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
@@ -18,8 +17,11 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
     const isFavorite = !!favorites.find(
         (fav) => fav.stationuuid === radio.stationuuid
     );
+    
     const [voted, setVoted] = useState(false);
     const [voteResult, setVoteResult] = useState();
+    const [addToFavResult, setAddToFavResult] = useState(false);
+
     const [radioError, setRadioError] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
 
@@ -28,12 +30,20 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
     }, [radio]);
 
     const addToFavorites = () => {
+        console.log('added', radio);
+        console.log('adding');
         const newFavorites = [...favorites, radio];
         setFavorites(newFavorites);
+        setAddToFavResult(true);
+        setTimeout(() => {
+            setAddToFavResult(false);
+        }, 2000);
     };
 
     const removeFromFavorites = () => {
-        const newFavorites = favorites.filter((fav) => fav !== radio);
+        console.log('removing');
+        const newFavorites = favorites.filter((fav) => fav.stationuuid !== radio.stationuuid);
+        console.log(newFavorites);
         setFavorites(newFavorites);
     };
 
@@ -44,7 +54,6 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     radio.stationuuid
             )
             .then((r) => {
-                console.log(r);
                 r.data.includes('ok="true"')
                     ? showVoteResult('ok')
                     : showVoteResult('error');
@@ -60,13 +69,16 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
     };
 
     const showError = () => {
-        // alert('Error can`t load radio station');
         setRadioError(true);
         setTimeout(() => {
             setRadioError(false);
             setCurrentRadio();
         }, 3000);
     };
+
+    const pressAnim = {
+        animate: { scale: 0.2 }
+    }
 
     return (
         <motion.div
@@ -75,16 +87,20 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             className={`rounded-t-2xl mb-12 md:gap-2 md:mb-0 bg-gradient-to-b text-text from-primary to-primary-darker text-center p-2 md:p-4 flex flex-col items-center justify-around`}
         >
             <AnimatePresence>
-            {radioError && 
-                <motion.p
-                    animate={{ y: -110 , opacity: 1, transition: { delay: 1 } }}
-                    initial={{ y: 0, opacity: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="bg-black p-4 rounded-full absolute text-white text-lg border-4 border-red-600"
-                >
-                    {t('radio_error')}
-                </motion.p>
-            }
+                {radioError && (
+                    <motion.p
+                        animate={{
+                            y: -110,
+                            opacity: 1,
+                            transition: { delay: 1 },
+                        }}
+                        initial={{ y: 0, opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="bg-black p-4 rounded-full absolute text-white text-lg border-4 border-red-600"
+                    >
+                        {t('radio_error')}
+                    </motion.p>
+                )}
             </AnimatePresence>
             <nav
                 className={`flex items-center justify-between w-full ${!collapsed ? 'p-2 lg:p-4' : 'p-1 md:p-0'}`}
@@ -118,10 +134,10 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 </button>
             </nav>
             <div
-                className={`flex gap-8 items-center w-full justify-around lg:px-[12%]`}
+                className={`flex gap-8 items-center my-2 w-full justify-around lg:px-[12%]`}
             >
                 <h2
-                    className={`text-xl font-semibold mb-2 ${!collapsed ? 'md:text-4xl' : 'md:text-2xl'}`}
+                    className={`text-xl -my-1 font-semibold ${!collapsed ? 'md:text-4xl' : 'md:text-2xl'}`}
                 >
                     {radio.name}
                 </h2>
@@ -132,36 +148,53 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     className={`${collapsed ? 'hidden' : 'flex'} gap-4 md:gap-16 items-center`}
                 >
                     <motion.button
-                        whileTap={{ scale: 0.2 }}
-                        className="h-8 w-8 md:h-10 md:w-10"
-                        onClick={
-                            !isFavorite ? addToFavorites : removeFromFavorites
+                        whileTap="animate"
+                        className="h-8 w-8 md:h-10 md:w-10 relative p-0"
+                        onClick={() => 
+                            !isFavorite ? addToFavorites() : removeFromFavorites()
                         }
                     >
-                        <Image
-                            src={isFavorite ? removeIcon : addIcon}
-                            alt={
-                                isFavorite
-                                    ? t('remove_fav')
-                                    : t('add_fav')
-                            }
-                            width={50}
-                            height={50}
-                        />
+                        <motion.figure
+                            variants={pressAnim}
+                        >
+                            <Image
+                                src={isFavorite ? removeIcon : addIcon}
+                                alt={isFavorite ? t('remove_fav') : t('add_fav')}
+                                width={50}
+                                height={50}
+                            />
+                        </motion.figure>
+                        <AnimatePresence>
+                            {addToFavResult && (
+                                <motion.p
+                                    animate={{ y: -60, opacity: 1 }}
+                                    initial={{ y: 0, opacity: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    // onAnimationEnd={() => setAddToFavResult(false)}
+                                    className="absolute w-40 top-0 -right-12 p-4 text-lg bg-black rounded-full text-white"
+                                >
+                                    {t('added')}
+                                </motion.p>
+                            )}
+                        </AnimatePresence>
                     </motion.button>
 
                     <motion.button
-                        whileTap={{ scale: 0 }}
+                        whileTap="animate"
                         className={`${voted && 'invisible'} h-8 w-8 flex justify-center items-center md:h-10 md:w-10 relative`}
                         onClick={() => voteForStation()}
                     >
                         {!voteResult && (
-                            <Image
-                                src={likeIcon}
-                                alt="like"
-                                width={50}
-                                height={50}
-                            />
+                            <motion.figure
+                                variants={pressAnim}
+                            >
+                                <Image
+                                    src={likeIcon}
+                                    alt="like"
+                                    width={50}
+                                    height={50}
+                                />
+                            </motion.figure>
                         )}
                         <AnimatePresence>
                             {voteResult && (
@@ -207,7 +240,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                                         .map((tag, index) => (
                                             <li
                                                 key={index}
-                                                className="text-xs md:text-xl px-2 w-auto rounded bg-dark bg-opacity-30"
+                                                className="text-sm md:text-xl px-2 w-auto rounded bg-dark-secondary text-lighter"
                                             >
                                                 {tag}
                                             </li>
@@ -215,36 +248,39 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                                 </ul>
                             </div>
                         )}
-                        <Link
-                            className="items-center gap-4 block justify-center md:text-lg break-words w-2/5 text-blue-700 font-semibold"
-                            target="_blank"
-                            href={radio.homepage}
-                        >
-                            <span className="hidden font-normal italic md:block text-md text-black">
-                                {t('homepage')}:
-                            </span>
-                            {radio.homepage}
-                        </Link>
-                        <p className="text-sm md:text-lg font-semibold flex items-center gap-4 justify-center w-2/5">
-                            <span className="hidden italic md:block font-normal text-md">
-                                {t('country')}:
-                            </span>
-                            {radio.country.length > 32
-                                ? radio.country.substring(0, 32) + '...'
-                                : radio.country}
-                        </p>
-                        <p className="text-xs md:text-lg flex items-center font-semibold gap-4 justify-center w-2/5">
-                            <span className="hidden italic md:block text-md font-normal">
-                                Bitrate:
-                            </span>
-                            {radio.bitrate} kbps
-                        </p>
+                        {radio.homepage && (
+                            <Link
+                                className="items-center gap-4 block justify-center md:text-lg break-words w-2/5 text-blue-700 font-semibold"
+                                target="_blank"
+                                href={radio.homepage}
+                            >
+                                <span className="hidden font-normal italic md:block text-md text-black">
+                                    {t('homepage')}:
+                                </span>
+                                {radio.homepage}
+                            </Link>
+                        )}
+                        {radio.country && (
+                            <p className="text-sm md:text-lg font-semibold flex items-center gap-4 justify-center w-2/5">
+                                <span className="hidden italic md:block font-normal text-md">
+                                    {t('country')}:
+                                </span>
+                                {radio.country.length > 32
+                                    ? radio.country.substring(0, 32) + '...'
+                                    : radio.country}
+                            </p>
+                        )}
+                        {!!radio.bitrate && (
+                            <p className="text-xs md:text-lg flex items-center font-semibold gap-4 justify-center w-2/5">
+                                <span className="hidden italic md:block text-md font-normal">
+                                    Bitrate:
+                                </span>
+                                {radio.bitrate} kbps
+                            </p>
+                        )}
                     </div>
                 </div>
-                <AudioControls
-                    url={radio.url}
-                    showError={showError}
-                />
+                <AudioControls url={radio.url} showError={showError} />
             </div>
         </motion.div>
     );

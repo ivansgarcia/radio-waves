@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { iso31661 } from 'iso-3166';
 import React, { useCallback, useEffect, useState } from 'react';
 import Spinner from "./Spinner";
 import { useLocale, useTranslations,  } from "next-intl";
@@ -23,12 +22,11 @@ const Search = ({ setCurrentRadio }) => {
 
     const [radioList, setRadioList] = useState();
     const [radioName, setRadioName] = useState();
-    const [country, setCountry] = useState('ALL');
+    // const [country, setCountry] = useState('ALL');
     const [loading, setLoading] = useState(false);
 
     const searchRadios = useCallback(
-        async (more = false) => {
-            console.log(country);
+        async (more = false, country = 'ALL') => {
             setLoading(true);
             !more && setRadioList();
             const url =
@@ -39,7 +37,7 @@ const Search = ({ setCurrentRadio }) => {
                         name: radioName,
                         limit: 20,
                         hidebroken: true,
-                        countrycode: country === 'ALL' ? '' : country,
+                        countrycode: country === 'ALL' ? null : country,
                         order: 'votes',
                         reverse: true,
                         offset: more ? radioList.length : 0,
@@ -51,23 +49,23 @@ const Search = ({ setCurrentRadio }) => {
                         : response.data;
                     setRadioList(newRadioList);
                     setLoading(false);
-                    console.log(response);
                 })
                 .catch((e) => console.log(e));
         },
-        [radioList, country, radioName]
+        [radioList, radioName]
     );
 
-    useEffect(() => {
-        country && searchRadios();
-    }, [country]);
+    // useEffect(() => {
+    //     console.log('country change');
+    //     country && searchRadios(false, country);
+    // }, [country]);
 
     return (
-        <section className="flex flex-col w-full text-text items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
+        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 rounded-full md:w-2/3 bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="p-4 px-8 rounded-full lg:w-2/3 md:text-lg bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -81,24 +79,9 @@ const Search = ({ setCurrentRadio }) => {
                     {t('search')}
                 </motion.button>
             </div>
-            <div className="min-w-48 w-full flex flex-wrap justify-center items-center gap-8">
-                <span className="text-text pt-2 dark:text-dark-text">{t('select_country')}</span>
-                <CustomSelect items={localeCountries} country={country} setCountry={setCountry}/>
-                {/* <select
-                    value={country}
-                    defaultValue={'all'}
-                    onChange={(e) => setCountry(e.target.value.toUpperCase())}
-                    className="rounded-2xl p-2 bg-secondary dark:bg-dark-selected cursor-pointer"
-                >
-                    <option defaultValue={true} value="all">
-                        {t('all')}
-                    </option>
-                    {Object.keys(localeCountries).map((k, index) => (
-                        <option key={index} value={k}>
-                            {localeCountries[k].substring(0, 24)}
-                        </option>
-                    ))}
-                </select> */}
+            <div className="min-w-48 w-full flex flex-wrap gap-y-2 justify-center items-center gap-8">
+                <span className="text-text pt-2 md:text-lg dark:text-dark-text">{t('select_country')}</span>
+                <CustomSelect items={localeCountries} searchRadios={searchRadios}/>
             </div>
             {loading && (<Spinner size='big'/>)}
             {radioList &&
@@ -119,7 +102,7 @@ const Search = ({ setCurrentRadio }) => {
                                     className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 >
                                     <p className="px-4">{radio.name}</p>
-                                    <p className="text-xs">
+                                    <p className="text-sm">
                                         {radio.countrycode}
                                     </p>
                                 </button>
@@ -135,7 +118,7 @@ const Search = ({ setCurrentRadio }) => {
                     initial={{ opacity: 0 }}
                     whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-dark-secondary dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto italic"
+                    className="rounded-full text-lg bg-dark dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto"
                     onClick={() => searchRadios(true)}
                 >
                     {'+ ' + t('more')}
