@@ -37,7 +37,7 @@ const Top = ({ setCurrentRadio }) => {
         },
         [mode, topList]
     );
-
+    
     useEffect(() => {
         getTopList();
     }, [mode]);
@@ -89,9 +89,7 @@ const Top = ({ setCurrentRadio }) => {
                                 onClick={() => setCurrentRadio(radio)}
                             >
                                 <p>
-                                    {radio.name.length > 24
-                                        ? radio.name.substring(0, 24) + '...'
-                                        : radio.name}
+                                    {radio.name.split(' ').slice(0, 7)}
                                 </p>
                                 <p className="text-sm">{radio.countrycode}</p>
                             </button>

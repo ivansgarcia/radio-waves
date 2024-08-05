@@ -12,7 +12,7 @@ const Presentation = () => {
         <motion.div
             animate={{ opacity: 0, display: 'none' }}
             transition={{ delay: 3, duration: 0.5 }}
-            className="flex fixed bg-white dark:bg-dark top-0 items-center w-full h-screen z-40"
+            className="flex fixed bg-white dark:bg-dark top-0 items-center w-full h-screen z-50"
         >
             <motion.div
                 animate={{ x: '-100%'}}
@@ -31,7 +31,7 @@ const Presentation = () => {
                     <h1 className="text-8xl xl:text-9xl text-dark italic font-extrabold ">
                         RADIO
                     </h1>
-                    <h2 className="text-8xl xl:text-9xl drop-shadow-[0_0px_10px_rgba(255,255,255,0.5)] dark:drop-shadow-none text-white ml-24 font-bold">
+                    <h2 className="text-8xl xl:text-9xl  dark:drop-shadow-none text-white ml-24 font-bold">
                         Waves
                     </h2>
                 </div>

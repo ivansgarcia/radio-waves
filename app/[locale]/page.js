@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import BigLayout from "../components/BigLayout";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import SlidingText from "../components/SlidingText";
 
 export default function Home() {
 
@@ -55,6 +56,7 @@ export default function Home() {
     return (
         <main className={`${currentTheme === 'dark' ? 'bg-[url("/background_dark.jpg")]' : 'bg-[url("/background.jpg")]'} min-h-screen h-full bg-cover bg-white flex flex-col items-center overflow-hidden`}>
             <Header />
+            <SlidingText/>
             <div className="w-full md:hidden pt-12">
                 <Menu page={page} setPage={setPage} />
                 <AnimatePresence>
@@ -83,7 +85,7 @@ export default function Home() {
                             initial={{ x: pageDirection }}
                             transition={{ ease: 'easeOut' }}
                             exit={{ opacity: 0, position: 'absolute' }}
-                            className="absolute top-10 w-full"
+                            className="absolute top-10 w-full z-40"
                         >
                             <Search setCurrentRadio={setCurrentRadio} />
                         </motion.div>
@@ -110,7 +112,7 @@ export default function Home() {
                         initial={{ y: '100%' }}
                         exit={{ y: '100%' }}
                         transition={{ ease: 'easeOut' }}
-                        className="w-full fixed bottom-0 z-20"
+                        className="w-full fixed bottom-0 z-40"
                     >
                         <RadioPlayer
                             radio={currentRadio}

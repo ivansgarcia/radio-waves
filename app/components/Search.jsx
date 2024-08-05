@@ -22,7 +22,6 @@ const Search = ({ setCurrentRadio }) => {
 
     const [radioList, setRadioList] = useState();
     const [radioName, setRadioName] = useState();
-    // const [country, setCountry] = useState('ALL');
     const [loading, setLoading] = useState(false);
 
     const searchRadios = useCallback(
@@ -55,13 +54,8 @@ const Search = ({ setCurrentRadio }) => {
         [radioList, radioName]
     );
 
-    // useEffect(() => {
-    //     console.log('country change');
-    //     country && searchRadios(false, country);
-    // }, [country]);
-
     return (
-        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 px-8 pt-8">
+        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 px-8 pt-4 md:pt-8">
             <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
@@ -79,7 +73,7 @@ const Search = ({ setCurrentRadio }) => {
                     {t('search')}
                 </motion.button>
             </div>
-            <div className="min-w-48 w-full flex flex-wrap gap-y-2 justify-center items-center gap-8">
+            <div className="min-w-48 w-full flex flex-wrap gap-y-0 justify-center items-center gap-8">
                 <span className="text-text pt-2 md:text-lg dark:text-dark-text">{t('select_country')}</span>
                 <CustomSelect items={localeCountries} searchRadios={searchRadios}/>
             </div>
@@ -101,7 +95,7 @@ const Search = ({ setCurrentRadio }) => {
                                     onClick={() => setCurrentRadio(radio)}
                                     className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 >
-                                    <p className="px-4">{radio.name}</p>
+                                    <p className="px-4">{radio.name.split(' ').slice(0, 6)}</p>
                                     <p className="text-sm">
                                         {radio.countrycode}
                                     </p>

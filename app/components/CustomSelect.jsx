@@ -26,7 +26,7 @@ const CustomSelect = ({ items, searchRadios }) => {
         <div class="relative mt-2 w-72">
             <button
                 onClick={() => setExpanded(!expanded)}
-                class={`${expanded && 'pointer-events-none'} md:text-lg relative w-full rounded-full bg-secondary dark:bg-dark-selected py-2.5 pl-3 pr-10 text-left text-darker shadow-sm  focus:outline-none focus:ring-2 focus:ring-primary sm:leading-6`}
+                class={`${expanded && 'pointer-events-none'} md:text-lg relative w-full rounded-full bg-secondary dark:bg-dark-selected py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary sm:leading-6`}
             >
                 <span class="flex items-center">
                     <span class="ml-3 block truncate">
@@ -49,7 +49,7 @@ const CustomSelect = ({ items, searchRadios }) => {
                 </span>
             </button>
             {expanded && 
-            <ul ref={dropdown} class={`text-dark absolute mt-3 max-h-96 w-full overflow-auto rounded-lg text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-light dark:bg-selected`}>
+            <ul ref={dropdown} class={`text-dark absolute mt-3 max-h-[35vh] z-50 w-full overflow-auto rounded-lg text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none bg-light dark:bg-selected`}>
                 <li class="relative cursor-default select-none pl-4 pr-9 hover:bg-primary">
                     <button
                         onClick={() => {
@@ -64,21 +64,21 @@ const CustomSelect = ({ items, searchRadios }) => {
                         </span>
                     </button>
                 </li>
-                {Object.keys(items).map((k, index) => (
+                {Object.values(items).sort().map((k, index) => (
                     <li
                         key={index}
                         class="relative cursor-default pl-4 pr-9 hover:bg-primary rounded-xl"
                     >
                         <button
                             onClick={() => {
-                                setCountry(k);
-                                searchRadios(false, k);
+                                setCountry(Object.keys(items).find(key => items[key] === k));
+                                searchRadios(false, Object.keys(items).find(key => items[key] === k));
                                 setExpanded(false);
                             }}
                             class="w-full text-left py-2"
                         >
                             <span class="ml-3 block scroll truncate font-normal">
-                                {items[k]}
+                                {k}
                             </span>
                         </button>
                     </li>

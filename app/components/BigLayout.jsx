@@ -18,7 +18,7 @@ const BigLayout = ({
 
     return (
         <div className="hidden md:flex w-full pt-10">
-            <Presentation />
+            {/* <Presentation /> */}
             <section className="border-r-4 border-primary-darker dark:border-primary h-min pb-8 max-w-xs">
                 <Favorites
                     favorites={favorites}

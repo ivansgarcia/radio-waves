@@ -29,7 +29,9 @@ const Favorites = ({
     const t = useTranslations('MainPage');
 
     const removeFromFavorites = (radio) => {
-        const newFavorites = favorites.filter((fav) => fav.stationuuid !== radio.stationuuid);
+        const newFavorites = favorites.filter(
+            (fav) => fav.stationuuid !== radio.stationuuid
+        );
         setFavorites(newFavorites);
     };
 
@@ -49,40 +51,53 @@ const Favorites = ({
                     {t('favorites')}
                 </h3>
             </div>
-            <ul className="grid grid-cols-2 justify-items-center">
-                {favorites?.map((fav, index) => (
-                    <li className="rounded-lg w-full" key={index}>
-                        <motion.div
-                            initial="initial"
-                            animate="initial"
-                            whileHover="animate"
-                            className="group relative cursor-pointer w-full flex flex-col items-center gap-4 px-2 py-4 hover:shadow-xl hover:bg-gradient-to-br from-primary to-primary-darker hover:dark:text-text"
-                            onClick={() => setCurrentRadio(fav)}
-                        >
-                            <img
-                                className="sm:w-20"
-                                src={fav.favicon ? fav.favicon : '/on_air.png'}
-                                alt={fav.name}
-                                width={80}
-                                height={80}
-                            />
-                            <p className="font-semibold text-center">{fav.name}</p>
-                            <motion.button
-                                variants={removeAnimation}
-                                className="m-4 absolute -top-3 -right-3 p-1.5 bg-selected dark:bg-dark-selected rounded-full"
-                                onClick={(e) => {e.stopPropagation(); removeFromFavorites(fav)}}
+            {favorites.length ? (
+                <ul className="grid grid-cols-2 justify-items-center">
+                    {favorites?.map((fav, index) => (
+                        <li className="rounded-lg w-full" key={index}>
+                            <motion.div
+                                initial="initial"
+                                animate="initial"
+                                whileHover="animate"
+                                className="group relative cursor-pointer w-full flex flex-col items-center gap-4 px-2 py-4 hover:shadow-xl hover:bg-gradient-to-br from-primary to-primary-darker hover:dark:text-text"
+                                onClick={() => setCurrentRadio(fav)}
                             >
-                                <Image
-                                    src={removeIcon}
-                                    alt="remove"
-                                    width={30}
-                                    height={30}
+                                <img
+                                    className="sm:w-20"
+                                    src={
+                                        fav.favicon
+                                            ? fav.favicon
+                                            : '/on_air.png'
+                                    }
+                                    alt={fav.name}
+                                    width={80}
+                                    height={80}
                                 />
-                            </motion.button>
-                        </motion.div>
-                    </li>
-                ))}
-            </ul>
+                                <p className="font-semibold text-center">
+                                    {fav.name}
+                                </p>
+                                <motion.button
+                                    variants={removeAnimation}
+                                    className="m-4 absolute -top-3 -right-3 p-1.5 bg-selected dark:bg-dark-selected rounded-full"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeFromFavorites(fav);
+                                    }}
+                                >
+                                    <Image
+                                        src={removeIcon}
+                                        alt="remove"
+                                        width={30}
+                                        height={30}
+                                    />
+                                </motion.button>
+                            </motion.div>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="text-center text-xl my-24">{t('no_favs')}</p>
+            )}
         </section>
     );
 };

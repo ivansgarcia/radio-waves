@@ -17,7 +17,8 @@
         "add_fav": "añadir a favoritos",
         "voted": "Votado",
         "too_many_votes": "Demasiados votos",
-        "added": "Añadido a Favs"
+        "added": "Añadido a Favs",
+        "no_favs": "No se han guardado radios favoritas"
     },
     "LocaleLayout": {
         "title": "Radio Waves",

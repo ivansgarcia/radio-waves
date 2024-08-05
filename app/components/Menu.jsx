@@ -13,7 +13,7 @@ const Menu = ({ page, setPage }) => {
     };
 
     return (
-        <nav className="md:hidden fixed z-40 w-full bottom-0 left-0 h-12 flex justify-around items-center bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300">
+        <nav className="md:hidden fixed z-50 w-full bottom-0 left-0 h-12 flex justify-around items-center bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300">
             <div className={`${selectorPosition[page]} pointer-events-none absolute w-full h-full flex`}>
                 <motion.div
                     layout
