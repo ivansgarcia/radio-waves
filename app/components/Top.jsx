@@ -40,7 +40,7 @@ const Top = ({ setCurrentRadio }) => {
     
     useEffect(() => {
         getTopList();
-    }, [mode]);
+    }, [getTopList, mode]);
 
     const selectorPosition = {
         votes: 'justify-start',

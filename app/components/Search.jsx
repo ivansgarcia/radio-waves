@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Spinner from "./Spinner";
 import { useLocale, useTranslations,  } from "next-intl";
 import countriesEng from '../../messages/countries_en.json';

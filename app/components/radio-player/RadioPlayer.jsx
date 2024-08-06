@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AudioControls from './AudioControls';
+import AudioControls from '../AudioControls';
 import { useTranslations } from 'next-intl';
 import RadioPlayerHeader from './RadioPlayerHeader';
 import RadioPlayerInfo from './RadioPlayerInfo';
@@ -36,7 +36,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         }}
                         initial={{ y: 0, opacity: 0 }}
                         exit={{ opacity: 0 }}
-                        className="bg-black p-4 rounded-full absolute text-white text-lg border-4 border-red-600"
+                        className="bg-black p-4 z-50 rounded-full absolute text-white text-lg border-4 border-red-600"
                     >
                         {t('radio_error')}
                     </motion.p>
@@ -48,7 +48,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} flex gap-2 flex-wrap items-center w-full justify-center `}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} flex gap-2 relative flex-wrap items-center w-full justify-center `}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}

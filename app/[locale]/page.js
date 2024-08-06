@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import RadioPlayer from '../components/RadioPlayer';
+import RadioPlayer from '../components/radio-player/RadioPlayer';
 import Favorites from '../components/Favorites';
 import Menu from '../components/Menu';
 import Search from '../components/Search';
@@ -11,6 +11,9 @@ import BigLayout from "../components/BigLayout";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import SlidingText from "../components/SlidingText";
+import Image from "next/image";
+import backgroundDarkImage from '../../public/background_dark.jpg';
+import backgroundImage from '../../public/background.jpg';
 
 export default function Home() {
 
@@ -20,7 +23,7 @@ export default function Home() {
     const [page, setPage] = useState();
     const [currentRadio, setCurrentRadio] = useState();
 
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState();
 
     const [pageDirection, setPageDirection] = useState();
     const [currentTheme, setCurrentTheme] = useState();
@@ -37,7 +40,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        favorites.length &&
+        favorites?.length &&
             localStorage.setItem('favorites', JSON.stringify(favorites));
     }, [favorites]);
 
@@ -51,10 +54,16 @@ export default function Home() {
             (await JSON.parse(localStorage.getItem('favorites'))) ?? [];
         loadedFavorites?.length ? setPage('favs') : setPage('search');
         setFavorites(loadedFavorites);
-    };
+    };    
 
     return (
-        <main className={`${currentTheme === 'dark' ? 'bg-[url("/background_dark.jpg")]' : 'bg-[url("/background.jpg")]'} min-h-screen h-full bg-cover bg-white flex flex-col items-center overflow-hidden`}>
+        <main className={`min-h-screen h-full flex flex-col items-center overflow-hidden relative`}>
+            <Image 
+                src={currentTheme === 'dark' ? backgroundDarkImage : backgroundImage}
+                alt="background"
+                fill
+                className="object-cover -z-50"
+            />
             <Header />
             <SlidingText/>
             <div className="w-full md:hidden pt-12">

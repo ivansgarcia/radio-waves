@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import sleepIcon from '../../public/sleep.png';
 import sleepActiveIcon from '../../public/sleep_active.png';
 
@@ -16,26 +16,28 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
     };
     
     const increaseSleepTime = () => {
-        value === 5 ? setValue(0) : setValue(prev => prev + 1);
+        value === 5 ? handleSleeperChange(0) : handleSleeperChange(value + 1);
         controls.start({ opacity: [0, 1, 1, 0], transition: { duration: 2, times: [0, 0.2, 0.8, 1] }})
     }
-    
-    useEffect(() => {
+
+    const handleSleeperChange = (newValue) => {
+        setValue(newValue)
         const sleeperValues = [0, 900, 1800, 2700, 3600, 7200];
-        value ? setSleepTime(sleeperValues[value] + timer) : setSleepTime(0); 
-    }, [value]);
+        newValue ? setSleepTime(sleeperValues[newValue] + timer) : setSleepTime(0); 
+    }
 
     return (
         <div className="relative flex items-center gap-2">
             <motion.span animate={controls} className="absolute w-12 bottom-9 bg-black text-white -left-2 rounded-full">{!!sleepTime && formatTime[value]}</motion.span>
             <button
+                className="w-8 h-8 relative"
                 onClick={() => increaseSleepTime()}
             >
                 <Image
-                    className=""
+                    className="object-cover"
                     src={sleepTime ? sleepActiveIcon : sleepIcon}
-                    width={25}
-                    height={25}
+                    width={32}
+                    height={32}
                     alt="sleep time"
                 />
             </button>

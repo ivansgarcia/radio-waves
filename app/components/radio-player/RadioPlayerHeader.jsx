@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import SlidingText from "./SlidingText"
+import SlidingText from "../SlidingText"
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import removeIcon from '../../public/star_cross.png';
-import addIcon from '../../public/star_add.png';
-import likeIcon from '../../public/like.png';
+import removeIcon from '../../../public/star_cross.png';
+import addIcon from '../../../public/star_add.png';
+import likeIcon from '../../../public/like.png';
 import axios from "axios";
 
 const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
@@ -70,7 +70,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     return (
         <div
-                    className={`${collapsed ? 'my-1 md:w-64' : 'my-2 w-full'} flex gap-8 items-center flex-1 md:max-w-[80%] justify-around`}
+                    className={`${collapsed ? 'my-1 md:w-64' : 'my-1 w-full'} flex gap-8 items-center flex-1 md:max-w-[80%] justify-around`}
                 >
                     <SlidingText text={radio.name} collapsed={collapsed} />
                     <p

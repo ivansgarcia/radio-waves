@@ -22,7 +22,7 @@ const AudioControls = ({ url, showError }) => {
             audioRef.current?.pause();
             setSleepTime(0);
         }
-    }
+    }    
 
     const toggleAudio = () => {
         isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
@@ -99,8 +99,9 @@ const AudioControls = ({ url, showError }) => {
                 <>
                     <button className="w-10 h-10 relative min-w-10" onClick={toggleAudio}>
                         <Image
-                            className="object-content"
-                            fill
+                            className="object-cover"
+                            width={40}
+                            height={40}
                             src={isPlaying ? pauseIcon : playIcon}
                             alt={isPlaying ? 'pause' : 'play'}
                         />
@@ -126,8 +127,9 @@ const AudioControls = ({ url, showError }) => {
                             onClick={() => handleMuteChange()}
                         >
                             <Image
-                                className="object-contain"
-                                fill
+                                className="object-cover"
+                                width={24}
+                                height={24}
                                 src={muted ? mutedIcon : soundIcon}
                                 alt={muted ? 'muted' : 'sound'}
                             />
