@@ -18,7 +18,9 @@
         "voted": "Voted",
         "too_many_votes": "Too many votes",
         "added": "Added to Favs",
-        "no_favs": "No Favorites Added"
+        "no_favs": "No Favorites Added",
+        "search_help": "Type the radio station name in the search field",
+        "top_help": "These are the most voted and clicked radio stations of the world"
     },
     "LocaleLayout": {
         "title": "Radio Waves",

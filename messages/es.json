@@ -3,7 +3,7 @@
         "favorites": "Favoritos",
         "search": "Buscar",
         "top": "Top",
-        "search_for": "buscar...",
+        "search_for": "buscar emisora...",
         "select_country": "Por País",
         "all": "Todos",
         "votes": "Votos",
@@ -18,7 +18,9 @@
         "voted": "Votado",
         "too_many_votes": "Demasiados votos",
         "added": "Añadido a Favs",
-        "no_favs": "No se han guardado radios favoritas"
+        "no_favs": "No se han guardado radios favoritas",
+        "search_help": "Introduce el nombre de la emisora de radio en el campo buscar",
+        "top_help": "Las emisoras más votadas y escuchadas por los usuarios"
     },
     "LocaleLayout": {
         "title": "Radio Waves",

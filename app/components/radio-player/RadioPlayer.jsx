@@ -57,7 +57,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     setFavorites={setFavorites}
                 />
                 <div
-                    className={`${collapsed ? 'flex-row md:max-w-[70%]' : 'flex-col md:max-w-[80%]'} flex w-full  justify-center gap-[5%] items-center`}
+                    className={`${collapsed ? 'flex-row md:max-w-[70%]' : 'flex-col md:max-w-[80%] my-4'} flex w-full  justify-center gap-[5%] items-center`}
                 >
                     <RadioPlayerInfo collapsed={collapsed} radio={radio} />
                     <AudioControls url={radio.url} showError={showError} />

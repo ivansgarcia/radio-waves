@@ -85,7 +85,7 @@ const AudioControls = ({ url, showError }) => {
 
 
     return (
-        <div className="bg-gradient-to-b min-w-[60%] sm:max-w-[70%] from-primary to-primary-darker px-2 rounded-full border-2 border-dark h-16 w-full p-1 flex justify-around  items-center">
+        <div className="my-4 bg-gradient-to-b min-w-[60%] sm:max-w-[70%] from-primary to-primary-darker px-2 rounded-full border-2 border-dark h-16 w-full p-1 flex justify-around  items-center">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}

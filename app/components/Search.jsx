@@ -1,20 +1,19 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import React, { useCallback, useState } from 'react';
-import Spinner from "./Spinner";
-import { useLocale, useTranslations,  } from "next-intl";
+import Spinner from './Spinner';
+import { useLocale, useTranslations } from 'next-intl';
 import countriesEng from '../../messages/countries_en.json';
 import countriesSpa from '../../messages/countries_es.json';
-import CustomSelect from "./CustomSelect";
+import CustomSelect from './CustomSelect';
 
 const Search = ({ setCurrentRadio }) => {
-
     const locale = useLocale();
 
     const countries = {
-        "en": countriesEng,
-        "es": countriesSpa
-    }
+        en: countriesEng,
+        es: countriesSpa,
+    };
 
     const localeCountries = countries[locale];
 
@@ -25,12 +24,12 @@ const Search = ({ setCurrentRadio }) => {
     const [loading, setLoading] = useState(false);
 
     const searchRadios = useCallback(
-        async (more = false, country = 'ALL') => {
+        (more = false, country = 'ALL') => {
             setLoading(true);
             !more && setRadioList();
             const url =
                 'http://all.api.radio-browser.info/json/stations/search';
-            await axios
+            axios
                 .get(url, {
                     params: {
                         name: radioName,
@@ -55,11 +54,11 @@ const Search = ({ setCurrentRadio }) => {
     );
 
     return (
-        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 px-8 pt-4 md:pt-8">
-            <div className="flex w-full justify-center items-center flex-wrap gap-4 md:gap-8">
+        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 pt-4 md:pt-8">
+            <div className="flex w-full px-4 lg:w-4/5 justify-center items-center flex-wrap gap-4 md:gap-8">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 px-8 rounded-full lg:w-2/3 md:text-lg bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="p-4 flex-1 px-8 rounded-full md:w-2/3 md:text-lg bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -73,14 +72,18 @@ const Search = ({ setCurrentRadio }) => {
                     {t('search')}
                 </motion.button>
             </div>
-            <div className="min-w-48 w-full flex flex-wrap gap-y-0 justify-center items-center gap-8">
-                <span className="text-text pt-2 md:text-lg dark:text-dark-text">{t('select_country')}</span>
-                <CustomSelect items={localeCountries} searchRadios={searchRadios}/>
+            <div className="min-w-48 w-full px-4 flex flex-wrap gap-y-0 justify-center items-center gap-8">
+                <span className="text-text pt-2 md:text-lg dark:text-dark-text">
+                    {t('select_country')}
+                </span>
+                <CustomSelect
+                    items={localeCountries}
+                    searchRadios={searchRadios}
+                />
             </div>
-            {loading && (<Spinner size='big'/>)}
             {radioList &&
                 (!!radioList.length ? (
-                    <ul className="flex w-full max-w-xl h-full flex-col gap-2">
+                    <ul className="flex w-full max-w-xl h-full flex-col gap-2 px-8">
                         {radioList.map((radio, index) => (
                             <motion.li
                                 animate={{ y: 0, opacity: 1 }}
@@ -95,7 +98,9 @@ const Search = ({ setCurrentRadio }) => {
                                     onClick={() => setCurrentRadio(radio)}
                                     className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 >
-                                    <p className="px-4">{radio.name.split(' ').slice(0, 6)}</p>
+                                    <p className="px-4">
+                                        {radio.name.split(' ').slice(0, 6)}
+                                    </p>
                                     <p className="text-sm">
                                         {radio.countrycode}
                                     </p>
@@ -104,19 +109,28 @@ const Search = ({ setCurrentRadio }) => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-text dark:dark-text">{t('no_results')}</p>
+                    <p className="text-text dark:dark-text">
+                        {t('no_results')}
+                    </p>
                 ))}
-            {radioList?.length >= 20 && (
-                <motion.button
-                    whileInView={{ opacity: 1 , transition: { delay: 0.1, duration: 0.5 }}}
-                    initial={{ opacity: 0 }}
-                    whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
-                    whileTap={{ scale: 0.95 }}
-                    className="rounded-full text-lg bg-dark dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto"
-                    onClick={() => searchRadios(true)}
-                >
-                    {'+ ' + t('more')}
-                </motion.button>
+            {loading ? (
+                <Spinner size="big" />
+            ) : (
+                radioList?.length >= 20 && (
+                    <motion.button
+                        whileInView={{
+                            opacity: 1,
+                            transition: { delay: 0.1, duration: 0.5 },
+                        }}
+                        initial={{ opacity: 0 }}
+                        whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
+                        whileTap={{ scale: 0.95 }}
+                        className="rounded-full text-lg bg-dark dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto"
+                        onClick={() => searchRadios(true)}
+                    >
+                        {'+ ' + t('more')}
+                    </motion.button>
+                )
             )}
         </section>
     );

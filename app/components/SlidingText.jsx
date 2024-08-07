@@ -10,8 +10,8 @@ const SlidingText = ({ text, collapsed }) => {
 
     return (
         <div
-            className={`max-w-48
-            min-w-72 ${collapsed ? 'md:max-w-96' : 'md:max-w-[450px]'} flex overflow-hidden text-2xl md:text-3xl font-semibold relative`}
+            className={`w-72
+            lg:w-96 flex overflow-hidden text-2xl md:text-3xl font-semibold relative`}
         >
             <motion.p
                 className="whitespace-nowrap w-full"

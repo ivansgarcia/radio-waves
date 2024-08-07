@@ -19,7 +19,7 @@ const BigLayout = ({
     return (
         <div className="hidden md:flex w-full pt-10">
             <Presentation />
-            <section className="border-r-4 border-primary-darker dark:border-primary h-min pb-8 max-w-xs">
+            <section className="border-r-4 min-w-64 border-primary-darker dark:border-primary h-min pb-8 max-w-xs">
                 <Favorites
                     favorites={favorites}
                     setFavorites={setFavorites}
@@ -27,8 +27,12 @@ const BigLayout = ({
                     currentRadio={currentRadio}
                 />
             </section>
-            <section className="w-2/3 mx-8">
-                <nav className="m-8 ml-auto font-semibold w-min text-3xl text-primary-darker dark:text-primary">
+            <section className="px-8 mx-auto">
+                <div className="text-2xl text-center text-text dark:text-dark-text p-6">
+                    {page === 'search' && <p>{t('search_help')}</p>}
+                    {page === 'top' && <p>{t('top_help')}</p>}
+                </div>
+                <nav className="m-8 mb-4 ml-auto font-semibold w-min text-3xl text-primary-darker dark:text-primary">
                     <div className="flex w-64 ml-auto">
                         <button
                             onClick={() => page === 'top' && setPage('search')}

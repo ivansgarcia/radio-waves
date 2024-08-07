@@ -11,7 +11,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
     return (
         <div className="flex flex-col md:flex-row gap-2 justify-center md:m-2 xl:gap-8 items-center">
             <motion.figure
-                className={`${collapsed ? 'p-0' : 'p-8 md:p-2'}`}
+                className={`${collapsed ? 'p-0' : 'p-8 -m-6 md:p-2 md:-m-2'}`}
                 animate={collapsed ? { width: 75 } : { width: 200 }}
             >
                 <Image 

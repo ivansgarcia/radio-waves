@@ -35,6 +35,9 @@ const Favorites = ({
         setFavorites(newFavorites);
     };
 
+    console.log(favorites);
+    
+
     return (
         <section
             className={`flex flex-col max-w-lg mx-auto w-full gap-8 p-2 md:p-4 ${currentRadio ? 'pb-64' : 'pb-32'}`}
@@ -53,7 +56,7 @@ const Favorites = ({
             </div>
             {favorites &&
                 (favorites?.length ? (
-                    <ul className="grid grid-cols-2 justify-items-center">
+                    <ul className={`grid ${favorites.length > 1 && 'grid-cols-2'} justify-items-center`}>
                         {favorites?.map((fav, index) => (
                             <li className="rounded-lg w-full" key={index}>
                                 <motion.div
@@ -70,7 +73,7 @@ const Favorites = ({
                                                 ? fav.favicon
                                                 : '/on_air.png'
                                         }
-                                        alt={fav.name}
+                                        alt="favorite logo"
                                         width={80}
                                         height={80}
                                     />

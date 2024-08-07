@@ -12,9 +12,9 @@ const Top = ({ setCurrentRadio }) => {
     const [loading, setLoading] = useState(false);
 
     const getTopList = useCallback(
-        async (more = false) => {
+        (list = []) => {
             setLoading(true);
-            !more && setTopList();
+            !list.length && setTopList();
             const url = {
                 votes: 'http://de1.api.radio-browser.info/json/stations/topvote',
                 clicks: 'http://de1.api.radio-browser.info/json/stations/lastclick',
@@ -24,23 +24,21 @@ const Top = ({ setCurrentRadio }) => {
                     params: {
                         limit: 20,
                         hidebroken: true,
-                        offset: more ? topList.length : 0,
+                        offset: list.length,
                     },
                 })
                 .then((result) => {
-                    const newTopList = more
-                        ? topList.concat(result.data)
-                        : result.data;
+                    const newTopList = list.concat(result.data);
                     setTopList(newTopList);
                     setLoading(false);
                 });
         },
-        [mode, topList]
+        [mode]
     );
-    
+
     useEffect(() => {
         getTopList();
-    }, [getTopList, mode]);
+    }, [getTopList]);
 
     const selectorPosition = {
         votes: 'justify-start',
@@ -71,7 +69,6 @@ const Top = ({ setCurrentRadio }) => {
                     {t('trending')}
                 </button>
             </div>
-            {loading && <Spinner size="big" />}
             {!!topList?.length && (
                 <ul className="flex flex-col gap-2 w-full max-w-xl">
                     {topList.map((radio, index) => (
@@ -88,27 +85,29 @@ const Top = ({ setCurrentRadio }) => {
                                 className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
                                 onClick={() => setCurrentRadio(radio)}
                             >
-                                <p>
-                                    {radio.name.split(' ').slice(0, 7)}
-                                </p>
+                                <p>{radio.name.split(' ').slice(0, 7)}</p>
                                 <p className="text-sm">{radio.countrycode}</p>
                             </button>
                         </motion.li>
                     ))}
-                    <motion.button
-                        whileInView={{
-                            opacity: 1,
-                            transition: { delay: 0.1, duration: 0.5 },
-                        }}
-                        initial={{ opacity: 0 }}
-                        whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
-                        whileTap={{ scale: 0.95 }}
-                        className="rounded-full bg-dark-secondary dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto my-8"
-                        onClick={() => getTopList(true)}
-                    >
-                        {'+ ' + t('more')}
-                    </motion.button>
                 </ul>
+            )}
+            {loading ? (
+                <Spinner size="big" />
+            ) : (
+                <motion.button
+                    whileInView={{
+                        opacity: 1,
+                        transition: { delay: 0.1, duration: 0.5 },
+                    }}
+                    initial={{ opacity: 0 }}
+                    whileHover={{ boxShadow: '0 5px 20px #4E4E4E80' }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-full bg-dark-secondary dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto my-8"
+                    onClick={() => getTopList(topList)}
+                >
+                    {'+ ' + t('more')}
+                </motion.button>
             )}
         </section>
     );
