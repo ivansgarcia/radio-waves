@@ -7,17 +7,15 @@ import Search from '../components/Search';
 import Top from '../components/Top';
 import Header from '../components/Header';
 import { AnimatePresence, motion } from 'framer-motion';
-import BigLayout from "../components/BigLayout";
-import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
-import SlidingText from "../components/SlidingText";
-import Image from "next/image";
+import BigLayout from '../components/BigLayout';
+import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
+import SlidingText from '../components/SlidingText';
+import Image from 'next/image';
 import backgroundDarkImage from '../../public/background_dark.jpg';
 import backgroundImage from '../../public/background.jpg';
 
 export default function Home() {
-
-
     const t = useTranslations('MainPage');
 
     const [page, setPage] = useState();
@@ -26,15 +24,9 @@ export default function Home() {
     const [favorites, setFavorites] = useState();
 
     const [pageDirection, setPageDirection] = useState();
-    const [currentTheme, setCurrentTheme] = useState();
 
     const { theme } = useTheme();
-    
-    useEffect(() => {
-        setCurrentTheme(theme);
-        localStorage.setItem('theme', theme)
-    }, [theme]);
-    
+
     useEffect(() => {
         loadFavorites();
     }, []);
@@ -54,19 +46,21 @@ export default function Home() {
             (await JSON.parse(localStorage.getItem('favorites'))) ?? [];
         loadedFavorites?.length ? setPage('favs') : setPage('search');
         setFavorites(loadedFavorites);
-    };    
+    };
 
     return (
-        <main className={`min-h-screen h-full flex flex-col items-center overflow-hidden relative`}>
-            <Image 
-                src={currentTheme === 'dark' ? backgroundDarkImage : backgroundImage}
+        <main
+            className={`relative flex h-full min-h-screen flex-col items-center overflow-hidden`}
+        >
+            <Image
+                src={theme === 'dark' ? backgroundDarkImage : backgroundImage}
                 alt="background"
                 fill
-                className="object-cover -z-50"
+                className="-z-50 object-cover"
             />
             <Header />
-            <SlidingText/>
-            <div className="w-full md:hidden pt-12">
+            <SlidingText />
+            <div className="w-full pt-12 md:hidden">
                 <Menu page={page} setPage={setPage} />
                 <AnimatePresence>
                     {page === 'favs' && (
@@ -82,7 +76,6 @@ export default function Home() {
                                 setFavorites={setFavorites}
                                 setCurrentRadio={setCurrentRadio}
                                 currentRadio={currentRadio}
-
                             />
                         </motion.div>
                     )}
@@ -90,11 +83,11 @@ export default function Home() {
                 <AnimatePresence>
                     {page === 'search' && (
                         <motion.div
-                            animate={{ x: 0, position: "relative" }}
+                            animate={{ x: 0, position: 'relative' }}
                             initial={{ x: pageDirection }}
                             transition={{ ease: 'easeOut' }}
                             exit={{ opacity: 0, position: 'absolute' }}
-                            className="absolute top-10 w-full z-40"
+                            className="absolute top-10 z-40 w-full"
                         >
                             <Search setCurrentRadio={setCurrentRadio} />
                         </motion.div>
@@ -121,7 +114,7 @@ export default function Home() {
                         initial={{ y: '100%' }}
                         exit={{ y: '100%' }}
                         transition={{ ease: 'easeOut' }}
-                        className="w-full fixed bottom-0 z-40"
+                        className="fixed bottom-0 z-40 w-full"
                     >
                         <RadioPlayer
                             radio={currentRadio}
@@ -133,10 +126,11 @@ export default function Home() {
                 )}
             </AnimatePresence>
             <BigLayout
-            favorites={favorites}
-            setFavorites={setFavorites}
-            currentRadio={currentRadio}
-            setCurrentRadio={setCurrentRadio}/>
+                favorites={favorites}
+                setFavorites={setFavorites}
+                currentRadio={currentRadio}
+                setCurrentRadio={setCurrentRadio}
+            />
         </main>
     );
 }

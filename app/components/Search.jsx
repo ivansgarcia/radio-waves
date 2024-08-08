@@ -54,11 +54,11 @@ const Search = ({ setCurrentRadio }) => {
     );
 
     return (
-        <section className="flex flex-col w-full text-darker items-center gap-8 md:gap-8 pb-64 pt-4 md:pt-8">
-            <div className="flex w-full px-4 lg:w-4/5 justify-center items-center flex-wrap gap-4 md:gap-8">
+        <section className="flex w-full flex-col items-center gap-8 pb-64 pt-4 text-darker md:gap-8 md:pt-8">
+            <div className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5">
                 <input
                     placeholder={t('search_for')}
-                    className="p-4 flex-1 px-8 rounded-full md:w-2/3 md:text-lg bg-secondary dark:bg-dark-selected placeholder:dark:text-dark placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                    className={`flex-1 rounded-full bg-secondary p-4 px-8 placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected placeholder:dark:text-dark md:w-2/3 md:text-lg`}
                     type="text"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
@@ -66,14 +66,14 @@ const Search = ({ setCurrentRadio }) => {
                 <motion.button
                     whileHover={{ boxShadow: '0 5px 20px #FC900088' }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-gradient-to-b from-primary to-primary-darker text-dark text-lg font-semibold py-4 px-8 rounded-full"
+                    className="rounded-full bg-gradient-to-b from-primary to-primary-darker px-8 py-4 text-lg font-semibold text-dark"
                     onClick={() => searchRadios()}
                 >
                     {t('search')}
                 </motion.button>
             </div>
-            <div className="min-w-48 w-full px-4 flex flex-wrap gap-y-0 justify-center items-center gap-8">
-                <span className="text-text pt-2 md:text-lg dark:text-dark-text">
+            <div className="flex w-full min-w-48 flex-wrap items-center justify-center gap-8 gap-y-0 px-4">
+                <span className="pt-2 text-text dark:text-dark-text md:text-lg">
                     {t('select_country')}
                 </span>
                 <CustomSelect
@@ -83,7 +83,7 @@ const Search = ({ setCurrentRadio }) => {
             </div>
             {radioList &&
                 (!!radioList.length ? (
-                    <ul className="flex w-full max-w-xl h-full flex-col gap-2 px-8">
+                    <ul className="flex h-full w-full max-w-xl flex-col gap-2 px-8">
                         {radioList.map((radio, index) => (
                             <motion.li
                                 animate={{ y: 0, opacity: 1 }}
@@ -96,7 +96,7 @@ const Search = ({ setCurrentRadio }) => {
                             >
                                 <button
                                     onClick={() => setCurrentRadio(radio)}
-                                    className="element p-4 px-8 w-full flex gap-4 justify-between items-center"
+                                    className="element flex w-full items-center justify-between gap-4 p-4 px-8"
                                 >
                                     <p className="px-4">
                                         {radio.name.split(' ').slice(0, 6)}
@@ -109,7 +109,7 @@ const Search = ({ setCurrentRadio }) => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-text dark:dark-text">
+                    <p className="dark:dark-text text-text">
                         {t('no_results')}
                     </p>
                 ))}
@@ -125,7 +125,7 @@ const Search = ({ setCurrentRadio }) => {
                         initial={{ opacity: 0 }}
                         whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
                         whileTap={{ scale: 0.95 }}
-                        className="rounded-full text-lg bg-dark dark:bg-dark-selected font-bold text-white dark:text-darker h-24 w-24 mx-auto"
+                        className="mx-auto h-24 w-24 rounded-full bg-dark text-lg font-bold text-white dark:bg-dark-selected dark:text-darker"
                         onClick={() => searchRadios(true)}
                     >
                         {'+ ' + t('more')}

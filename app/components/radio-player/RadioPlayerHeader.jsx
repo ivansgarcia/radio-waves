@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import SlidingText from "../SlidingText"
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from 'react';
+import SlidingText from '../SlidingText';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import removeIcon from '../../../public/star_cross.png';
 import addIcon from '../../../public/star_add.png';
 import likeIcon from '../../../public/like.png';
-import axios from "axios";
+import axios from 'axios';
 
 const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
     const t = useTranslations('MainPage');
-    
+
     const [voted, setVoted] = useState(false);
     const [voteResult, setVoteResult] = useState();
     const [addToFavResult, setAddToFavResult] = useState(false);
@@ -70,85 +70,79 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     return (
         <div
-                    className={`${collapsed ? 'my-1 md:w-64' : 'my-1 w-full'} flex gap-8 items-center flex-1 md:max-w-[80%] justify-around`}
+            className={`${collapsed ? 'my-1 md:w-64' : 'my-1 w-full'} flex flex-1 items-center justify-around gap-2 md:max-w-[80%]`}
+        >
+            <SlidingText text={radio.name} collapsed={collapsed} />
+            <p
+                className={`hidden text-xl font-semibold ${!collapsed && 'md:block'}`}
+            >
+                {t('votes')}: {voted ? radio.votes + 1 : radio.votes}
+            </p>
+            <div
+                className={`${collapsed ? 'hidden' : 'flex'} items-center gap-4 md:gap-16`}
+            >
+                <motion.button
+                    whileTap="animate"
+                    className="relative h-8 w-8 md:h-10 md:w-10"
+                    onClick={() =>
+                        !isFavorite ? addToFavorites() : removeFromFavorites()
+                    }
                 >
-                    <SlidingText text={radio.name} collapsed={collapsed} />
-                    <p
-                        className={`hidden text-xl font-semibold ${!collapsed && 'md:block'}`}
-                    >
-                        {t('votes')}: {voted ? radio.votes + 1 : radio.votes}
-                    </p>
-                    <div
-                        className={`${collapsed ? 'hidden' : 'flex'} gap-4 md:gap-16 items-center`}
-                    >
-                        <motion.button
-                            whileTap="animate"
-                            className="h-8 w-8 md:h-10 md:w-10 relative"
-                            onClick={() =>
-                                !isFavorite
-                                    ? addToFavorites()
-                                    : removeFromFavorites()
-                            }
-                        >
-                            <motion.figure variants={pressAnim}>
-                                <Image
-                                    src={isFavorite ? removeIcon : addIcon}
-                                    alt={
-                                        isFavorite
-                                            ? t('remove_fav')
-                                            : t('add_fav')
-                                    }
-                                    width={50}
-                                    height={50}
-                                />
-                            </motion.figure>
-                            <AnimatePresence>
-                                {addToFavResult && (
-                                    <motion.p
-                                        animate={{ y: -60, opacity: 1 }}
-                                        initial={{ y: 0, opacity: 0 }}
-                                        exit={{ opacity: 0 }}
-                                        className="absolute w-40 top-0 -right-12 p-4 text-lg bg-black rounded-full text-white"
-                                    >
-                                        {t('added')}
-                                    </motion.p>
-                                )}
-                            </AnimatePresence>
-                        </motion.button>
+                    <motion.figure variants={pressAnim}>
+                        <Image
+                            src={isFavorite ? removeIcon : addIcon}
+                            alt={isFavorite ? t('remove_fav') : t('add_fav')}
+                            width={50}
+                            height={50}
+                        />
+                    </motion.figure>
+                    <AnimatePresence>
+                        {addToFavResult && (
+                            <motion.p
+                                animate={{ y: -60, opacity: 1 }}
+                                initial={{ y: 0, opacity: 0 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute -right-12 top-0 w-40 rounded-full bg-black p-4 text-lg text-white"
+                            >
+                                {t('added')}
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
+                </motion.button>
 
-                        <motion.button
-                            whileTap="animate"
-                            className={`${voted && 'invisible'} h-8 w-8 flex justify-center items-center md:h-10 md:w-10 relative`}
-                            onClick={() => voteForStation()}
-                        >
-                            {!voteResult && (
-                                <motion.figure variants={pressAnim}>
-                                    <Image
-                                        src={likeIcon}
-                                        alt="like"
-                                        width={50}
-                                        height={50}
-                                    />
-                                </motion.figure>
-                            )}
-                            <AnimatePresence>
-                                {voteResult && (
-                                    <motion.p
-                                        animate={{ y: -60, opacity: 1 }}
-                                        initial={{ y: 0, opacity: 0 }}
-                                        exit={{ opacity: 0 }}
-                                        className="absolute w-40 top-0 -right-12 p-4 text-lg bg-black rounded-full text-white"
-                                    >
-                                        {voteResult === 'ok'
-                                            ? t('voted')
-                                            : t('too_many_votes')}
-                                    </motion.p>
-                                )}
-                            </AnimatePresence>
-                        </motion.button>
-                    </div>
-                </div>
-    )
-}
+                <motion.button
+                    whileTap="animate"
+                    className={`${voted && 'invisible'} relative flex h-8 w-8 items-center justify-center md:h-10 md:w-10`}
+                    onClick={() => voteForStation()}
+                >
+                    {!voteResult && (
+                        <motion.figure variants={pressAnim}>
+                            <Image
+                                src={likeIcon}
+                                alt="like"
+                                width={50}
+                                height={50}
+                            />
+                        </motion.figure>
+                    )}
+                    <AnimatePresence>
+                        {voteResult && (
+                            <motion.p
+                                animate={{ y: -60, opacity: 1 }}
+                                initial={{ y: 0, opacity: 0 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute -right-12 top-0 w-40 rounded-full bg-black p-4 text-lg text-white"
+                            >
+                                {voteResult === 'ok'
+                                    ? t('voted')
+                                    : t('too_many_votes')}
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
+                </motion.button>
+            </div>
+        </div>
+    );
+};
 
-export default RadioPlayerHeader
+export default RadioPlayerHeader;

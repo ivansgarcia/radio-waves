@@ -13,15 +13,17 @@ const Menu = ({ page, setPage }) => {
     };
 
     return (
-        <nav className="md:hidden fixed z-50 w-full bottom-0 left-0 h-12 flex justify-around items-center bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300">
-            <div className={`${selectorPosition[page]} pointer-events-none absolute w-full h-full flex`}>
+        <nav className="fixed bottom-0 left-0 z-50 flex h-12 w-full items-center justify-around bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300 md:hidden">
+            <div
+                className={`${selectorPosition[page]} pointer-events-none absolute flex h-full w-full`}
+            >
                 <motion.div
                     layout
-                    className="w-1/3 h-full rounded-3xl bg-secondary dark:bg-dark-selected z-30"
+                    className="z-30 h-full w-1/3 rounded-3xl bg-secondary dark:bg-dark-selected"
                 ></motion.div>
             </div>
             <button
-                className={` w-1/3 flex justify-center rounded-3xl`}
+                className={`flex w-1/3 justify-center rounded-3xl`}
                 onClick={() => setPage('favs')}
             >
                 <Image
@@ -33,7 +35,7 @@ const Menu = ({ page, setPage }) => {
                 />
             </button>
             <button
-                className={` w-1/3 flex justify-center rounded-3xl`}
+                className={`flex w-1/3 justify-center rounded-3xl`}
                 onClick={() => setPage('search')}
             >
                 <Image
@@ -45,8 +47,11 @@ const Menu = ({ page, setPage }) => {
                 />
             </button>
             <button
-                className={`w-1/3 flex justify-center rounded-3xl`}
-                onClick={() => {setPage('top'); window.scrollTo(0, 0)}}
+                className={`flex w-1/3 justify-center rounded-3xl`}
+                onClick={() => {
+                    setPage('top');
+                    window.scrollTo(0, 0);
+                }}
             >
                 <Image
                     className="z-40"

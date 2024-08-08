@@ -10,11 +10,10 @@ const SlidingText = ({ text, collapsed }) => {
 
     return (
         <div
-            className={`w-72
-            lg:w-96 flex overflow-hidden text-2xl md:text-3xl font-semibold relative`}
+            className={`relative flex w-1/2 overflow-hidden text-2xl font-semibold md:w-96 md:text-3xl`}
         >
             <motion.p
-                className="whitespace-nowrap w-full"
+                className="w-full whitespace-nowrap"
                 animate={{
                     x: ['100%', '-200%'],
                     transition: {
@@ -30,7 +29,7 @@ const SlidingText = ({ text, collapsed }) => {
                 {text}
             </motion.p>
             <motion.p
-                className="whitespace-nowrap hidden absolute w-full"
+                className="absolute hidden w-full whitespace-nowrap"
                 animate={{
                     x: ['100%', '-200%'],
                     display: 'block',

@@ -2,14 +2,14 @@ import React from 'react';
 
 const Spinner = ({ size }) => {
     const spinnerSize = {
-        'small': 'w-8 h-8',
-        'big': 'w-12 h-12'
-    }
+        small: 'w-8 h-8',
+        big: 'w-12 h-12',
+    };
     return (
         <div role="status w-full h-full">
             <svg
                 aria-hidden="true"
-                class={`${spinnerSize[size]} m-8 text-text animate-spin dark:text-gray-600 fill-primary`}
+                class={`${spinnerSize[size]} m-8 animate-spin fill-primary text-text dark:text-gray-600`}
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

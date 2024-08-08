@@ -24,7 +24,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`rounded-t-2xl mb-12 gap-2 md:mb-0 bg-gradient-to-b text-text from-primary to-primary-darker text-center p-2 pb-4 md:p-4 flex flex-col items-center justify-around`}
+            className={`mb-12 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-gradient-to-b from-primary to-primary-darker p-2 pb-4 text-center text-text md:mb-0 md:p-4`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -36,7 +36,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         }}
                         initial={{ y: 0, opacity: 0 }}
                         exit={{ opacity: 0 }}
-                        className="bg-black p-4 z-50 rounded-full absolute text-white text-lg border-4 border-red-600"
+                        className="absolute z-50 rounded-full border-4 border-red-600 bg-black p-4 text-lg text-white"
                     >
                         {t('radio_error')}
                     </motion.p>
@@ -48,7 +48,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} flex gap-2 relative flex-wrap items-center w-full justify-center `}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap items-center justify-center gap-0`}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}
@@ -57,7 +57,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     setFavorites={setFavorites}
                 />
                 <div
-                    className={`${collapsed ? 'flex-row md:max-w-[70%]' : 'flex-col md:max-w-[80%] my-4'} flex w-full  justify-center gap-[5%] items-center`}
+                    className={`${collapsed ? 'flex-row md:max-w-[70%]' : 'my-4 flex-col md:max-w-[80%]'} flex w-full items-center justify-center gap-2 sm:gap-[5%]`}
                 >
                     <RadioPlayerInfo collapsed={collapsed} radio={radio} />
                     <AudioControls url={radio.url} showError={showError} />

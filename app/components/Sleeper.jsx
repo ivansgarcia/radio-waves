@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
+import { motion, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import sleepIcon from '../../public/sleep.png';
@@ -14,23 +14,33 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
         4: '1 h',
         5: '2 h',
     };
-    
+
     const increaseSleepTime = () => {
         value === 5 ? handleSleeperChange(0) : handleSleeperChange(value + 1);
-        controls.start({ opacity: [0, 1, 1, 0], transition: { duration: 2, times: [0, 0.2, 0.8, 1] }})
-    }
+        controls.start({
+            opacity: [0, 1, 1, 0],
+            transition: { duration: 2, times: [0, 0.2, 0.8, 1] },
+        });
+    };
 
     const handleSleeperChange = (newValue) => {
-        setValue(newValue)
+        setValue(newValue);
         const sleeperValues = [0, 900, 1800, 2700, 3600, 7200];
-        newValue ? setSleepTime(sleeperValues[newValue] + timer) : setSleepTime(0); 
-    }
+        newValue
+            ? setSleepTime(sleeperValues[newValue] + timer)
+            : setSleepTime(0);
+    };
 
     return (
         <div className="relative flex items-center gap-2">
-            <motion.span animate={controls} className="absolute w-12 bottom-9 bg-black text-white -left-2 rounded-full">{!!sleepTime && formatTime[value]}</motion.span>
+            <motion.span
+                animate={controls}
+                className="absolute -left-2 bottom-9 w-12 rounded-full bg-black text-white"
+            >
+                {!!sleepTime && formatTime[value]}
+            </motion.span>
             <button
-                className="w-8 h-8 relative"
+                className="relative h-8 w-8"
                 onClick={() => increaseSleepTime()}
             >
                 <Image

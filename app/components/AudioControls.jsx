@@ -5,7 +5,7 @@ import pauseIcon from '../../public/pause.png';
 import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
-import Sleeper from "./Sleeper";
+import Sleeper from './Sleeper';
 
 const AudioControls = ({ url, showError }) => {
     const audioRef = useRef();
@@ -22,7 +22,7 @@ const AudioControls = ({ url, showError }) => {
             audioRef.current?.pause();
             setSleepTime(0);
         }
-    }    
+    }
 
     const toggleAudio = () => {
         isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
@@ -43,7 +43,7 @@ const AudioControls = ({ url, showError }) => {
         if (!volume) {
             setMuted(true);
         } else {
-            setMuted(false)
+            setMuted(false);
         }
         audioRef.current.volume = volume / 100;
     }, [volume]);
@@ -62,30 +62,48 @@ const AudioControls = ({ url, showError }) => {
         let counter;
         if (isPlaying) {
             counter = setInterval(() => {
-                setTimer(prev => prev + 1)
+                setTimer((prev) => prev + 1);
             }, 1000);
-        } 
-        return () =>  {
-            clearInterval(counter);
         }
+        return () => {
+            clearInterval(counter);
+        };
     }, [isPlaying]);
 
     const formatTimer = (time) => {
         if (time < 60) {
             return time < 10 ? '00:0' + String(time) : '00:' + String(time);
         } else if (time < 3600) {
-            return (time / 60 < 10 ? '0' : '') + String(Math.floor(time / 60) + ':' + (time % 60 < 10 ? '0' : '') + time % 60);
+            return (
+                (time / 60 < 10 ? '0' : '') +
+                String(
+                    Math.floor(time / 60) +
+                        ':' +
+                        (time % 60 < 10 ? '0' : '') +
+                        (time % 60)
+                )
+            );
         } else {
             const hours = Math.floor(time / 3600);
-            const minutes = (time / 60) < 60 ? Math.floor(time / 60) : Math.floor((time / 60) % 60) ;
+            const minutes =
+                time / 60 < 60
+                    ? Math.floor(time / 60)
+                    : Math.floor((time / 60) % 60);
             const seconds = timer % 60;
-            return String(hours + ':' + (minutes < 10 ? '0' : '') + minutes + ':' +  (seconds < 10 ? '0' : '') + seconds)
+            return String(
+                hours +
+                    ':' +
+                    (minutes < 10 ? '0' : '') +
+                    minutes +
+                    ':' +
+                    (seconds < 10 ? '0' : '') +
+                    seconds
+            );
         }
-    }
-
+    };
 
     return (
-        <div className="my-4 bg-gradient-to-b min-w-[60%] sm:max-w-[70%] from-primary to-primary-darker px-2 rounded-full border-2 border-dark h-16 w-full p-1 flex justify-around  items-center">
+        <div className="my-4 flex h-16 w-full min-w-[60%] items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker p-1 px-2 sm:max-w-[70%]">
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}
@@ -97,7 +115,10 @@ const AudioControls = ({ url, showError }) => {
             ></audio>
             {isReady ? (
                 <>
-                    <button className="w-10 h-10 relative min-w-10" onClick={toggleAudio}>
+                    <button
+                        className="relative h-10 w-10 min-w-10"
+                        onClick={toggleAudio}
+                    >
                         <Image
                             className="object-cover"
                             width={40}
@@ -106,13 +127,19 @@ const AudioControls = ({ url, showError }) => {
                             alt={isPlaying ? 'pause' : 'play'}
                         />
                     </button>
-                    <div className="flex  flex-wrap gap-y-0 justify-center items-center gap-1 md:gap-4 font-semibold">
-                        <span className="text-lg w-12">{formatTimer(timer)}</span>
-                        <Sleeper timer={timer} sleepTime={sleepTime} setSleepTime={setSleepTime}/>
+                    <div className="flex flex-wrap items-center justify-center gap-1 gap-y-0 font-semibold md:gap-4">
+                        <span className="w-12 text-lg">
+                            {formatTimer(timer)}
+                        </span>
+                        <Sleeper
+                            timer={timer}
+                            sleepTime={sleepTime}
+                            setSleepTime={setSleepTime}
+                        />
                     </div>
-                    <div className="flex gap-2 items-center w-[40%]">
+                    <div className="flex w-[40%] items-center gap-2">
                         <input
-                            className="accent-black cursor-pointer w-2/3"
+                            className="w-2/3 cursor-pointer accent-black"
                             type="range"
                             min={0}
                             max={100}
@@ -123,7 +150,7 @@ const AudioControls = ({ url, showError }) => {
                             }
                         />
                         <button
-                            className="w-6 h-6 relative"
+                            className="relative h-6 w-6"
                             onClick={() => handleMuteChange()}
                         >
                             <Image
@@ -137,7 +164,7 @@ const AudioControls = ({ url, showError }) => {
                     </div>
                 </>
             ) : (
-                <Spinner size='small'/>
+                <Spinner size="small" />
             )}
         </div>
     );

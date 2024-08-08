@@ -20,7 +20,7 @@ export async function generateMetadata({ params: { locale } }) {
     return {
         title: t('title'),
         description: t('description'),
-        manifest: "/manifest.json"
+        manifest: '/manifest.json',
     };
 }
 
@@ -34,9 +34,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
                 className={`${openSans.className} h-full min-h-screen transition-colors duration-1000`}
             >
                 <NextIntlClientProvider messages={messages}>
-                    <ThemeProvider attribute="class">
-                        {children}
-                    </ThemeProvider>
+                    <ThemeProvider attribute="class">{children}</ThemeProvider>
                 </NextIntlClientProvider>
             </body>
         </html>
