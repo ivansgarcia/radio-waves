@@ -9,10 +9,10 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
     const t = useTranslations('MainPage');
 
     return (
-        <div className="flex flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8">
+        <div className={`${collapsed && 'w-1/4 sm:w-min -order-1'} flex flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}>
             <motion.figure
-                className={`${collapsed ? 'p-0' : '-m-6 p-8 md:-m-2 md:p-2'}`}
-                animate={collapsed ? { width: 75 } : { width: 200 }}
+                className={`${collapsed ? 'p-0' : '-m-10 p-10 md:-m-2 md:p-2'}`}
+                animate={collapsed ? { width: 50 } : { width: 200 }}
             >
                 <Image
                     src={radio.favicon ? radio.favicon : defaultRadioImage}

@@ -46,7 +46,7 @@ const Top = ({ setCurrentRadio }) => {
     };
 
     return (
-        <section className="mx-auto flex w-full max-w-2xl flex-col items-center gap-8 px-8 pb-64 pt-8 text-text">
+        <section className="mx-auto flex w-full max-w-2xl flex-col items-center gap-8 px-8 pb-80 pt-8 text-text">
             <div className="relative flex w-full items-center justify-around text-2xl font-semibold md:text-3xl">
                 <div
                     className={`${selectorPosition[mode]} pointer-events-none absolute flex h-full w-full items-end`}
@@ -82,10 +82,10 @@ const Top = ({ setCurrentRadio }) => {
                             key={index}
                         >
                             <button
-                                className="element flex w-full items-center justify-between gap-4 p-4 px-8"
+                                className="element flex w-full items-center justify-between gap-4 p-4"
                                 onClick={() => setCurrentRadio(radio)}
                             >
-                                <p>{radio.name.split(' ').slice(0, 7)}</p>
+                                <p className="break-all">{radio.name.split(' ').slice(0, 7)}</p>
                                 <p className="text-sm">{radio.countrycode}</p>
                             </button>
                         </motion.li>

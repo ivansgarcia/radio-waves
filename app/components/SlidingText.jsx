@@ -10,7 +10,7 @@ const SlidingText = ({ text, collapsed }) => {
 
     return (
         <div
-            className={`relative flex w-1/2 overflow-hidden text-2xl font-semibold md:w-96 md:text-3xl`}
+            className={`relative flex w-full overflow-hidden ${collapsed ? 'text-xl' : 'text-2xl'} font-semibold md:w-96 md:text-3xl`}
         >
             <motion.p
                 className="w-full whitespace-nowrap"

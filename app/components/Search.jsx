@@ -54,7 +54,7 @@ const Search = ({ setCurrentRadio }) => {
     );
 
     return (
-        <section className="flex w-full flex-col items-center gap-8 pb-64 pt-4 text-darker md:gap-8 md:pt-8">
+        <section className="flex w-full flex-col items-center gap-8 pb-80 pt-4 text-darker md:gap-8 md:pt-8">
             <div className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5">
                 <input
                     placeholder={t('search_for')}
@@ -96,9 +96,9 @@ const Search = ({ setCurrentRadio }) => {
                             >
                                 <button
                                     onClick={() => setCurrentRadio(radio)}
-                                    className="element flex w-full items-center justify-between gap-4 p-4 px-8"
+                                    className="element flex w-full items-center overflow-x-hidden justify-between gap-4 p-4"
                                 >
-                                    <p className="px-4">
+                                    <p className="px-4 break-all">
                                         {radio.name.split(' ').slice(0, 6)}
                                     </p>
                                     <p className="text-sm">

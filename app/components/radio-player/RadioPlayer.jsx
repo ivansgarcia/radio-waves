@@ -24,7 +24,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`mb-12 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-gradient-to-b from-primary to-primary-darker p-2 pb-4 text-center text-text md:mb-0 md:p-4`}
+            className={`mb-12 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-gradient-to-b from-primary to-primary-darker p-2 px-4 pb-4 text-center text-text md:mb-0 md:p-4`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -48,7 +48,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap items-center justify-center gap-0`}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap items-center justify-center sm:justify-around`}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}
@@ -56,12 +56,9 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                     favorites={favorites}
                     setFavorites={setFavorites}
                 />
-                <div
-                    className={`${collapsed ? 'flex-row md:max-w-[70%]' : 'my-4 flex-col md:max-w-[80%]'} flex w-full items-center justify-center gap-2 sm:gap-[5%]`}
-                >
-                    <RadioPlayerInfo collapsed={collapsed} radio={radio} />
-                    <AudioControls url={radio.url} showError={showError} />
-                </div>
+
+                <RadioPlayerInfo collapsed={collapsed} radio={radio} />
+                <AudioControls url={radio.url} showError={showError} />
             </div>
         </motion.div>
     );
