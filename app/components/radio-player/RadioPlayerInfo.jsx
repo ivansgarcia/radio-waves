@@ -9,7 +9,9 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
     const t = useTranslations('MainPage');
 
     return (
-        <div className={`${collapsed && 'w-1/4 sm:w-min -order-1'} flex flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}>
+        <div
+            className={`${collapsed && '-order-1 w-1/4 sm:w-min'} flex flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}
+        >
             <motion.figure
                 className={`${collapsed ? 'p-0' : '-m-10 p-10 md:-m-2 md:p-2'}`}
                 animate={collapsed ? { width: 50 } : { width: 200 }}
@@ -46,7 +48,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
                 )}
                 {radio.homepage && (
                     <Link
-                        className="block items-center justify-center gap-4 break-words font-semibold text-blue-700 md:text-lg"
+                        className="block items-center justify-center gap-4 break-words font-semibold text-blue md:text-lg"
                         target="_blank"
                         href={radio.homepage}
                     >

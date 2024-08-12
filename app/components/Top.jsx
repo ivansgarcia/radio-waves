@@ -85,7 +85,9 @@ const Top = ({ setCurrentRadio }) => {
                                 className="element flex w-full items-center justify-between gap-4 p-4"
                                 onClick={() => setCurrentRadio(radio)}
                             >
-                                <p className="break-all">{radio.name.split(' ').slice(0, 7)}</p>
+                                <p className="break-all">
+                                    {radio.name.split(' ').slice(0, 7)}
+                                </p>
                                 <p className="text-sm">{radio.countrycode}</p>
                             </button>
                         </motion.li>

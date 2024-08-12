@@ -17,7 +17,7 @@ const Header = () => {
         >
             <div className="flex w-full items-center justify-center gap-4 font-[800]">
                 <Image
-                    className="m-1 h-10 w-10 rounded-full p-1.5 shadow-[0_0px_80px_rgba(255,255,255,1)] dark:shadow-[0_0px_10px_rgba(0,0,0,0.5)] md:h-16 md:w-16 md:p-2.5"
+                    className="m-1 h-10 w-10 rounded-full p-1.5 shadow-[0_0px_10px_rgba(0,0,0,0.2)] md:h-16 md:w-16 md:p-2.5"
                     src={logo}
                     alt="radio world"
                     width={50}
@@ -25,7 +25,7 @@ const Header = () => {
                 />
                 <p className="text-dark">
                     RADIO{' '}
-                    <span className="text-3xl not-italic text-white md:text-5xl">
+                    <span>
                         Waves
                     </span>
                 </p>

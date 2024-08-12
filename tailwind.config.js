@@ -7,14 +7,8 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        "blued": "#114B5F",
+        "blue": "#1d4ed8",
         "primary": "#FFC132",
         "primary-darker": "#FC9000",
         "dark-secondary": "#4E4E4E",
@@ -26,9 +20,11 @@ module.exports = {
         "light": "#DDDDDD",
         "lighter": "#EEEEEE",
         "dark-text": "#C2D3CD",
-        "text": "#333333"
-      }
-    },
+        "text": "#333333",
+        "white": "#FFFFFF",
+        "black": "#000000",
+        "red": "#DC2626"
+    }
   },
   plugins: [],
 };

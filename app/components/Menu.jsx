@@ -13,7 +13,7 @@ const Menu = ({ page, setPage }) => {
     };
 
     return (
-        <nav className="fixed bottom-0 left-0 z-50 flex h-12 w-full items-center justify-around bg-gradient-to-t from-primary to-primary-darker transition-colors duration-300 md:hidden">
+        <nav className="fixed bottom-0 left-0 z-50 flex h-12 w-full items-center justify-around bg-gradient-to-t from-primary to-primary-darker/75 transition-colors duration-300 md:hidden">
             <div
                 className={`${selectorPosition[page]} pointer-events-none absolute flex h-full w-full`}
             >

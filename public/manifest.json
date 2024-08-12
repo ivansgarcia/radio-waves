@@ -7,6 +7,22 @@
     "name": "Radio Waves",
     "short_name": "Radio Waves",
     "description": "Explore radio stations over the world",
+    "screenshots": [
+        {
+            "src": "screenshot_wide.png",
+            "sizes": "640x354",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Radio Waves"
+        },
+        {
+            "src": "screenshot_narrow.png",
+            "sizes": "320x598",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Radio Waves"
+        }
+    ],
     "icons": [
         {
             "src": "/icon-192x192.png",

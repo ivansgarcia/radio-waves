@@ -28,8 +28,6 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
     };
 
     const addToFavorites = () => {
-        console.log('added', radio);
-        console.log('adding');
         const newFavorites = [...favorites, radio];
         setFavorites(newFavorites);
         setAddToFavResult(true);
@@ -39,11 +37,9 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
     };
 
     const removeFromFavorites = () => {
-        console.log('removing');
         const newFavorites = favorites.filter(
             (fav) => fav.stationuuid !== radio.stationuuid
         );
-        console.log(newFavorites);
         setFavorites(newFavorites);
     };
 

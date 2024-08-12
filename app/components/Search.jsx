@@ -47,8 +47,7 @@ const Search = ({ setCurrentRadio }) => {
                         : response.data;
                     setRadioList(newRadioList);
                     setLoading(false);
-                })
-                .catch((e) => console.log(e));
+                });
         },
         [radioList, radioName]
     );
@@ -96,9 +95,9 @@ const Search = ({ setCurrentRadio }) => {
                             >
                                 <button
                                     onClick={() => setCurrentRadio(radio)}
-                                    className="element flex w-full items-center overflow-x-hidden justify-between gap-4 p-4"
+                                    className="element flex w-full items-center justify-between gap-4 overflow-x-hidden p-4"
                                 >
-                                    <p className="px-4 break-all">
+                                    <p className="break-all px-4">
                                         {radio.name.split(' ').slice(0, 6)}
                                     </p>
                                     <p className="text-sm">
