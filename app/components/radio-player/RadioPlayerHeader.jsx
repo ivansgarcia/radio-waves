@@ -46,7 +46,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
     const voteForStation = () => {
         axios
             .get(
-                'http://de1.api.radio-browser.info/xml/vote/' +
+                'https://de1.api.radio-browser.info/xml/vote/' +
                     radio.stationuuid
             )
             .then((r) => {

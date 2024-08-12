@@ -28,7 +28,7 @@ const Search = ({ setCurrentRadio }) => {
             setLoading(true);
             !more && setRadioList();
             const url =
-                'http://all.api.radio-browser.info/json/stations/search';
+                'https://all.api.radio-browser.info/json/stations/search';
             axios
                 .get(url, {
                     params: {

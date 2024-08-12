@@ -16,8 +16,8 @@ const Top = ({ setCurrentRadio }) => {
             setLoading(true);
             !list.length && setTopList();
             const url = {
-                votes: 'http://de1.api.radio-browser.info/json/stations/topvote',
-                clicks: 'http://de1.api.radio-browser.info/json/stations/lastclick',
+                votes: 'https://de1.api.radio-browser.info/json/stations/topvote',
+                clicks: 'https://de1.api.radio-browser.info/json/stations/lastclick',
             };
             axios
                 .get(url[mode], {
