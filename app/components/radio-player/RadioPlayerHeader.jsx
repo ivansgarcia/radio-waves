@@ -66,7 +66,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     return (
         <div
-            className={`${collapsed ? 'my-1 md:w-64' : 'my-1 w-full gap-6'} flex w-2/3 items-center justify-around md:max-w-[80%]`}
+            className={`${collapsed ? 'my-1  w-2/3 max-w-lg' : 'my-1 gap-4 w-full'} flex items-center justify-around`}
         >
             <SlidingText text={radio.name} collapsed={collapsed} />
             <p
@@ -127,7 +127,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
                                 animate={{ y: -60, opacity: 1 }}
                                 initial={{ y: 0, opacity: 0 }}
                                 exit={{ opacity: 0 }}
-                                className="absolute -right-12 top-0 w-40 rounded-full bg-black p-4 text-lg text-white"
+                                className="absolute -right-2 top-0 w-40 rounded-full bg-black p-4 text-lg text-white"
                             >
                                 {voteResult === 'ok'
                                     ? t('voted')

@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 const SlidingText = ({ text, collapsed }) => {
     text = text?.split(' ').slice(0, 6).join(' ');
 
-    if (text?.length > 33) {
-        text = text.substring(0, 30) + '...';
+    if (text?.length > 28) {
+        text = text.substring(0, 25) + '...';
     }
 
     return (
         <div
-            className={`relative flex w-full overflow-hidden ${collapsed ? 'text-xl' : 'text-2xl'} font-semibold md:w-96 md:text-3xl`}
+            className={`relative flex overflow-hidden ${collapsed ? 'text-xl ' : 'text-2xl'} w-full font-semibold sm:text-3xl max-w-xl`}
         >
             <motion.p
                 className="w-full whitespace-nowrap"
@@ -29,7 +29,7 @@ const SlidingText = ({ text, collapsed }) => {
                 {text}
             </motion.p>
             <motion.p
-                className="absolute hidden w-full whitespace-nowrap"
+                className="absolute right-0 hidden w-full whitespace-nowrap"
                 animate={{
                     x: ['100%', '-200%'],
                     display: 'block',

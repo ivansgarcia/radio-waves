@@ -10,10 +10,10 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
 
     return (
         <div
-            className={`${collapsed && '-order-1 w-1/4 sm:w-min'} flex flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}
+            className={`${collapsed ? '-order-1 w-1/4 sm:w-min' : 'w-full'} flex flex-col  max-w-6xl items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}
         >
             <motion.figure
-                className={`${collapsed ? 'p-0' : '-m-10 p-10 md:-m-2 md:p-2'}`}
+                className={`${collapsed ? 'p-0' : '-m-8 p-10 md:-m-2 md:p-2'}`}
                 animate={collapsed ? { width: 50 } : { width: 200 }}
             >
                 <Image

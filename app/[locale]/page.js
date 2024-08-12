@@ -25,7 +25,7 @@ export default function Home() {
 
     const [pageDirection, setPageDirection] = useState();
 
-    const { theme } = useTheme();
+    const { theme } = useTheme();    
 
     useEffect(() => {
         loadFavorites();
@@ -53,10 +53,16 @@ export default function Home() {
             className={`relative flex h-full min-h-screen flex-col items-center overflow-hidden`}
         >
             <Image
-                src={theme === 'dark' ? backgroundDarkImage : backgroundImage}
+                src={backgroundImage}
                 alt="background"
                 fill
-                className="-z-50 object-cover"
+                className="-z-50 object-cover dark:hidden"
+            />
+            <Image
+                src={backgroundDarkImage}
+                alt="background"
+                fill
+                className="-z-50 object-cover hidden dark:block"
             />
             <Header />
             <SlidingText />

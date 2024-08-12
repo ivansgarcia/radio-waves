@@ -24,7 +24,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`mb-12 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-gradient-to-b bg-primary p-2 px-4 pb-4 text-center text-text md:mb-0 md:p-4`}
+            className={`mb-12 flex flex-col items-center md:px-[5%] justify-around gap-2 rounded-t-2xl bg-gradient-to-b bg-primary p-2 px-4 pb-4 text-center text-text md:mb-0 md:p-4`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -48,7 +48,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap items-center justify-center sm:justify-around`}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap sm:items-center justify-center sm:justify-around`}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}
