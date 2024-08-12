@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 const SlidingText = ({ text, collapsed }) => {
     text = text?.split(' ').slice(0, 6).join(' ');
 
-    if (text?.length > 28) {
-        text = text.substring(0, 25) + '...';
+    if (text?.length > 24) {
+        text = text.substring(0, 21) + '...';
     }
 
     return (

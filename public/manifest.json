@@ -1,7 +1,6 @@
 {
     "theme_color": "#FFC132",
-    "background_color": "#EEEEEE",
-    "display": "fullscreen",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "Radio Waves",
