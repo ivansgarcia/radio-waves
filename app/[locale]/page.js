@@ -25,7 +25,7 @@ export default function Home() {
 
     const [pageDirection, setPageDirection] = useState();
 
-    const { theme } = useTheme();    
+    const { theme } = useTheme();
 
     useEffect(() => {
         loadFavorites();
@@ -62,7 +62,7 @@ export default function Home() {
                 src={backgroundDarkImage}
                 alt="background"
                 fill
-                className="-z-50 object-cover hidden dark:block"
+                className="-z-50 hidden object-cover dark:block"
             />
             <Header />
             <SlidingText />
@@ -93,7 +93,7 @@ export default function Home() {
                             initial={{ x: pageDirection }}
                             transition={{ ease: 'easeOut' }}
                             exit={{ opacity: 0, position: 'absolute' }}
-                            className="absolute top-10 z-40 w-full"
+                            className="absolute top-10 w-full"
                         >
                             <Search setCurrentRadio={setCurrentRadio} />
                         </motion.div>

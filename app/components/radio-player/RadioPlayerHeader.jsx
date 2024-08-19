@@ -66,11 +66,11 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     return (
         <div
-            className={`${collapsed ? 'my-1  w-2/3 max-w-lg' : 'my-1 gap-4 w-full'} flex items-center justify-around`}
+            className={`${collapsed ? 'my-1 max-w-md mobile:w-1/4' : 'my-1 w-full gap-4'} flex items-center justify-around`}
         >
             <SlidingText text={radio.name} collapsed={collapsed} />
             <p
-                className={`hidden text-xl font-semibold ${!collapsed && 'md:block'}`}
+                className={`hidden text-xl font-semibold mobile:w-72 mobile:text-lg ${!collapsed && 'md:block'}`}
             >
                 {t('votes')}: {voted ? radio.votes + 1 : radio.votes}
             </p>
@@ -79,7 +79,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
             >
                 <motion.button
                     whileTap="animate"
-                    className="relative h-8 w-8 md:h-10 md:w-10"
+                    className="relative h-8 w-8 md:h-10 md:w-10 mobile:h-8 mobile:w-8"
                     onClick={() =>
                         !isFavorite ? addToFavorites() : removeFromFavorites()
                     }
@@ -108,7 +108,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
                 <motion.button
                     whileTap="animate"
-                    className={`${voted && 'invisible'} relative flex h-8 w-8 items-center justify-center md:h-10 md:w-10`}
+                    className={`${voted && 'invisible'} relative flex h-8 w-8 items-center justify-center md:h-10 md:w-10 mobile:h-8 mobile:w-8`}
                     onClick={() => voteForStation()}
                 >
                     {!voteResult && (

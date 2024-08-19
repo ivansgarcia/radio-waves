@@ -10,10 +10,10 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
 
     return (
         <div
-            className={`${collapsed ? '-order-1 w-1/4 sm:w-min' : 'w-full'} flex flex-col  max-w-6xl items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}
+            className={`${collapsed ? '-order-1 w-1/4 sm:w-min' : 'w-full'} flex max-h-[40vh] max-w-6xl flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8`}
         >
             <motion.figure
-                className={`${collapsed ? 'p-0' : '-m-8 p-10 md:-m-2 md:p-2'}`}
+                className={`${collapsed ? 'p-0' : '-m-8 max-h-[30vh] p-10 md:-m-2 md:p-2'}`}
                 animate={collapsed ? { width: 50 } : { width: 200 }}
             >
                 <Image
@@ -21,10 +21,11 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
                     alt="radio"
                     width={300}
                     height={300}
+                    className="mobile:w-24"
                 />
             </motion.figure>
             <div
-                className={`${collapsed ? 'hidden' : 'flex'} w-full flex-wrap items-center justify-around gap-4 gap-y-4 p-2 md:p-6`}
+                className={`${collapsed ? 'hidden' : 'flex'} w-full flex-wrap items-center justify-around gap-4 gap-y-4 p-2 md:p-6 mobile:p-2`}
             >
                 {radio.tags && (
                     <div
@@ -38,7 +39,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
                                 .map((tag, index) => (
                                     <li
                                         key={index}
-                                        className="w-auto rounded bg-dark-secondary px-2 text-sm text-lighter md:text-lg"
+                                        className="w-auto rounded bg-dark-secondary px-2 text-sm text-lighter md:text-lg mobile:text-xs"
                                     >
                                         {tag}
                                     </li>

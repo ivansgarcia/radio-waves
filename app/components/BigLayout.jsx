@@ -17,7 +17,7 @@ const BigLayout = ({
     const [page, setPage] = useState('search');
 
     return (
-        <div className="hidden w-full pt-10 md:flex">
+        <div className="hidden w-full pt-36 md:flex">
             <Presentation />
             <section className="h-min min-w-64 max-w-xs border-r-4 border-primary-darker pb-8 dark:border-primary">
                 <Favorites

@@ -20,11 +20,18 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         }, 3000);
     };
 
+    const getOs = () => {
+        const os = ['iPhone'];
+        return os.find((v) => navigator.userAgent.indexOf(v) >= 0);
+    };
+
+    const isIos = getOs() === 'iPhone';
+
     return (
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`mb-12 flex flex-col items-center md:px-[5%] justify-around gap-2 rounded-t-2xl bg-gradient-to-b bg-primary p-2 px-4 pb-4 text-center text-text md:mb-0 md:p-4`}
+            className={`${isIos ? 'mb-16' : 'mb-12'} z-50 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -36,7 +43,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                         }}
                         initial={{ y: 0, opacity: 0 }}
                         exit={{ opacity: 0 }}
-                        className="absolute z-50 rounded-full border-4  border-red bg-black p-4 text-lg text-white"
+                        className="absolute z-50 rounded-full border-4 border-red bg-black p-4 text-lg text-white"
                     >
                         {t('radio_error')}
                     </motion.p>
@@ -48,7 +55,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap sm:items-center justify-center sm:justify-around`}
+                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap justify-center sm:items-center sm:justify-around`}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}
@@ -58,7 +65,11 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 />
 
                 <RadioPlayerInfo collapsed={collapsed} radio={radio} />
-                <AudioControls url={radio.url} showError={showError} />
+                <AudioControls
+                    url={radio.url}
+                    showError={showError}
+                    collapsed={collapsed}
+                />
             </div>
         </motion.div>
     );

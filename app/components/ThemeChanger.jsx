@@ -14,14 +14,22 @@ const ThemeChanger = () => {
 
     return (
         <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            <motion.div whileTap={{ scale: 0 }}>
+            <motion.figure className="relative" whileTap={{ scale: 0 }}>
                 <Image
-                    src={theme === 'light' ? darkIcon : lightIcon}
+                    className="invisible dark:visible"
+                    src={lightIcon}
                     alt="light theme"
-                    width={30}
-                    height={30}
+                    width={25}
+                    height={25}
                 />
-            </motion.div>
+                <Image
+                    className="absolute top-0 dark:invisible"
+                    src={darkIcon}
+                    alt="dark theme"
+                    width={25}
+                    height={25}
+                />
+            </motion.figure>
         </button>
     );
 };

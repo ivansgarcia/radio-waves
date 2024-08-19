@@ -4,7 +4,6 @@ import starLightIcon from '../../public/star_light.png';
 import starDarkIcon from '../../public/star_dark.png';
 import removeIcon from '../../public/star_cross.png';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 
 const Favorites = ({
@@ -13,8 +12,6 @@ const Favorites = ({
     setCurrentRadio,
     currentRadio,
 }) => {
-    const { theme } = useTheme();
-
     const t = useTranslations('MainPage');
 
     const removeFromFavorites = (radio) => {
@@ -29,13 +26,22 @@ const Favorites = ({
             className={`mx-auto flex w-full max-w-lg flex-col gap-8 p-2 md:p-4 ${currentRadio ? 'pb-64' : 'pb-32'}`}
         >
             <div className="flex items-start self-center md:self-start">
-                <Image
-                    className="-mr-2 -rotate-12"
-                    src={theme === 'dark' ? starDarkIcon : starLightIcon}
-                    alt="favorites"
-                    width={50}
-                    height={50}
-                />
+                <figure className="relative -mr-2 -rotate-12">
+                    <Image
+                        className="invisible dark:visible"
+                        src={starDarkIcon}
+                        alt="favorites"
+                        width={50}
+                        height={50}
+                    />
+                    <Image
+                        className="absolute top-0 dark:invisible"
+                        src={starLightIcon}
+                        alt="favorites"
+                        width={50}
+                        height={50}
+                    />
+                </figure>
                 <h3 className="z-20 m-4 text-3xl font-semibold text-primary-darker dark:text-primary">
                     {t('favorites')}
                 </h3>

@@ -20,7 +20,8 @@
         "added": "Añadido a Favs",
         "no_favs": "No se han guardado radios favoritas",
         "search_help": "Introduce el nombre de la emisora de radio en el campo buscar",
-        "top_help": "Las emisoras más votadas y escuchadas por los usuarios"
+        "top_help": "Las emisoras más votadas y escuchadas por los usuarios",
+        "presentation": "Descubre emisoras de radio por todo el mundo"
     },
     "LocaleLayout": {
         "title": "Radio Waves",

@@ -7,7 +7,7 @@ import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
 import Sleeper from './Sleeper';
 
-const AudioControls = ({ url, showError }) => {
+const AudioControls = ({ url, showError, collapsed }) => {
     const audioRef = useRef();
 
     const [isReady, setIsReady] = useState(false);
@@ -103,7 +103,9 @@ const AudioControls = ({ url, showError }) => {
     };
 
     return (
-        <div className="mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3">
+        <div
+            className={`${collapsed && 'mobile:max-w-sm'} mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3`}
+        >
             <audio
                 ref={audioRef}
                 onErrorCapture={showError}
