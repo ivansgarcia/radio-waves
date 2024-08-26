@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import './globals.css';
 
 // Since we have a `not-found.tsx` page on the root, a layout file

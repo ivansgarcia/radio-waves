@@ -104,7 +104,7 @@ const AudioControls = ({ url, showError, collapsed }) => {
 
     return (
         <div
-            className={`${collapsed && 'mobile:max-w-sm'} mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3`}
+            className={`${collapsed ? 'mobile:max-w-sm' : 'mobile:ml-16'} mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3`}
         >
             <audio
                 ref={audioRef}

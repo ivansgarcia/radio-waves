@@ -66,7 +66,7 @@ export default function Home() {
             />
             <Header />
             <SlidingText />
-            <div className="w-full pt-12 md:hidden">
+            <div className="w-full pt-12 md:hidden mobile:pt-6">
                 <Menu page={page} setPage={setPage} />
                 <AnimatePresence>
                     {page === 'favs' && (

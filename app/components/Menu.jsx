@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import starIcon from '../../public/star.png';
 import searchIcon from '../../public/search.png';
 import topIcon from '../../public/top.png';
@@ -6,18 +6,22 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const Menu = ({ page, setPage }) => {
+    const [isIos, setIsIos] = useState(false);
+
     const selectorPosition = {
         favs: 'justify-start',
         search: 'justify-center',
         top: 'justify-end',
     };
 
-    const getOs = () => {
-        const os = ['iPhone'];
-        return os.find((v) => navigator.userAgent.indexOf(v) >= 0);
-    };
+    useEffect(() => {
+        const getOs = () => {
+            const os = ['iPhone'];
+            return os.find((v) => navigator.userAgent.indexOf(v) >= 0);
+        };
 
-    const isIos = getOs() === 'iPhone';
+        setIsIos(getOs() === 'iPhone');
+    }, []);
 
     return (
         <nav className="fixed bottom-0 left-0 z-50 flex w-full flex-col bg-primary bg-gradient-to-t from-primary to-primary-darker/50 transition-colors duration-300 md:hidden">

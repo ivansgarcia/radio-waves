@@ -66,7 +66,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     return (
         <div
-            className={`${collapsed ? 'my-1 max-w-md mobile:w-1/4' : 'my-1 w-full gap-4'} flex items-center justify-around`}
+            className={`${collapsed ? 'max-w-md md:max-w-none mobile:w-1/4' : 'w-full gap-4'} my-1 flex items-center justify-around`}
         >
             <SlidingText text={radio.name} collapsed={collapsed} />
             <p

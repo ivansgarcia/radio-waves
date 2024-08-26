@@ -22,7 +22,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
 
     const getOs = () => {
         const os = ['iPhone'];
-        return os.find((v) => navigator.userAgent.indexOf(v) >= 0);
+        return os.find((v) => navigator?.userAgent.indexOf(v) >= 0);
     };
 
     const isIos = getOs() === 'iPhone';
@@ -31,7 +31,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`${isIos ? 'mb-16' : 'mb-12'} z-50 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
+            className={`${isIos ? 'mb-16' : 'mb-12'} ${!collapsed && 'mobile:mb-0 mobile:!h-screen'} z-50 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -55,7 +55,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : 'flex-col'} relative flex w-full flex-wrap justify-center sm:items-center sm:justify-around`}
+                className={`${collapsed ? 'flex-row' : isIos ? 'flex-col mobile:pb-16' : 'flex-col mobile:pb-8'} relative flex w-full flex-wrap justify-around gap-1 sm:items-center sm:justify-around mobile:h-full`}
             >
                 <RadioPlayerHeader
                     collapsed={collapsed}

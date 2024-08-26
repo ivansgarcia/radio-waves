@@ -56,6 +56,7 @@ const Search = ({ setCurrentRadio }) => {
         <section className="flex w-full flex-col items-center gap-8 pb-80 pt-4 text-darker md:gap-8 md:pt-8">
             <div className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5">
                 <input
+                    id="search"
                     placeholder={t('search_for')}
                     className={`flex-1 rounded-full bg-secondary p-4 px-8 placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected placeholder:dark:text-dark md:w-2/3 md:text-lg`}
                     type="text"

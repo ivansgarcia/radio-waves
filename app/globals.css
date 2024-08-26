@@ -3,42 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 @layer components {
-  .element {
-    @apply bg-gradient-to-br font-semibold md:text-lg tracking-wide hover:shadow from-secondary dark:from-dark-secondary dark:to-dark to-light hover:from-primary hover:dark:from-primary hover:to-primary-darker hover:dark:to-primary-darker hover:dark:text-black transition-colors dark:text-dark-text text-text;
-  }
+    .element {
+        @apply bg-gradient-to-br from-secondary to-light font-semibold tracking-wide text-text transition-colors hover:from-primary hover:to-primary-darker hover:shadow dark:from-dark-secondary dark:to-dark dark:text-dark-text hover:dark:from-primary hover:dark:to-primary-darker hover:dark:text-black md:text-lg;
+    }
 }
 
 ::-webkit-scrollbar {
-  background: transparent;
-  height: 8px;
-  width: 12px;
+    background: transparent;
+    height: 8px;
+    width: 12px;
 }
 ::-webkit-scrollbar-thumb {
-  border-radius: 1rem;
-  background: #9c9c9c;
+    border-radius: 1rem;
+    background: #9c9c9c;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
-
