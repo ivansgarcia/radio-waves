@@ -1,12 +1,12 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import sleepIcon from '../../public/sleep.png';
 import sleepActiveIcon from '../../public/sleep_active.png';
 
 const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
     const controls = useAnimationControls();
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(sleepTime);
     const formatTime = {
         1: '15 m',
         2: '30 m',
@@ -14,6 +14,10 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
         4: '1 h',
         5: '2 h',
     };
+
+    useEffect(() => {
+        !sleepTime && setValue(0)
+    }, [sleepTime]);
 
     const increaseSleepTime = () => {
         value === 5 ? handleSleeperChange(0) : handleSleeperChange(value + 1);
@@ -28,9 +32,9 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
         const sleeperValues = [0, 900, 1800, 2700, 3600, 7200];
         newValue
             ? setSleepTime(sleeperValues[newValue] + timer)
-            : setSleepTime(0);
+            : setSleepTime(0) && setValue(0);
     };
-
+    
     return (
         <div className="relative flex items-center gap-2">
             <motion.span

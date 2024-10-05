@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Spinner from './Spinner';
 import { useLocale, useTranslations } from 'next-intl';
 import countriesEng from '../../messages/countries_en.json';
@@ -23,43 +23,49 @@ const Search = ({ setCurrentRadio }) => {
     const [radioName, setRadioName] = useState();
     const [loading, setLoading] = useState(false);
 
-    const searchRadios = useCallback(
-        (more = false, country = 'ALL') => {
-            setLoading(true);
-            !more && setRadioList();
-            const url =
-                'https://de1.api.radio-browser.info/json/stations/search';
-            axios
-                .get(url, {
-                    params: {
-                        name: radioName,
-                        limit: 20,
-                        hidebroken: true,
-                        countrycode: country === 'ALL' ? null : country,
-                        order: 'votes',
-                        reverse: true,
-                        offset: more ? radioList.length : 0,
-                    },
-                })
-                .then((response) => {
-                    const newRadioList = more
-                        ? radioList.concat(response.data)
-                        : response.data;
-                    setRadioList(newRadioList);
-                    setLoading(false);
-                });
-        },
-        [radioList, radioName]
-    );
+    const inputRef = useRef(null);
+
+    const searchRadios = (more = false, country = 'ALL') => {
+        setLoading(true);
+        !more && setRadioList();
+        const url = 'https://de1.api.radio-browser.info/json/stations/search';
+        axios
+            .get(url, {
+                params: {
+                    name: radioName,
+                    limit: 20,
+                    hidebroken: true,
+                    countrycode: country === 'ALL' ? null : country,
+                    order: 'votes',
+                    reverse: true,
+                    offset: more ? radioList.length : 0,
+                },
+            })
+            .then((response) => {
+                const newRadioList = more
+                    ? radioList.concat(response.data)
+                    : response.data;
+                setRadioList(newRadioList);
+                setLoading(false);
+            });
+    };
 
     return (
         <section className="flex w-full flex-col items-center gap-8 pb-80 pt-4 text-darker md:gap-8 md:pt-8">
-            <div className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5">
+            <form
+                className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    searchRadios();
+                    inputRef?.current?.blur();
+                }}
+            >
                 <input
                     id="search"
+                    ref={inputRef}
                     placeholder={t('search_for')}
                     className={`flex-1 rounded-full bg-secondary p-4 px-8 placeholder:text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected placeholder:dark:text-dark md:w-2/3 md:text-lg`}
-                    type="text"
+                    type="search"
                     onKeyDown={(e) => e.key === 'Enter' && searchRadios()}
                     onChange={(e) => setRadioName(e.target.value)}
                 />
@@ -67,11 +73,12 @@ const Search = ({ setCurrentRadio }) => {
                     whileHover={{ boxShadow: '0 5px 20px #FC900088' }}
                     whileTap={{ scale: 0.95 }}
                     className="rounded-full bg-gradient-to-b from-primary to-primary-darker px-8 py-4 text-lg font-semibold text-dark"
-                    onClick={() => searchRadios()}
+                    // onClick={() => searchRadios()}
+                    type="submit"
                 >
                     {t('search')}
                 </motion.button>
-            </div>
+            </form>
             <div className="flex w-full min-w-48 flex-wrap items-center justify-center gap-8 gap-y-0 px-4">
                 <span className="pt-2 text-text dark:text-dark-text md:text-lg">
                     {t('select_country')}
@@ -109,7 +116,7 @@ const Search = ({ setCurrentRadio }) => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="dark:dark-text text-text">
+                    <p className="my-12 text-2xl text-text dark:text-dark-text">
                         {t('no_results')}
                     </p>
                 ))}

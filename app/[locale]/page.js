@@ -50,22 +50,8 @@ export default function Home() {
 
     return (
         <main
-            className={`relative flex h-full min-h-screen flex-col items-center overflow-hidden`}
+            className={`relative flex h-full min-h-screen flex-col items-center overflow-hidden bg-[url('/background.jpg')] dark:bg-[url('/background_dark.jpg')]`}
         >
-            <Image
-                src={backgroundImage}
-                alt="background"
-                fill
-                className="-z-50 object-cover dark:hidden"
-                sizes="100%"
-            />
-            <Image
-                src={backgroundDarkImage}
-                alt="background"
-                fill
-                className="-z-50 hidden object-cover dark:block"
-                sizes="100%"
-            />
             <Header />
             <SlidingText />
             <div className="w-full pt-12 md:hidden mobile:pt-6">
