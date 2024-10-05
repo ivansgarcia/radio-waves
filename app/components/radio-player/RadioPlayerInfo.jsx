@@ -17,7 +17,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
                 animate={collapsed ? { width: 50 } : { width: 200 }}
             >
                 <Image
-                    src={radio.favicon ? radio.favicon : defaultRadioImage}
+                    src={radio.favicon || defaultRadioImage}
                     alt="radio"
                     width={300}
                     height={300}

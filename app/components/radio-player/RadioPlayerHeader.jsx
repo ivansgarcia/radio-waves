@@ -17,7 +17,7 @@ const RadioPlayerHeader = ({ collapsed, radio, favorites, setFavorites }) => {
 
     useEffect(() => {
         setVoted(false);
-    }, [radio]);
+    }, [radio]);    
 
     const isFavorite = !!favorites.find(
         (fav) => fav.stationuuid === radio.stationuuid

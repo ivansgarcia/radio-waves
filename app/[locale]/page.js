@@ -57,12 +57,14 @@ export default function Home() {
                 alt="background"
                 fill
                 className="-z-50 object-cover dark:hidden"
+                sizes="100%"
             />
             <Image
                 src={backgroundDarkImage}
                 alt="background"
                 fill
                 className="-z-50 hidden object-cover dark:block"
+                sizes="100%"
             />
             <Header />
             <SlidingText />

@@ -67,6 +67,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 <RadioPlayerInfo collapsed={collapsed} radio={radio} />
                 <AudioControls
                     url={radio.url}
+                    altUrl={radio.url_resolved}
                     showError={showError}
                     collapsed={collapsed}
                 />

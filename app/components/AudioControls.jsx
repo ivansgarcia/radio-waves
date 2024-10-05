@@ -6,8 +6,12 @@ import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
 import Sleeper from './Sleeper';
+import ensureHttps from "@/utils/ensureHttps";
 
-const AudioControls = ({ url, showError, collapsed }) => {
+const AudioControls = ({ url, altUrl, showError, collapsed }) => {
+
+    const [httpsUrl, setHttpsUrl] = useState(ensureHttps(url));
+
     const audioRef = useRef();
 
     const [isReady, setIsReady] = useState(false);
@@ -53,6 +57,7 @@ const AudioControls = ({ url, showError, collapsed }) => {
     }, [isReady]);
 
     useEffect(() => {
+        setHttpsUrl(ensureHttps(url))
         setIsReady(false);
         setIsPlaying(false);
         setTimer(0);
@@ -102,14 +107,19 @@ const AudioControls = ({ url, showError, collapsed }) => {
         }
     };
 
+    const handleUrlError = () => {
+        httpsUrl === ensureHttps(url) && setHttpsUrl(ensureHttps(altUrl));
+        httpsUrl === ensureHttps(altUrl) && showError();
+    }
+    
     return (
         <div
             className={`${collapsed ? 'mobile:max-w-sm' : 'mobile:ml-16'} mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3`}
         >
             <audio
                 ref={audioRef}
-                onErrorCapture={showError}
-                src={url}
+                onErrorCapture={handleUrlError}
+                src={httpsUrl}
                 onCanPlay={() => setIsReady(true)}
                 onPlaying={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
