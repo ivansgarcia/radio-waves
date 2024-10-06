@@ -130,6 +130,7 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
                         className="relative h-10 w-10 min-w-10"
                         onClick={toggleAudio}
                     >
+                    {isReady && 
                         <Image
                             className="object-cover"
                             width={40}
@@ -137,6 +138,7 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
                             src={isPlaying ? pauseIcon : playIcon}
                             alt={isPlaying ? 'pause' : 'play'}
                         />
+                    }
                     </button>
                     <div className="flex flex-wrap items-center justify-center gap-1 gap-y-0 font-semibold md:gap-4">
                         <span className="w-12 text-lg">

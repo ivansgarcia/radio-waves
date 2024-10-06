@@ -22,6 +22,7 @@ const Search = ({ setCurrentRadio }) => {
     const [radioList, setRadioList] = useState();
     const [radioName, setRadioName] = useState();
     const [loading, setLoading] = useState(false);
+    const [netError, setNetError] = useState(false);
 
     const inputRef = useRef(null);
 
@@ -46,8 +47,9 @@ const Search = ({ setCurrentRadio }) => {
                     ? radioList.concat(response.data)
                     : response.data;
                 setRadioList(newRadioList);
-                setLoading(false);
-            });
+            })
+            .catch(() => setNetError(true))
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -72,22 +74,35 @@ const Search = ({ setCurrentRadio }) => {
                 <motion.button
                     whileHover={{ boxShadow: '0 5px 20px #FC900088' }}
                     whileTap={{ scale: 0.95 }}
-                    className="rounded-full bg-gradient-to-b from-primary to-primary-darker px-8 py-4 text-lg font-semibold text-dark"
-                    // onClick={() => searchRadios()}
+                    className={`rounded-full bg-gradient-to-b ${loading ? 'from-dark-selected to-dark-secondary pointer-events-none' : 'from-primary to-primary-darker pointer-events-auto'} px-8 py-4 text-lg font-semibold text-dark`}
                     type="submit"
                 >
                     {t('search')}
                 </motion.button>
+                <div className="flex w-full min-w-48 flex-wrap items-center justify-center gap-8 gap-y-0 px-4">
+                    <span className="pt-2 text-text dark:text-dark-text md:text-lg">
+                        {t('select_country')}
+                    </span>
+                    <CustomSelect
+                        items={localeCountries}
+                        searchRadios={searchRadios}
+                    />
+                </div>
             </form>
-            <div className="flex w-full min-w-48 flex-wrap items-center justify-center gap-8 gap-y-0 px-4">
-                <span className="pt-2 text-text dark:text-dark-text md:text-lg">
-                    {t('select_country')}
-                </span>
-                <CustomSelect
-                    items={localeCountries}
-                    searchRadios={searchRadios}
-                />
-            </div>
+            {netError && 
+                <motion.p
+                    animate={{
+                        opacity: [0, 1, 1, 0],
+                        transition: { opacity: { duration: 2, times: [0, .2, .8, 1]}},
+                    }}
+                    initial={{ y: 150, opacity: 0 }}
+                    onAnimationComplete={() => setNetError(false)}
+                    className="absolute z-50 rounded-2xl px-4 border border-red bg-black p-2 text-sm text-white"
+                >
+                    {t('network_error')}
+                </motion.p>
+
+            }
             {radioList &&
                 (!!radioList.length ? (
                     <ul className="flex h-full w-full max-w-xl flex-col gap-2 px-8">

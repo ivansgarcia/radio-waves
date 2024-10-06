@@ -21,7 +21,8 @@
         "no_favs": "No Favorites Added",
         "search_help": "Type the radio station name in the search field",
         "top_help": "These are the most voted and clicked radio stations of the world",
-        "presentation": "Explore radio stations over the world"
+        "presentation": "Explore radio stations over the world",
+        "network_error": "NETWORK ERROR"
     },
     "LocaleLayout": {
         "title": "Radio Waves",
