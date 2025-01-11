@@ -9,11 +9,7 @@ import Header from '../components/Header';
 import { AnimatePresence, motion } from 'framer-motion';
 import BigLayout from '../components/BigLayout';
 import { useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
 import SlidingText from '../components/SlidingText';
-import Image from 'next/image';
-import backgroundDarkImage from '../../public/background_dark.jpg';
-import backgroundImage from '../../public/background.jpg';
 
 export default function Home() {
     const t = useTranslations('MainPage');
@@ -24,8 +20,6 @@ export default function Home() {
     const [favorites, setFavorites] = useState();
 
     const [pageDirection, setPageDirection] = useState();
-
-    const { theme } = useTheme();
 
     useEffect(() => {
         loadFavorites();

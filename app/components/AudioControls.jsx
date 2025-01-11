@@ -6,10 +6,9 @@ import soundIcon from '../../public/speaker.png';
 import mutedIcon from '../../public/speaker-muted.png';
 import Image from 'next/image';
 import Sleeper from './Sleeper';
-import ensureHttps from "@/utils/ensureHttps";
+import ensureHttps from '@/utils/ensureHttps';
 
 const AudioControls = ({ url, altUrl, showError, collapsed }) => {
-
     const [httpsUrl, setHttpsUrl] = useState(ensureHttps(url));
 
     const audioRef = useRef();
@@ -24,12 +23,21 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
     if (!!sleepTime) {
         if (timer === sleepTime) {
             audioRef.current?.pause();
+            audioRef.current?.load();
             setSleepTime(0);
+            setIsPlaying(false);
         }
     }
 
     const toggleAudio = () => {
-        isPlaying ? audioRef.current?.pause() : audioRef.current?.play();
+        if (isPlaying) {
+            audioRef.current?.pause();
+            audioRef.current?.load();
+            setIsPlaying(false);
+        } else {
+            audioRef.current?.play();
+            setIsPlaying(true);
+        }
     };
 
     const handleMuteChange = () => {
@@ -57,7 +65,7 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
     }, [isReady]);
 
     useEffect(() => {
-        setHttpsUrl(ensureHttps(url))
+        setHttpsUrl(ensureHttps(url));
         setIsReady(false);
         setIsPlaying(false);
         setTimer(0);
@@ -110,8 +118,8 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
     const handleUrlError = () => {
         httpsUrl === ensureHttps(url) && setHttpsUrl(ensureHttps(altUrl));
         httpsUrl === ensureHttps(altUrl) && showError();
-    }
-    
+    };
+
     return (
         <div
             className={`${collapsed ? 'mobile:max-w-sm' : 'mobile:ml-16'} mt-2 flex h-16 w-full max-w-2xl items-center justify-around rounded-full border-2 border-dark bg-gradient-to-b from-primary to-primary-darker/25 p-1 px-2 sm:w-2/3`}
@@ -122,7 +130,7 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
                 src={httpsUrl}
                 onCanPlay={() => setIsReady(true)}
                 onPlaying={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
+                onEnded={() => setIsPlaying(false)}
             ></audio>
             {isReady ? (
                 <>
@@ -130,15 +138,15 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
                         className="relative h-10 w-10 min-w-10"
                         onClick={toggleAudio}
                     >
-                    {isReady && 
-                        <Image
-                            className="object-cover"
-                            width={40}
-                            height={40}
-                            src={isPlaying ? pauseIcon : playIcon}
-                            alt={isPlaying ? 'pause' : 'play'}
-                        />
-                    }
+                        {isReady && (
+                            <Image
+                                className="object-cover"
+                                width={40}
+                                height={40}
+                                src={isPlaying ? pauseIcon : playIcon}
+                                alt={isPlaying ? 'pause' : 'play'}
+                            />
+                        )}
                     </button>
                     <div className="flex flex-wrap items-center justify-center gap-1 gap-y-0 font-semibold md:gap-4">
                         <span className="w-12 text-lg">

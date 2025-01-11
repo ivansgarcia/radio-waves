@@ -49,7 +49,7 @@ const Sleeper = ({ timer, sleepTime, setSleepTime }) => {
             >
                 <Image
                     className="object-cover"
-                    src={sleepTime ? sleepActiveIcon : sleepIcon}
+                    src={!!sleepTime ? sleepActiveIcon : sleepIcon}
                     width={32}
                     height={32}
                     alt="sleep time"
