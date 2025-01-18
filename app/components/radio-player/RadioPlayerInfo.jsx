@@ -10,7 +10,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
 
     return (
         <div
-            className={`${collapsed ? '-order-1 w-1/4 sm:w-min' : 'w-full'} flex max-h-[40vh] max-w-6xl flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8 mobile:flex-row`}
+            className={`${collapsed ? '-order-1 w-1/4 sm:w-min' : 'w-full mobile:max-h-[25vh]'} flex max-h-[40vh] max-w-6xl flex-col items-center justify-center gap-2 md:m-2 md:flex-row xl:gap-8 mobile:flex-row`}
         >
             <motion.figure
                 className={`${collapsed ? 'p-0' : '-m-8 max-h-[30vh] p-10 md:-m-2 md:p-2'}`}
@@ -29,7 +29,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
             >
                 {radio.tags && (
                     <div
-                        className={`${collapsed ? 'hidden' : 'mobile:max-md:hidden flex'} w-full flex-col sm:w-2/5 md:flex-wrap`}
+                        className={`${collapsed ? 'hidden' : 'mobile:max-md:hidden flex'} w-full mobile:w-1/2 flex-col sm:w-2/5 md:flex-wrap`}
                     >
                         <p className="hidden italic md:block">Tags:</p>
                         <ul className="flex flex-wrap justify-center gap-2">
@@ -62,7 +62,7 @@ const RadioPlayerInfo = ({ collapsed, radio }) => {
                     </Link>
                 )}
                 {radio.country && (
-                    <p className="flex w-2/5 items-center justify-center gap-4 text-sm font-semibold md:text-lg">
+                    <p className="flex w-2/5 items-center justify-center mobile:text-ellipsis mobile:text-nowrap gap-4 text-sm font-semibold md:text-lg">
                         <span className="text-md hidden font-normal italic md:block">
                             {t('country')}:
                         </span>

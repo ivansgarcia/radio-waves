@@ -7,7 +7,7 @@ import upIcon from '../../../public/up.png';
 const RadioPlayerNavigator = ({ collapsed, setCollapsed, setCurrentRadio }) => {
     return (
         <nav
-            className={`flex w-full items-center justify-between ${!collapsed ? 'p-2 lg:p-3 mobile:p-1' : 'p-1 md:p-0'}`}
+            className={`flex w-full items-center justify-between ${!collapsed ? 'p-2 lg:p-3 mobile:pb-8' : 'p-1 md:p-0 mobile:pb-2'}`}
         >
             <motion.button
                 initial={{ rotate: 0 }}

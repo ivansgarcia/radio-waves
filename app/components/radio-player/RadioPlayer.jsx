@@ -10,7 +10,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
     const t = useTranslations('MainPage');
 
     const [radioError, setRadioError] = useState(false);
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(favorites.length != 0);
 
     const showError = () => {
         setRadioError(true);
@@ -31,7 +31,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`${isIos ? 'mb-16' : 'mb-12'} ${!collapsed && 'mobile:mb-0 mobile:!h-screen'} z-50 flex flex-col items-center justify-around gap-2 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
+            className={`${isIos ? 'mb-16' : 'mb-12'} ${!collapsed && 'mobile:mb-0 mobile:!h-screen'} z-50 flex flex-col items-center justify-around gap-2 mobile:gap-0 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
         >
             <AnimatePresence>
                 {radioError && (
