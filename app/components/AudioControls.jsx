@@ -23,7 +23,6 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
     if (!!sleepTime) {
         if (timer === sleepTime) {
             audioRef.current?.pause();
-            audioRef.current?.load();
             setSleepTime(0);
             setIsPlaying(false);
         }
@@ -32,9 +31,9 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
     const toggleAudio = () => {
         if (isPlaying) {
             audioRef.current?.pause();
-            audioRef.current?.load();
             setIsPlaying(false);
         } else {
+            audioRef.current?.load();
             audioRef.current?.play();
             setIsPlaying(true);
         }
@@ -138,18 +137,16 @@ const AudioControls = ({ url, altUrl, showError, collapsed }) => {
                         className="relative h-10 w-10 min-w-10"
                         onClick={toggleAudio}
                     >
-                        {isReady && (
-                            <Image
-                                className="object-cover"
-                                width={40}
-                                height={40}
-                                src={isPlaying ? pauseIcon : playIcon}
-                                alt={isPlaying ? 'pause' : 'play'}
-                            />
-                        )}
+                        <Image
+                            className="object-cover"
+                            width={40}
+                            height={40}
+                            src={isPlaying ? pauseIcon : playIcon}
+                            alt={isPlaying ? 'pause' : 'play'}
+                        />
                     </button>
                     <div className="flex flex-wrap items-center justify-center gap-1 gap-y-0 font-semibold md:gap-4">
-                        <span className="w-12 text-lg">
+                        <span className="w-auto pl-1 text-lg">
                             {formatTimer(timer)}
                         </span>
                         <Sleeper
