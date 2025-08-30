@@ -1,54 +1,45 @@
-import React from 'react';
+
+
+import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const SlidingText = ({ text, collapsed }) => {
-    text = text?.split(' ').slice(0, 6).join(' ');
+    const [shouldAnimate, setShouldAnimate] = useState(false);
+    const [textWidth, setTextWidth] = useState(0);
+    const containerRef = useRef(null);
+    const textRef = useRef(null);
 
-    if (text?.length > 24) {
-        text = text.substring(0, 21) + '...';
-    }
+    useEffect(() => {
+        if (!containerRef.current || !textRef.current) return;
+        const scrollW = textRef.current.scrollWidth;
+        setShouldAnimate(scrollW > containerRef.current.offsetWidth);
+        setTextWidth(scrollW);
+    }, [text, collapsed]);
 
     return (
         <div
-            className={`relative flex overflow-hidden ${collapsed ? ' text-xl md:min-w-full mobile:text-xl' : 'text-2xl mobile:max-w-[60vw]'} w-full max-w-xl font-semibold sm:text-3xl`}
+            ref={containerRef}
+            className={`relative flex overflow-hidden ${collapsed ? ' text-xl sm:mx-4 mobile:text-xl max-w-sm' : ' text-2xl max-w-xl'} font-semibold sm:text-3xl`}
         >
-            <motion.p
-                className="w-full whitespace-nowrap"
-                animate={{
-                    x: ['100%', '-200%'],
-                    transition: {
+            {shouldAnimate && textWidth ? (
+                <motion.div
+                    style={{ display: 'flex', width: textWidth * 2 }}
+                    animate={{ x: [0, -textWidth] }}
+                    transition={{
                         x: {
                             repeat: Infinity,
                             repeatType: 'loop',
-                            duration: 10,
+                            duration: Math.max(18, textWidth / 20),
                             ease: 'linear',
                         },
-                    },
-                }}
-            >
-                {text}
-            </motion.p>
-            <motion.p
-                className="absolute right-0 hidden w-full whitespace-nowrap"
-                animate={{
-                    x: ['100%', '-200%'],
-                    display: 'block',
-                    transition: {
-                        x: {
-                            delay: 5,
-                            repeat: Infinity,
-                            repeatType: 'loop',
-                            duration: 10,
-                            ease: 'linear',
-                        },
-                        display: {
-                            delay: 5,
-                        },
-                    },
-                }}
-            >
-                {text}
-            </motion.p>
+                    }}
+                >
+                    <span ref={textRef} className="whitespace-nowrap pr-8">{text}</span>
+                    <span className="whitespace-nowrap pr-8">{text}</span>
+                </motion.div>
+            ) : (
+                <span ref={textRef} className="w-full whitespace-nowrap">{text}</span>
+            )}
         </div>
     );
 };

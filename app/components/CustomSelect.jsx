@@ -1,9 +1,11 @@
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useRef, useState } from 'react';
 
+
 const CustomSelect = ({ items, searchRadios }) => {
     const [expanded, setExpanded] = useState(false);
     const [country, setCountry] = useState('ALL');
+    const [filter, setFilter] = useState('');
     const t = useTranslations('MainPage');
 
     const dropdown = useRef(null);
@@ -21,32 +23,59 @@ const CustomSelect = ({ items, searchRadios }) => {
         };
     }, [expanded]);
 
+    // Filtrar países según el texto ingresado
+    const filteredItems = Object.entries(items)
+        .filter(([key, value]) =>
+            value.toLowerCase().includes(filter.toLowerCase())
+        )
+        .sort((a, b) => a[1].localeCompare(b[1]));
+
     return (
         <div class="relative mt-2 w-72">
-            <button
-                onClick={() => setExpanded(!expanded)}
-                class={`${expanded && 'pointer-events-none'} relative w-full rounded-full bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg`}
-            >
-                <span class="flex items-center">
-                    <span class="ml-3 block truncate">
-                        {country === 'ALL' ? t('all') : items[country]}
-                    </span>
-                </span>
-                <span class="pointer-events-none absolute inset-y-0 right-2 ml-3 flex items-center pr-2">
-                    <svg
-                        class="h-5 w-5 text-text"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
+            <div class="relative w-full">
+                {expanded ? (
+                    <input
+                        type="text"
+                        autoFocus
+                        placeholder={t('search_country') || 'Buscar país...'}
+                        value={filter}
+                        onChange={e => setFilter(e.target.value)}
+                        class="w-full rounded-full placeholder-dark-selected dark:placeholder-dark-secondary bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg"
+                        onBlur={() => setTimeout(() => setExpanded(false), 150)}
+                        onKeyDown={e => {
+                            if (e.key === 'Escape') {
+                                setExpanded(false);
+                                setFilter('');
+                            }
+                        }}
+                    />
+                ) : (
+                    <button
+                        onClick={() => setExpanded(true)}
+                        class="relative w-full rounded-full bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg"
                     >
-                        <path
-                            fill-rule="evenodd"
-                            d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-                </span>
-            </button>
+                        <span class="flex items-center">
+                            <span class="ml-3 block truncate">
+                                {country === 'ALL' ? t('all') : items[country]}
+                            </span>
+                        </span>
+                        <span class="pointer-events-none absolute inset-y-0 right-2 ml-3 flex items-center pr-2">
+                            <svg
+                                class="h-5 w-5 text-text"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </span>
+                    </button>
+                )}
+            </div>
             {expanded && (
                 <ul
                     ref={dropdown}
@@ -58,6 +87,7 @@ const CustomSelect = ({ items, searchRadios }) => {
                                 setCountry('ALL');
                                 searchRadios(false, 'ALL');
                                 setExpanded(false);
+                                setFilter('');
                             }}
                             class="w-full py-2 text-left"
                         >
@@ -66,36 +96,29 @@ const CustomSelect = ({ items, searchRadios }) => {
                             </span>
                         </button>
                     </li>
-                    {Object.values(items)
-                        .sort()
-                        .map((k, index) => (
-                            <li
-                                key={index}
-                                class="relative cursor-default rounded-xl pl-4 pr-9 hover:bg-primary"
+                    {filteredItems.length === 0 && (
+                        <li class="px-4 py-2 text-gray-400">{t('no_results') || 'Sin resultados'}</li>
+                    )}
+                    {filteredItems.map(([key, value], index) => (
+                        <li
+                            key={key}
+                            class="relative cursor-default rounded-xl pl-4 pr-9 hover:bg-primary"
+                        >
+                            <button
+                                onClick={() => {
+                                    setCountry(key);
+                                    searchRadios(false, key);
+                                    setExpanded(false);
+                                    setFilter('');
+                                }}
+                                class="w-full py-2 text-left"
                             >
-                                <button
-                                    onClick={() => {
-                                        setCountry(
-                                            Object.keys(items).find(
-                                                (key) => items[key] === k
-                                            )
-                                        );
-                                        searchRadios(
-                                            false,
-                                            Object.keys(items).find(
-                                                (key) => items[key] === k
-                                            )
-                                        );
-                                        setExpanded(false);
-                                    }}
-                                    class="w-full py-2 text-left"
-                                >
-                                    <span class="scroll ml-3 block truncate font-normal">
-                                        {k}
-                                    </span>
-                                </button>
-                            </li>
-                        ))}
+                                <span class="scroll ml-3 block truncate font-normal">
+                                    {value}
+                                </span>
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             )}
         </div>

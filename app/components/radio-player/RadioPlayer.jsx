@@ -55,15 +55,16 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
                 setCollapsed={setCollapsed}
             />
             <div
-                className={`${collapsed ? 'flex-row' : isIos ? 'flex-col mobile:pb-16' : 'flex-col mobile:pb-8'} relative flex w-full flex-wrap justify-around gap-1 sm:items-center sm:justify-around mobile:h-full`}
+                className={`${collapsed ? 'flex-row md:flex-nowrap' : isIos ? 'flex-col mobile:pb-16' : 'flex-col mobile:pb-8'} relative flex w-full flex-wrap justify-around gap-1 sm:items-center sm:justify-around mobile:h-full`}
             >
-                <RadioPlayerHeader
-                    collapsed={collapsed}
-                    radio={radio}
-                    favorites={favorites}
-                    setFavorites={setFavorites}
-                />
-
+                <div className={`w-full flex justify-center sm:block ${collapsed ? ' sm:w-auto' : ''}`}>
+                    <RadioPlayerHeader
+                        collapsed={collapsed}
+                        radio={radio}
+                        favorites={favorites}
+                        setFavorites={setFavorites}
+                    />
+                </div>
                 <RadioPlayerInfo collapsed={collapsed} radio={radio} />
                 <AudioControls
                     url={radio.url}
