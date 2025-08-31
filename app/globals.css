@@ -35,9 +35,9 @@
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 1rem;
-    background: #9c9c9c;
+    background: #6e6e6e;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    background: #9c9c9c;
 }

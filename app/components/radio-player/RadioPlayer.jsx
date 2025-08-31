@@ -6,11 +6,10 @@ import RadioPlayerHeader from './RadioPlayerHeader';
 import RadioPlayerInfo from './RadioPlayerInfo';
 import RadioPlayerNavigator from './RadioPlayerNavigator';
 
-const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
+const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio, collapsed, setCollapsed }) => {
     const t = useTranslations('MainPage');
 
     const [radioError, setRadioError] = useState(false);
-    const [collapsed, setCollapsed] = useState(favorites.length != 0);
 
     const showError = () => {
         setRadioError(true);

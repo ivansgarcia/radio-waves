@@ -16,7 +16,8 @@ export default function Home() {
 
     const [page, setPage] = useState();
     const [currentRadio, setCurrentRadio] = useState();
-
+    const [collapsed, setCollapsed] = useState();
+    
     const [favorites, setFavorites] = useState();
 
     const [pageDirection, setPageDirection] = useState();
@@ -40,6 +41,7 @@ export default function Home() {
             (await JSON.parse(localStorage.getItem('favorites'))) ?? [];
         loadedFavorites?.length ? setPage('favs') : setPage('search');
         setFavorites(loadedFavorites);
+        setCollapsed(loadedFavorites.length != 0);
     };
 
     return (
@@ -77,7 +79,7 @@ export default function Home() {
                             exit={{ opacity: 0, position: 'absolute' }}
                             className="absolute top-10 w-full"
                         >
-                            <Search setCurrentRadio={setCurrentRadio} />
+                            <Search setCurrentRadio={setCurrentRadio} setCollapsed={setCollapsed} />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -109,6 +111,8 @@ export default function Home() {
                             favorites={favorites}
                             setFavorites={setFavorites}
                             setCurrentRadio={setCurrentRadio}
+                            collapsed={collapsed}
+                            setCollapsed={setCollapsed}
                         />
                     </motion.div>
                 )}

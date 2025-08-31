@@ -7,7 +7,7 @@ import countriesEng from '../../messages/countries_en.json';
 import countriesSpa from '../../messages/countries_es.json';
 import CustomSelect from './CustomSelect';
 
-const Search = ({ setCurrentRadio }) => {
+const Search = ({ setCurrentRadio, setCollapsed }) => {
     const locale = useLocale();
 
     const countries = {
@@ -53,7 +53,7 @@ const Search = ({ setCurrentRadio }) => {
     };
 
     return (
-        <section className="flex w-full flex-col items-center gap-8 pb-80 pt-4 text-darker md:gap-8 md:pt-8">
+        <section className="flex w-full flex-col items-center gap-8 pt-4 text-darker md:gap-8 md:pt-8">
             <form
                 className="flex w-full flex-wrap items-center justify-center gap-4 px-4 md:gap-8 lg:w-4/5"
                 onSubmit={(e) => {
@@ -86,6 +86,7 @@ const Search = ({ setCurrentRadio }) => {
                     <CustomSelect
                         items={localeCountries}
                         searchRadios={searchRadios}
+                        setCollapsed={setCollapsed}
                     />
                 </div>
             </form>
@@ -147,7 +148,7 @@ const Search = ({ setCurrentRadio }) => {
                         initial={{ opacity: 0 }}
                         whileHover={{ boxShadow: '0 0px 40px 5px #FFC132' }}
                         whileTap={{ scale: 0.95 }}
-                        className="mx-auto h-24 w-24 rounded-full bg-dark text-lg font-bold text-white dark:bg-dark-selected dark:text-darker"
+                        className="mx-auto h-24 w-24 mb-64 rounded-full bg-dark text-lg font-bold text-white dark:bg-dark-selected dark:text-darker"
                         onClick={() => searchRadios(true)}
                     >
                         {'+ ' + t('more')}
