@@ -1,6 +1,11 @@
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useRef, useState } from 'react';
 
+const isMobile = () =>
+    typeof window !== 'undefined' &&
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+    );
 
 const CustomSelect = ({ items, searchRadios }) => {
     const [expanded, setExpanded] = useState(false);
@@ -9,12 +14,14 @@ const CustomSelect = ({ items, searchRadios }) => {
     const t = useTranslations('MainPage');
 
     const dropdown = useRef(null);
+    const containerRef = useRef(null);
 
     useEffect(() => {
         if (!expanded) return;
         function handleClick(event) {
-            if (dropdown.current && !dropdown.current.contains(event.target)) {
+            if (containerRef.current && !containerRef.current.contains(event.target)) {
                 setExpanded(false);
+                setFilter('');
             }
         }
         window.addEventListener('mousedown', handleClick);
@@ -23,7 +30,6 @@ const CustomSelect = ({ items, searchRadios }) => {
         };
     }, [expanded]);
 
-    // Filtrar países según el texto ingresado
     const filteredItems = Object.entries(items)
         .filter(([key, value]) =>
             value.toLowerCase().includes(filter.toLowerCase())
@@ -31,18 +37,23 @@ const CustomSelect = ({ items, searchRadios }) => {
         .sort((a, b) => a[1].localeCompare(b[1]));
 
     return (
-        <div class="relative mt-2 w-72">
-            <div class="relative w-full">
+        <div ref={containerRef} className="relative mt-2 w-72">
+            <div className="relative w-full">
                 {expanded ? (
                     <input
+                        autoFocus={!isMobile()}
                         type="text"
-                        autoFocus
-                        placeholder={t('search_country') || 'Buscar país...'}
+                        placeholder={t('search_country')}
                         value={filter}
-                        onChange={e => setFilter(e.target.value)}
-                        class="w-full rounded-full placeholder-dark-selected dark:placeholder-dark-secondary bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg"
-                        onBlur={() => setTimeout(() => setExpanded(false), 150)}
-                        onKeyDown={e => {
+                        onChange={(e) => setFilter(e.target.value)}
+                        className="w-full rounded-full bg-secondary py-2.5 pl-3 pr-10 text-left text-darker placeholder-dark-selected shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected dark:placeholder-dark-secondary sm:leading-6 md:text-lg"
+                        onBlur={e => {
+                            // Solo cerrar si el nuevo foco está fuera del contenedor
+                            if (!containerRef.current.contains(e.relatedTarget)) {
+                                setTimeout(() => setExpanded(false), 150);
+                            }
+                        }}
+                        onKeyDown={(e) => {
                             if (e.key === 'Escape') {
                                 setExpanded(false);
                                 setFilter('');
@@ -51,17 +62,19 @@ const CustomSelect = ({ items, searchRadios }) => {
                     />
                 ) : (
                     <button
-                        onClick={() => setExpanded(true)}
-                        class="relative w-full rounded-full bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg"
+                        onClick={() => {
+                            setExpanded(true);
+                        }}
+                        className="relative w-full rounded-full bg-secondary py-2.5 pl-3 pr-10 text-left text-darker shadow-sm focus:outline-none focus:ring-2 focus:ring-primary dark:bg-dark-selected sm:leading-6 md:text-lg"
                     >
-                        <span class="flex items-center">
-                            <span class="ml-3 block truncate">
+                        <span className="flex items-center">
+                            <span className="ml-3 block truncate">
                                 {country === 'ALL' ? t('all') : items[country]}
                             </span>
                         </span>
-                        <span class="pointer-events-none absolute inset-y-0 right-2 ml-3 flex items-center pr-2">
+                        <span className="pointer-events-none absolute inset-y-0 right-2 ml-3 flex items-center pr-2">
                             <svg
-                                class="h-5 w-5 text-text"
+                                className="h-5 w-5 text-text"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -79,9 +92,9 @@ const CustomSelect = ({ items, searchRadios }) => {
             {expanded && (
                 <ul
                     ref={dropdown}
-                    class={`absolute z-50 mt-3 max-h-[35vh] w-full overflow-auto rounded-lg bg-light text-base text-dark shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-selected`}
+                    className={`absolute z-50 mt-3 max-h-[35vh] w-full overflow-auto rounded-lg bg-light text-base text-dark shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-selected`}
                 >
-                    <li class="relative cursor-default select-none pl-4 pr-9 hover:bg-primary">
+                    <li className="relative cursor-default select-none pl-4 pr-9 hover:bg-primary">
                         <button
                             onClick={() => {
                                 setCountry('ALL');
@@ -89,20 +102,22 @@ const CustomSelect = ({ items, searchRadios }) => {
                                 setExpanded(false);
                                 setFilter('');
                             }}
-                            class="w-full py-2 text-left"
+                            className="w-full py-2 text-left"
                         >
-                            <span class="ml-3 block truncate font-normal">
+                            <span className="ml-3 block truncate font-normal">
                                 {t('all')}
                             </span>
                         </button>
                     </li>
                     {filteredItems.length === 0 && (
-                        <li class="px-4 py-2 text-gray-400">{t('no_results') || 'Sin resultados'}</li>
+                        <li className="text-gray-400 px-4 py-2">
+                            {t('no_results') || 'Sin resultados'}
+                        </li>
                     )}
                     {filteredItems.map(([key, value], index) => (
                         <li
                             key={key}
-                            class="relative cursor-default rounded-xl pl-4 pr-9 hover:bg-primary"
+                            className="relative cursor-default rounded-xl pl-4 pr-9 hover:bg-primary"
                         >
                             <button
                                 onClick={() => {
@@ -111,9 +126,9 @@ const CustomSelect = ({ items, searchRadios }) => {
                                     setExpanded(false);
                                     setFilter('');
                                 }}
-                                class="w-full py-2 text-left"
+                                className="w-full py-2 text-left"
                             >
-                                <span class="scroll ml-3 block truncate font-normal">
+                                <span className="scroll ml-3 block truncate font-normal">
                                     {value}
                                 </span>
                             </button>

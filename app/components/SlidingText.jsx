@@ -19,7 +19,7 @@ const SlidingText = ({ text, collapsed }) => {
     return (
         <div
             ref={containerRef}
-            className={`relative flex overflow-hidden ${collapsed ? ' text-xl sm:mx-4 mobile:text-xl max-w-sm' : ' text-2xl max-w-xl'} font-semibold sm:text-3xl`}
+            className={`relative flex overflow-hidden ${collapsed ? ' text-xl sm:mx-4 mobile:text-xl max-w-sm' : 'text-2xl max-w-xl'} font-semibold sm:text-3xl`}
         >
             {shouldAnimate && textWidth ? (
                 <motion.div

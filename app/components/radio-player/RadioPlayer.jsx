@@ -31,7 +31,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
         <motion.div
             animate={!collapsed ? { height: 'auto' } : { height: 'auto' }}
             transition={{ ease: 'easeOut', duration: 2 }}
-            className={`${isIos ? 'mb-16' : 'mb-12'} ${!collapsed && 'mobile:mb-0 mobile:!h-screen'} z-50 flex flex-col items-center justify-around gap-2 mobile:gap-0 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
+            className={`${isIos ? 'mb-16' : 'mb-12'} ${!collapsed && 'mobile:mb-0 mobile:!h-screen'} z-40 flex flex-col items-center justify-around gap-2 mobile:gap-0 rounded-t-2xl bg-primary bg-gradient-to-b p-2 px-4 pb-4 text-center text-text shadow-lg md:mb-0 md:p-4 md:px-[5%]`}
         >
             <AnimatePresence>
                 {radioError && (
@@ -57,7 +57,7 @@ const RadioPlayer = ({ radio, favorites, setFavorites, setCurrentRadio }) => {
             <div
                 className={`${collapsed ? 'flex-row md:flex-nowrap' : isIos ? 'flex-col mobile:pb-16' : 'flex-col mobile:pb-8'} relative flex w-full flex-wrap justify-around gap-1 sm:items-center sm:justify-around mobile:h-full`}
             >
-                <div className={`w-full flex justify-center sm:block ${collapsed ? ' sm:w-auto' : ''}`}>
+                <div className={`flex justify-center sm:block ${collapsed ? 'w-[70%] xs:w-full' : 'w-full'}`}>
                     <RadioPlayerHeader
                         collapsed={collapsed}
                         radio={radio}
